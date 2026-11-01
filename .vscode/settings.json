@@ -8,6 +8,7 @@
     }
   ],
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "cSpell.words": ["AppKit", "objc", "PyObjC", "NSToolbar", "NSWindow"],
   "files.exclude": {
     "**/*.pyc": {"when": "$(basename).py"},
     "**/__pycache__": true,

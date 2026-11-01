@@ -1,17 +1,20 @@
-import sys
+from typing import cast
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QMainWindow
 
+from src.decorators.operational_system_restriction import os_restriction
 
+
+@os_restriction("Darwin")
 def configure_macos_title_bar(window: QMainWindow) -> None:
-    if sys.platform != "darwin":
-        return
-
     import AppKit
     import objc
 
-    native_view = objc.objc_object(c_void_p=int(window.winId()))
+    native_view = cast(
+        AppKit.NSView,
+        objc.objc_object(c_void_p=int(window.winId())),
+    )
     native_window = native_view.window()
 
     toolbar = AppKit.NSToolbar.alloc().initWithIdentifier_("OnixTitleBar")
