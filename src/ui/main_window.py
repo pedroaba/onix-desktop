@@ -1,5 +1,7 @@
+import sys
+
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
 
 from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
@@ -13,6 +15,13 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Onix Desktop")
+        self.setWindowFlag(Qt.WindowType.ExpandedClientAreaHint, True)
+        self.setWindowFlag(Qt.WindowType.NoTitleBarBackgroundHint, True)
+        self.setAttribute(Qt.WidgetAttribute.WA_ContentsMarginsRespectsSafeArea, False)
+
+        if sys.platform == "darwin":
+            self.setWindowTitle("")
+
         self.resize(1100, 720)
         self.setMinimumSize(800, 500)
 

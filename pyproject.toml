@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "pyobjc-framework-cocoa>=13.0 ; sys_platform == 'darwin'",
     "pyside6>=6.12.0",
 ]
 
