@@ -109,3 +109,14 @@ QTableView#FolderTable QHeaderView::section {
     border: none;
     border-bottom: 1px solid #dddddd;
 }
+
+QFrame#FolderDetails {
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    border-radius: 2px;
+}
+
+QLabel#DetailsHeading {
+    font-size: 16px;
+    font-weight: 600;
+}

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
 from src.models.folder import Folder
+from src.ui.components.folder_details import FolderDetails
 from src.ui.components.folder_table import FolderTable
 
 
@@ -44,4 +45,12 @@ class HomePage(QWidget):
         # Mantém o conteúdo agrupado no topo.
         self.folder_table = FolderTable()
         self.folder_table.set_folders(sample_folders)
-        page_layout.addWidget(self.folder_table, stretch=1)
+
+        self.folder_details = FolderDetails()
+
+        folders_layout = QHBoxLayout()
+        folders_layout.setSpacing(16)
+        folders_layout.addWidget(self.folder_table, stretch=1)
+        folders_layout.addWidget(self.folder_details)
+
+        page_layout.addLayout(folders_layout, stretch=1)
