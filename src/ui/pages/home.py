@@ -1,4 +1,13 @@
-from PySide6.QtWidgets import QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtCore import Slot
+from PySide6.QtWidgets import (
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+    QInputDialog,
+    QMessageBox,
+)
 
 from src.models.folder import Folder
 from src.ui.components.folder_details import FolderDetails
@@ -16,6 +25,8 @@ sample_folders = [
 class HomePage(QWidget):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
+
+        self._folders = list(sample_folders)
 
         # organizando o conteudo da página de cima para baixo
         page_layout = QVBoxLayout(self)
@@ -44,7 +55,7 @@ class HomePage(QWidget):
 
         # Mantém o conteúdo agrupado no topo.
         self.folder_table = FolderTable()
-        self.folder_table.set_folders(sample_folders)
+        self.folder_table.set_folders(self._folders)
 
         self.folder_details = FolderDetails()
 
@@ -56,3 +67,36 @@ class HomePage(QWidget):
         folders_layout.addWidget(self.folder_details)
 
         page_layout.addLayout(folders_layout, stretch=1)
+
+        self.new_folder_button.clicked.connect(self._create_folder)
+
+    @Slot()
+    def _create_folder(self) -> None:
+        name, accepted = QInputDialog.getText(self, "Nova pasta", "Nome da pasta:")
+
+        if not accepted:
+            return
+
+        name = name.strip()
+
+        if not name:
+            QMessageBox.warning(self, "Nome inválido", "Digite um nome para a pasta.")
+            return
+
+        already_exists = any(
+            folder.name.casefold() == name.casefold() for folder in self._folders
+        )
+
+        if already_exists:
+            QMessageBox.warning(
+                self, "Pasta existente", "Já existe uma pasta com esse nome."
+            )
+            return
+
+        folder = Folder(name=name, status="Exemplo local", size_bytes=0)
+
+        self._folders.append(folder)
+        self.folder_table.set_folders(self._folders)
+
+        # seleciona a pasta recentemente adicionada
+        self.folder_table.selectRow(len(self._folders) - 1)
