@@ -1,4 +1,7 @@
-from PySide6.QtCore import Signal, Slot
+from pathlib import Path
+
+from PySide6.QtCore import Signal, Slot, QSize, Qt
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
@@ -6,6 +9,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QWidget,
+    QHBoxLayout,
 )
 
 
@@ -22,24 +26,65 @@ class Sidebar(QFrame):
         layout.setContentsMargins(16, 24, 16, 24)
         layout.setSpacing(8)
 
-        account_title = QLabel("OneDrive Pessoal")
-        account_title.setObjectName("SidebarTitle")
+        icons_directory = (
+            Path(__file__).resolve().parents[3] / "assets" / "icons" / "brands"
+        )
 
-        account_name = QLabel("Pedro")
-        account_name.setObjectName("AccountName")
+        cloud_icon = QIcon(str(icons_directory / "onedrive.svg"))
+        cloud_label = QLabel()
+        cloud_label.setFixedSize(40, 40)
+        cloud_label.setPixmap(cloud_icon.pixmap(QSize(40, 40)))
 
-        layout.addWidget(account_title)
-        layout.addWidget(account_name)
+        account_title = QLabel("Pedro")
+        account_title.setObjectName("AccountTitle")
+
+        account_subtitle = QLabel("OneDrive pessoal")
+        account_subtitle.setObjectName("AccountSubtitle")
+
+        account_text_layout = QVBoxLayout()
+        account_text_layout.setContentsMargins(0, 0, 0, 0)
+        account_text_layout.setSpacing(0)
+        account_text_layout.addWidget(account_title)
+        account_text_layout.addWidget(account_subtitle)
+
+        account_layout = QHBoxLayout()
+        account_layout.setSpacing(12)
+        account_layout.addWidget(cloud_label)
+        account_layout.addLayout(account_text_layout)
+
+        layout.addLayout(account_layout)
         layout.addSpacing(24)
 
         self._navigation_group = QButtonGroup(self)
         self._navigation_group.setExclusive(True)
 
-        navigation_items = ["Minhas Pastas", "Recentes", "Favoritos"]
+        navigation_items = [
+            "Minhas pastas",
+            "Recentes",
+            "Favoritos",
+            "Sincronização",
+            "Lixeira",
+        ]
 
         for index, text in enumerate(navigation_items):
             button = QPushButton(text)
+
+            button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
+
             button.setCheckable(True)
+            button.setFixedHeight(44)
+            button.setProperty("role", "navigation")
+
+            indicator = QFrame(button)
+            indicator.setObjectName("NavigationIndicator")
+
+            indicator.setAttribute(
+                Qt.WidgetAttribute.WA_TransparentForMouseEvents, True
+            )
+            indicator.setGeometry(0, 0, 4, button.height())
+
+            indicator.hide()
+            button.toggled.connect(indicator.setVisible)
 
             self._navigation_group.addButton(button)
             layout.addWidget(button)

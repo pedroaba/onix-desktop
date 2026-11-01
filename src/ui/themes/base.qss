@@ -95,3 +95,17 @@ QLabel#EmptyStateTitle {
 QLabel#EmptyStateDescription {
     font-size: 13px;
 }
+
+QLabel#AccountTitle {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#AccountSubtitle {
+    font-size: 13px;
+}
+
+QFrame#NavigationIndicator {
+    border: none;
+    border-radius: 2px;
+}

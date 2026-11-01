@@ -98,3 +98,11 @@ QLineEdit#SearchInput:focus {
 QLabel#EmptyStateDescription {
     color: #616161;
 }
+
+QLabel#AccountSubtitle {
+    color: #616161;
+}
+
+QFrame#NavigationIndicator {
+    background-color: #0067b8;
+}
