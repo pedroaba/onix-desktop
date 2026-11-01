@@ -76,8 +76,8 @@ QTableView#FolderTable QHeaderView::section {
 }
 
 QFrame#FolderDetails {
-    background-color: #f2f2f2;
-    border-color: #dddddd;
+    background-color: #ffffff;
+    border-left-color: #dddddd;
 }
 
 QFrame#TitleBar {

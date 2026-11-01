@@ -6,6 +6,7 @@ from PySide6.QtCore import Signal, Qt
 from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
 from src.ui.pages.home import HomePage
+from src.ui.components.folder_details import FolderDetails
 
 
 class MainWindow(QMainWindow):
@@ -22,8 +23,8 @@ class MainWindow(QMainWindow):
         if sys.platform == "darwin":
             self.setWindowTitle("")
 
-        self.resize(1100, 720)
-        self.setMinimumSize(800, 500)
+        self.resize(1440, 900)
+        self.setMinimumSize(1100, 700)
 
         self.__title_bar = TitleBar(self)
         self.setMenuWidget(self.__title_bar)
@@ -37,9 +38,12 @@ class MainWindow(QMainWindow):
 
         self.__home_page = HomePage()
         self.__sidebar = Sidebar()
+        self.__folder_details = FolderDetails()
 
         self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
         self.__title_bar.search_text_changed.connect(self.__home_page.set_search_text)
+        self.__home_page.folder_selected.connect(self.__folder_details.show_folder)
 
         layout.addWidget(self.__sidebar)
         layout.addWidget(self.__home_page, stretch=1)
+        layout.addWidget(self.__folder_details)

@@ -85,7 +85,7 @@ QTableView#FolderTable QHeaderView::section {
 /* Detalhes. */
 QFrame#FolderDetails {
     background-color: #202020;
-    border-color: #383838;
+    border-left-color: #383838;
 }
 
 /* Campo de texto do diálogo Nova pasta. */

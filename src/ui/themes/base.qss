@@ -66,8 +66,9 @@ QTableView#FolderTable QHeaderView::section {
 
 /* Estrutura do painel de detalhes. */
 QFrame#FolderDetails {
-    border: 1px solid transparent;
-    border-radius: 2px;
+    border: none;
+    border-left: 1px solid transparent;
+    border-radius: 0;
 }
 
 QFrame#TitleBar {

@@ -1,9 +1,8 @@
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Signal
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QPushButton,
-    QStackedLayout,
     QStackedWidget,
     QVBoxLayout,
     QWidget,
@@ -12,7 +11,6 @@ from PySide6.QtWidgets import (
 )
 
 from src.models.folder import Folder
-from src.ui.components.folder_details import FolderDetails
 from src.ui.components.folder_table import FolderTable
 from src.ui.components.empty_state import EmptyState
 
@@ -26,6 +24,8 @@ sample_folders = [
 
 
 class HomePage(QWidget):
+    folder_selected = Signal(object)
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -60,12 +60,9 @@ class HomePage(QWidget):
         self.folder_table = FolderTable()
         self.folder_table.set_folders(self._folders)
 
-        self.folder_details = FolderDetails()
-
-        self.folder_table.folder_selected.connect(self.folder_details.show_folder)
+        self.folder_table.folder_selected.connect(self.folder_selected.emit)
 
         self.empty_state = EmptyState()
-
         self.result_stack = QStackedWidget()
         self.result_stack.addWidget(self.folder_table)
         self.result_stack.addWidget(self.empty_state)
@@ -73,13 +70,7 @@ class HomePage(QWidget):
         self.folder_table.result_count_changed.connect(self._update_results)
         self._update_results(self.folder_table.visible_count)
 
-        folders_layout = QHBoxLayout()
-        folders_layout.setSpacing(16)
-        folders_layout.addWidget(self.result_stack, stretch=1)
-        folders_layout.addWidget(self.folder_details)
-
-        page_layout.addLayout(folders_layout, stretch=1)
-
+        page_layout.addWidget(self.result_stack, stretch=1)
         self.new_folder_button.clicked.connect(self._create_folder)
 
     @Slot(int)

@@ -9,10 +9,10 @@ class FolderDetails(QFrame):
         super().__init__(parent)
 
         self.setObjectName("FolderDetails")
-        self.setFixedWidth(240)
+        self.setFixedWidth(360)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setContentsMargins(24, 24, 24, 24)
         layout.setSpacing(16)
 
         heading = QLabel("Detalhes")
