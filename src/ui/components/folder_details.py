@@ -1,4 +1,7 @@
 from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QWidget
+from PySide6.QtCore import Slot
+
+from src.models.folder import Folder
 
 
 class FolderDetails(QFrame):
@@ -29,3 +32,18 @@ class FolderDetails(QFrame):
         layout.addWidget(self.size_label)
 
         layout.addStretch()
+
+    @Slot(object)
+    def show_folder(self, folder: Folder | None) -> None:
+        if folder is None:
+            self.name_label.setText("Selecione uma pasta")
+            self.status_label.clear()
+            self.size_label.clear()
+            return
+
+        size_gb = folder.size_bytes / 1_000_000_000
+        size_text = f"{size_gb:.1f} GB".replace(".", ",")
+
+        self.name_label.setText(folder.name)
+        self.status_label.setText(f"Status: {folder.status}")
+        self.size_label.setText(f"Tamanho: {size_text}")

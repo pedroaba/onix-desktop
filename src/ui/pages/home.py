@@ -48,6 +48,8 @@ class HomePage(QWidget):
 
         self.folder_details = FolderDetails()
 
+        self.folder_table.folder_selected.connect(self.folder_details.show_folder)
+
         folders_layout = QHBoxLayout()
         folders_layout.setSpacing(16)
         folders_layout.addWidget(self.folder_table, stretch=1)

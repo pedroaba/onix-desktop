@@ -1,10 +1,13 @@
-from PySide6.QtGui import QStandardItem, QStandardItemModel, Qt
+from PySide6.QtCore import Qt, Signal, Slot
+from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableView, QWidget
 
 from src.models.folder import Folder
 
 
 class FolderTable(QTableView):
+    folder_selected = Signal(object)
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -13,6 +16,8 @@ class FolderTable(QTableView):
         self._items_model = QStandardItemModel(0, 3, self)
         self._items_model.setHorizontalHeaderLabels(["Nome", "Status", "Tamanho"])
         self.setModel(self._items_model)
+
+        self.selectionModel().selectionChanged.connect(self._on_selection_changed)
 
         self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
@@ -38,10 +43,25 @@ class FolderTable(QTableView):
             size_gb = folder.size_bytes / 1_000_000_000
             size_text = f"{size_gb:.1f} GB".replace(".", ",")
 
+            name_item = QStandardItem(folder.name)
+            name_item.setData(folder, Qt.ItemDataRole.UserRole)
+
             row = [
-                QStandardItem(folder.name),
+                name_item,
                 QStandardItem(folder.status),
                 QStandardItem(size_text),
             ]
 
             self._items_model.appendRow(row)
+
+    @Slot()
+    def _on_selection_changed(self) -> None:
+        selected_rows = self.selectionModel().selectedRows()
+        if not selected_rows:
+            self.folder_selected.emit(None)
+            return
+
+        index = selected_rows[0]
+        folder = index.data(Qt.ItemDataRole.UserRole)
+
+        self.folder_selected.emit(folder)
