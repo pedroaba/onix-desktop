@@ -11,10 +11,15 @@ class HomePage(QWidget):
         page_layout.setSpacing(16)
 
         self.title_label = QLabel("Minhas pastas")
+        self.title_label.setObjectName("PageTitle")
+
         self.description_label = QLabel(
             "Organize suas pastas e escolha o que manter neste computador"
         )
+        self.description_label.setObjectName("PageDescription")
+
         self.new_folder_button = QPushButton("Nova Pasta")
+        self.new_folder_button.setObjectName("PrimaryButton")
 
         # organizando elementos da barra de ações lado a lado
         actions_layout = QHBoxLayout()

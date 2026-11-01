@@ -1,0 +1,89 @@
+/* base de texto para os componentes da aplicação */
+QWidget {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  color: #262626;
+}
+
+/* fundo da janela */
+QMainWindow {
+  background-color: #FFFFFF;
+}
+
+/* titulo da página */
+QLabel#PageTitle {
+  font-size: 29px;
+  font-weight: 600;
+  color: #000000;
+}
+
+/* descrição da página */
+QLabel#PageDescription {
+  font-size: 13px;
+  color: #616161;
+}
+
+QPushButton#PrimaryButton {
+    background-color: #0067b8;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #0067b8;
+    border-radius: 2px;
+    padding: 10px 16px;
+}
+
+QPushButton#PrimaryButton:hover {
+  background-color: #004A7F;
+  border-color: #004A7F;
+}
+
+QPushButton#PrimaryButton:pressed {
+  background-color: #00385F;
+  border-color: #00385F;
+}
+
+QPushButton#PrimaryButton:focus {
+  border-color: #262626;
+}
+
+/* Painel lateral. */
+QFrame#Sidebar {
+    background-color: #f2f2f2;
+    border: none;
+    border-right: 1px solid #dddddd;
+}
+
+QLabel#SidebarTitle {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#AccountName {
+    font-size: 13px;
+    color: #616161;
+}
+
+/* Somente botões que estão dentro da Sidebar. */
+QFrame#Sidebar QPushButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+QFrame#Sidebar QPushButton:hover {
+    background-color: #e5e5e5;
+}
+
+/* Estado persistente de seleção. */
+QFrame#Sidebar QPushButton:checked {
+    background-color: #dceaf7;
+    color: #0067b8;
+    font-weight: 600;
+}
+
+QFrame#Sidebar QPushButton:focus {
+    border-color: #0067b8;
+}

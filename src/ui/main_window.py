@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 
+from src.ui.components.sidebar import Sidebar
 from src.ui.pages.home import HomePage
 
 
@@ -11,5 +12,15 @@ class MainWindow(QMainWindow):
         self.resize(1100, 720)
         self.setMinimumSize(800, 500)
 
-        self.__home_page = HomePage(self)
-        self.setCentralWidget(self.__home_page)
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+
+        layout = QHBoxLayout(central_widget)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+
+        self.__home_page = HomePage()
+        self.__sidebar = Sidebar()
+
+        layout.addWidget(self.__sidebar)
+        layout.addWidget(self.__home_page, stretch=1)
