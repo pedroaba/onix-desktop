@@ -1,10 +1,13 @@
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
+from PySide6.QtCore import Signal
 
 from src.ui.components.sidebar import Sidebar
 from src.ui.pages.home import HomePage
 
 
 class MainWindow(QMainWindow):
+    theme_toggle_requested = Signal()
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -21,6 +24,8 @@ class MainWindow(QMainWindow):
 
         self.__home_page = HomePage()
         self.__sidebar = Sidebar()
+
+        self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
 
         layout.addWidget(self.__sidebar)
         layout.addWidget(self.__home_page, stretch=1)

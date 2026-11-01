@@ -1,3 +1,4 @@
+from PySide6.QtCore import Signal, Slot
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
@@ -9,6 +10,8 @@ from PySide6.QtWidgets import (
 
 
 class Sidebar(QFrame):
+    theme_toggle_requested = Signal()
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -46,5 +49,14 @@ class Sidebar(QFrame):
 
         layout.addStretch()
 
+        self.theme_button = QPushButton("Alternar tema")
+        self.theme_button.clicked.connect(self._request_theme_toggle)
+
+        layout.addWidget(self.theme_button)
+
         self.settings_button = QPushButton("Configurações")
         layout.addWidget(self.settings_button)
+
+    @Slot()
+    def _request_theme_toggle(self) -> None:
+        self.theme_toggle_requested.emit()

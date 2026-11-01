@@ -8,9 +8,22 @@ from src.ui.themes.theme_manager import AvailableTheme, apply_theme
 
 def main() -> int:
     app = QApplication()
-    apply_theme(app, AvailableTheme.DARK)
+
+    current_theme = AvailableTheme.LIGHT
+    apply_theme(app, current_theme)
+
+    def toggle_theme(app: QApplication) -> None:
+        nonlocal current_theme
+        match current_theme:
+            case AvailableTheme.DARK:
+                current_theme = AvailableTheme.LIGHT
+            case _:
+                current_theme = AvailableTheme.DARK
+        apply_theme(app, current_theme)
 
     window = MainWindow()
+    window.theme_toggle_requested.connect(lambda: toggle_theme(app))
+
     window.show()
 
     return app.exec()
