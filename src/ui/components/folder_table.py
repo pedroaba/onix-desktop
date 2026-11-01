@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, Signal, Slot
+from PySide6.QtCore import Qt, Signal, Slot, QSortFilterProxyModel
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableView, QWidget
 
@@ -15,7 +15,14 @@ class FolderTable(QTableView):
 
         self._items_model = QStandardItemModel(0, 3, self)
         self._items_model.setHorizontalHeaderLabels(["Nome", "Status", "Tamanho"])
-        self.setModel(self._items_model)
+
+        self._filter_model = QSortFilterProxyModel(self)
+        self._filter_model.setSourceModel(self._items_model)
+
+        self._filter_model.setFilterKeyColumn(0)
+        self._filter_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+
+        self.setModel(self._filter_model)
 
         self.selectionModel().selectionChanged.connect(self._on_selection_changed)
 
@@ -54,6 +61,19 @@ class FolderTable(QTableView):
 
             self._items_model.appendRow(row)
 
+    def select_folder(self, folder: Folder) -> None:
+        for row in range(self._items_model.rowCount()):
+            item = self._items_model.item(row, 0)
+            if item is None:
+                continue
+
+            if item.data(Qt.ItemDataRole.UserRole) is folder:
+                visible_index = self._filter_model.mapFromSource(item.index())
+
+                if visible_index.isValid():
+                    self.selectRow(visible_index.row())
+                    return
+
     @Slot()
     def _on_selection_changed(self) -> None:
         selected_rows = self.selectionModel().selectedRows()
@@ -65,3 +85,11 @@ class FolderTable(QTableView):
         folder = index.data(Qt.ItemDataRole.UserRole)
 
         self.folder_selected.emit(folder)
+
+    @Slot(str)
+    def set_search_text(self, text: str) -> None:
+        self.clearSelection()
+        self.selectionModel().clear()
+
+        self._filter_model.setFilterFixedString(text.strip())
+        self.folder_selected.emit(None)

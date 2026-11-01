@@ -39,6 +39,7 @@ class MainWindow(QMainWindow):
         self.__sidebar = Sidebar()
 
         self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
+        self.__title_bar.search_text_changed.connect(self.__home_page.set_search_text)
 
         layout.addWidget(self.__sidebar)
         layout.addWidget(self.__home_page, stretch=1)

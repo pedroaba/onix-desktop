@@ -99,4 +99,8 @@ class HomePage(QWidget):
         self.folder_table.set_folders(self._folders)
 
         # seleciona a pasta recentemente adicionada
-        self.folder_table.selectRow(len(self._folders) - 1)
+        self.folder_table.select_folder(folder)
+
+    @Slot(str)
+    def set_search_text(self, text: str) -> None:
+        self.folder_table.set_search_text(text)
