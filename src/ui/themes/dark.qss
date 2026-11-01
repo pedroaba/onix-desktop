@@ -1,0 +1,102 @@
+/* Texto padrão. */
+QWidget {
+    color: #f5f5f5;
+}
+
+/* Superfícies principais e caixas de diálogo. */
+QMainWindow,
+QDialog,
+QMessageBox {
+    background-color: #1b1b1b;
+}
+
+QLabel#PageTitle {
+    color: #ffffff;
+}
+
+QLabel#PageDescription,
+QLabel#AccountName {
+    color: #b7b7b7;
+}
+
+/* Ação principal. */
+QPushButton#PrimaryButton {
+    background-color: #0067b8;
+    color: #ffffff;
+    border-color: #0067b8;
+}
+
+QPushButton#PrimaryButton:hover {
+    background-color: #0078d4;
+    border-color: #0078d4;
+}
+
+QPushButton#PrimaryButton:pressed {
+    background-color: #004a7f;
+    border-color: #004a7f;
+}
+
+QPushButton#PrimaryButton:focus {
+    border-color: #ffffff;
+}
+
+/* Barra lateral. */
+QFrame#Sidebar {
+    background-color: #202020;
+    border-right-color: #383838;
+}
+
+QFrame#Sidebar QPushButton {
+    background-color: transparent;
+}
+
+QFrame#Sidebar QPushButton:hover {
+    background-color: #2d2d2d;
+}
+
+QFrame#Sidebar QPushButton:checked {
+    background-color: #17364f;
+    color: #80c6ff;
+}
+
+QFrame#Sidebar QPushButton:focus {
+    border-color: #80c6ff;
+}
+
+/* Tabela. */
+QTableView#FolderTable {
+    background-color: #1b1b1b;
+    color: #f5f5f5;
+    border-color: #383838;
+    selection-background-color: #17364f;
+    selection-color: #ffffff;
+}
+
+QTableView#FolderTable::item {
+    border-bottom-color: #333333;
+}
+
+QTableView#FolderTable QHeaderView::section {
+    background-color: #202020;
+    color: #b7b7b7;
+    border-bottom-color: #383838;
+}
+
+/* Detalhes. */
+QFrame#FolderDetails {
+    background-color: #202020;
+    border-color: #383838;
+}
+
+/* Campo de texto do diálogo Nova pasta. */
+QLineEdit {
+    background-color: #292929;
+    color: #f5f5f5;
+}
+
+/* Botões dos diálogos. */
+QDialog QPushButton,
+QMessageBox QPushButton {
+    background-color: #333333;
+    color: #f5f5f5;
+}
