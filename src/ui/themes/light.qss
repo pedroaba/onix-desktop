@@ -94,3 +94,7 @@ QLineEdit#SearchInput {
 QLineEdit#SearchInput:focus {
     border-color: #0067b8;
 }
+
+QLabel#EmptyStateDescription {
+    color: #616161;
+}

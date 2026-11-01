@@ -3,6 +3,8 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QPushButton,
+    QStackedLayout,
+    QStackedWidget,
     QVBoxLayout,
     QWidget,
     QInputDialog,
@@ -12,6 +14,7 @@ from PySide6.QtWidgets import (
 from src.models.folder import Folder
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.folder_table import FolderTable
+from src.ui.components.empty_state import EmptyState
 
 
 sample_folders = [
@@ -61,14 +64,30 @@ class HomePage(QWidget):
 
         self.folder_table.folder_selected.connect(self.folder_details.show_folder)
 
+        self.empty_state = EmptyState()
+
+        self.result_stack = QStackedWidget()
+        self.result_stack.addWidget(self.folder_table)
+        self.result_stack.addWidget(self.empty_state)
+
+        self.folder_table.result_count_changed.connect(self._update_results)
+        self._update_results(self.folder_table.visible_count)
+
         folders_layout = QHBoxLayout()
         folders_layout.setSpacing(16)
-        folders_layout.addWidget(self.folder_table, stretch=1)
+        folders_layout.addWidget(self.result_stack, stretch=1)
         folders_layout.addWidget(self.folder_details)
 
         page_layout.addLayout(folders_layout, stretch=1)
 
         self.new_folder_button.clicked.connect(self._create_folder)
+
+    @Slot(int)
+    def _update_results(self, count: int) -> None:
+        if count > 0:
+            self.result_stack.setCurrentWidget(self.folder_table)
+            return
+        self.result_stack.setCurrentWidget(self.empty_state)
 
     @Slot()
     def _create_folder(self) -> None:

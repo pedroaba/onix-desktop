@@ -7,6 +7,7 @@ from src.models.folder import Folder
 
 class FolderTable(QTableView):
     folder_selected = Signal(object)
+    result_count_changed = Signal(int)
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -60,6 +61,7 @@ class FolderTable(QTableView):
             ]
 
             self._items_model.appendRow(row)
+        self.result_count_changed.emit(self.visible_count)
 
     def select_folder(self, folder: Folder) -> None:
         for row in range(self._items_model.rowCount()):
@@ -73,6 +75,10 @@ class FolderTable(QTableView):
                 if visible_index.isValid():
                     self.selectRow(visible_index.row())
                     return
+
+    @property
+    def visible_count(self) -> int:
+        return self._filter_model.rowCount()
 
     @Slot()
     def _on_selection_changed(self) -> None:
@@ -93,3 +99,4 @@ class FolderTable(QTableView):
 
         self._filter_model.setFilterFixedString(text.strip())
         self.folder_selected.emit(None)
+        self.result_count_changed.emit(self.visible_count)

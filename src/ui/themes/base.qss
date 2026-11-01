@@ -85,3 +85,12 @@ QLineEdit#SearchInput {
     border-radius: 2px;
     padding: 6px 12px;
 }
+
+QLabel#EmptyStateTitle {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#EmptyStateDescription {
+    font-size: 13px;
+}
