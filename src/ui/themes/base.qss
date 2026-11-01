@@ -1,0 +1,71 @@
+/* Tipografia padrão. */
+QWidget {
+    font-family: "Segoe UI", "Helvetica Neue", Arial;
+    font-size: 14px;
+}
+
+/* Hierarquia dos textos. */
+QLabel#PageTitle {
+    font-size: 29px;
+    font-weight: 600;
+}
+
+QLabel#PageDescription,
+QLabel#AccountName {
+    font-size: 13px;
+}
+
+QLabel#SidebarTitle,
+QLabel#DetailsHeading {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Formato do botão principal. */
+QPushButton#PrimaryButton {
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 10px 16px;
+}
+
+/* Estrutura da barra lateral. */
+QFrame#Sidebar {
+    border: none;
+    border-right: 1px solid transparent;
+}
+
+QFrame#Sidebar QPushButton {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+QFrame#Sidebar QPushButton:checked {
+    font-weight: 600;
+}
+
+/* Estrutura da tabela. */
+QTableView#FolderTable {
+    border: 1px solid transparent;
+}
+
+QTableView#FolderTable::item {
+    padding: 8px;
+    border-bottom: 1px solid transparent;
+}
+
+QTableView#FolderTable QHeaderView::section {
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid transparent;
+}
+
+/* Estrutura do painel de detalhes. */
+QFrame#FolderDetails {
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
