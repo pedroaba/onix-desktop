@@ -1,0 +1,16 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "sqlite_security_course",
+      "database": "./storage.db"
+    }
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "files.exclude": {
+    "**/*.pyc": {"when": "$(basename).py"},
+    "**/__pycache__": true,
+    "**/*.pytest_cache": true
+  }
+}
