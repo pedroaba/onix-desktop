@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
 from PySide6.QtCore import Signal
 
 from src.ui.components.sidebar import Sidebar
+from src.ui.components.title_bar import TitleBar
 from src.ui.pages.home import HomePage
 
 
@@ -14,6 +15,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Onix Desktop")
         self.resize(1100, 720)
         self.setMinimumSize(800, 500)
+
+        self.__title_bar = TitleBar(self)
+        self.setMenuWidget(self.__title_bar)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)

@@ -79,3 +79,18 @@ QFrame#FolderDetails {
     background-color: #f2f2f2;
     border-color: #dddddd;
 }
+
+QFrame#TitleBar {
+    background-color: #f2f2f2;
+    border-bottom-color: #dddddd;
+}
+
+QLineEdit#SearchInput {
+    background-color: #ffffff;
+    color: #262626;
+    border-color: #b7b7b7;
+}
+
+QLineEdit#SearchInput:focus {
+    border-color: #0067b8;
+}

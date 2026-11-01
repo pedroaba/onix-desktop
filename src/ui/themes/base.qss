@@ -69,3 +69,19 @@ QFrame#FolderDetails {
     border: 1px solid transparent;
     border-radius: 2px;
 }
+
+QFrame#TitleBar {
+    border: none;
+    border-bottom: 1px solid transparent;
+}
+
+QLabel#AppTitle {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLineEdit#SearchInput {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 6px 12px;
+}
