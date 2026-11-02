@@ -153,3 +153,16 @@ QLabel#SyncStatusTime {
 QFrame#SyncStatusDivider {
     border: none;
 }
+
+QLabel#DetailsFolderName {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+QLabel#DetailsSubtitle {
+    font-size: 14px;
+}
+
+QLabel[role="details-field-label"] {
+    font-size: 14px;
+}

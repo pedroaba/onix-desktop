@@ -8,3 +8,5 @@ class Folder:
     status: str
     size_bytes: int
     modified_on: date | None = None
+    file_count: int | None = None
+    location: str = "OneDrive Pessoal"

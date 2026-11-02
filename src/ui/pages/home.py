@@ -25,7 +25,13 @@ from src.ui.themes.theme_manager import AvailableTheme
 today = date.today()
 
 sample_folders = [
-    Folder("Documentos", "Neste dispositivo", 8_400_000_000, modified_on=today),
+    Folder(
+        "Documentos",
+        "Neste dispositivo",
+        8_400_000_000,
+        modified_on=today,
+        file_count=248,
+    ),
     Folder("Projetos", "Sincronizando", 12_800_000_000, modified_on=today),
     Folder(
         "Fotos",

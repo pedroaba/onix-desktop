@@ -187,3 +187,8 @@ QLabel#SyncStatusTime {
 QFrame#SyncStatusDivider {
     background-color: #484848;
 }
+
+QLabel#DetailsSubtitle,
+QLabel[role="details-field-label"] {
+    color: #b7b7b7;
+}
