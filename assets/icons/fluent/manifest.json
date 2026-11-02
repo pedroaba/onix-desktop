@@ -37,6 +37,11 @@
       "path": "20/regular/dark_theme.svg",
       "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Dark%20Theme/SVG/ic_fluent_dark_theme_20_regular.svg",
       "sha256": "caa1b69fb3c868758f8f7fe756287b9927664ee0e8e9222803e51c84c919a2d6"
+    },
+    {
+      "path": "20/regular/add.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Add/SVG/ic_fluent_add_20_regular.svg",
+      "sha256": "fdf9fefaf083ff2349ac94afd47aab8ecb554650781c5797176b9d6ad3caee05"
     }
   ]
 }

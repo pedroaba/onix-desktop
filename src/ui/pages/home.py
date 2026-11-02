@@ -1,4 +1,4 @@
-from PySide6.QtCore import Slot, Signal
+from PySide6.QtCore import Slot, Signal, QSize
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
@@ -62,10 +62,21 @@ class HomePage(QWidget):
 
         self.new_folder_button = QPushButton("Nova Pasta")
         self.new_folder_button.setObjectName("PrimaryButton")
+        self.new_folder_button.setIconSize(QSize(20, 20))
+        self.new_folder_button.setFixedHeight(36)
+
+        self.sync_button = QPushButton("Sincronizar agora")
+        self.sync_button.setObjectName("SyncButton")
+        self.sync_button.setIconSize(QSize(20, 20))
+        self.sync_button.setFixedHeight(36)
 
         # organizando elementos da barra de ações lado a lado
         actions_layout = QHBoxLayout()
+        actions_layout.setContentsMargins(0, 0, 0, 0)
+        actions_layout.setSpacing(12)
+
         actions_layout.addWidget(self.new_folder_button)
+        actions_layout.addWidget(self.sync_button)
         actions_layout.addStretch()
 
         header_layout = QVBoxLayout()
@@ -117,8 +128,30 @@ class HomePage(QWidget):
         match theme:
             case AvailableTheme.DARK:
                 chevron_color = "#b7b7b7"
+                action_color = "#80c6ff"
             case _:
                 chevron_color = "#616161"
+                action_color = "#0067b8"
+
+        self.new_folder_button.setIcon(
+            IconLoader(
+                "add",
+                options=IconLoaderOptions(
+                    folder_name="fluent/20/regular",
+                    color="#ffffff",
+                ),
+            ).load(20)
+        )
+
+        self.sync_button.setIcon(
+            IconLoader(
+                "arrow_sync",
+                options=IconLoaderOptions(
+                    folder_name="fluent/20/regular",
+                    color=action_color,
+                ),
+            ).load(20)
+        )
 
         self.chevron_label.setPixmap(
             IconLoader(

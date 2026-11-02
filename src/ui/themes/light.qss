@@ -114,3 +114,21 @@ QLabel#ResultsSummary {
 QLabel#PageBreadcrumb {
     color: #616161;
 }
+
+QPushButton#SyncButton {
+    background-color: #ffffff;
+    color: #0067b8;
+    border-color: #b7b7b7;
+}
+
+QPushButton#SyncButton:hover {
+    background-color: #f2f2f2;
+}
+
+QPushButton#SyncButton:pressed {
+    background-color: #e5e5e5;
+}
+
+QPushButton#SyncButton:focus {
+    border-color: #0067b8;
+}

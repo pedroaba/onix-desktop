@@ -126,3 +126,11 @@ QLabel#PageTitle {
     font-size: 32px;
     font-weight: 600;
 }
+
+QPushButton#SyncButton {
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 10px 16px;
+}
