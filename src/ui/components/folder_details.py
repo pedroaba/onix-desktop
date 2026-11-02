@@ -1,11 +1,22 @@
-from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QWidget, QGridLayout
-from PySide6.QtCore import Slot, Qt
+from PySide6.QtWidgets import (
+    QFrame,
+    QLabel,
+    QVBoxLayout,
+    QWidget,
+    QGridLayout,
+    QHBoxLayout,
+    QPushButton,
+)
+from PySide6.QtCore import Slot, Qt, Signal, QSize
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
+from src.ui.themes.theme_manager import AvailableTheme
 
 
 class FolderDetails(QFrame):
+    close_requested = Signal()
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
@@ -18,6 +29,22 @@ class FolderDetails(QFrame):
 
         heading = QLabel("Detalhes")
         heading.setObjectName("DetailsHeading")
+
+        self.close_button = QPushButton()
+        self.close_button.setObjectName("CloseDetailsButton")
+        self.close_button.setFixedSize(28, 28)
+        self.close_button.setIconSize(QSize(20, 20))
+        self.close_button.setToolTip("Fechar painel de detalhes")
+        self.close_button.setAccessibleName("Fechar painel de detalhes")
+        self.close_button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
+        self.close_button.clicked.connect(self._request_close)
+
+        heading_layout = QHBoxLayout()
+        heading_layout.setContentsMargins(0, 0, 0, 0)
+        heading_layout.setSpacing(8)
+        heading_layout.addWidget(heading)
+        heading_layout.addStretch()
+        heading_layout.addWidget(self.close_button)
 
         self.empty_label = QLabel("Selecione uma pasta")
         self.empty_label.setWordWrap(True)
@@ -80,12 +107,29 @@ class FolderDetails(QFrame):
         content_layout.addSpacing(16)
         content_layout.addLayout(fields_layout)
 
-        layout.addWidget(heading)
+        layout.addLayout(heading_layout)
         layout.addWidget(self.empty_label)
         layout.addWidget(self.content)
         layout.addStretch()
 
         self.show_folder(None)
+
+    def set_theme(self, theme: AvailableTheme) -> None:
+        color = "#b7b7b7" if theme == AvailableTheme.DARK else "#616161"
+
+        self.close_button.setIcon(
+            IconLoader(
+                "dismiss",
+                options=IconLoaderOptions(
+                    folder_name="fluent/20/regular",
+                    color=color,
+                ),
+            ).load(20)
+        )
+
+    @Slot()
+    def _request_close(self) -> None:
+        self.close_requested.emit()
 
     @Slot(object)
     def show_folder(self, folder: Folder | None) -> None:
@@ -106,9 +150,9 @@ class FolderDetails(QFrame):
         size_gb = folder.size_bytes / 1_000_000_000
         size_text = f"{size_gb:.1f} GB".replace(".", ",")
 
-        self.size_label.setText(f"Tamanho: {size_text}")
+        self.size_label.setText(size_text)
         self.location_label.setText(folder.location)
-        self.status_label.setText(f"Status: {folder.status}")
+        self.status_label.setText(folder.status)
 
         self.empty_label.hide()
         self.content.show()

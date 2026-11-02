@@ -192,3 +192,15 @@ QLabel#DetailsSubtitle,
 QLabel[role="details-field-label"] {
     color: #b7b7b7;
 }
+
+QPushButton#CloseDetailsButton:hover {
+    background-color: #303030;
+}
+
+QPushButton#CloseDetailsButton:pressed {
+    background-color: #383838;
+}
+
+QPushButton#CloseDetailsButton:focus {
+    border-color: #80c6ff;
+}

@@ -196,6 +196,9 @@ class HomePage(QWidget):
         page_layout.addWidget(self.results_label)
         self.new_folder_button.clicked.connect(self._create_folder)
 
+    def clear_folder_selection(self) -> None:
+        self.folder_table.selectionModel().clear()
+
     def _update_view_icons(self, normal_color: str, selected_color: str) -> None:
         buttons = [
             (self.list_view_button, "text_align_left"),

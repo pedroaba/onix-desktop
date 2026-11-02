@@ -166,3 +166,10 @@ QLabel#DetailsSubtitle {
 QLabel[role="details-field-label"] {
     font-size: 14px;
 }
+
+QPushButton#CloseDetailsButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 0;
+}
