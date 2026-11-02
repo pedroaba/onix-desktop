@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
 
         self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
         self.__title_bar.search_text_changed.connect(self.__home_page.set_search_text)
-        self.__home_page.folder_selected.connect(self.__folder_details.show_folder)
+        self.__home_page.folder_selected.connect(self._show_folder_details)
         self.__folder_details.close_requested.connect(self._close_folder_details)
 
         layout.addWidget(self.__sidebar)
