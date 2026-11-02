@@ -131,3 +131,10 @@ Os relatórios individuais das aulas e a explicação detalhada do projeto foram
 Projeto independente para uso pessoal e estudo, sem afiliação oficial com a Microsoft. O SVG do OneDrive foi obtido no CDN da Microsoft para corresponder ao conceito aprovado. Sua origem está em `assets/icons/brands/SOURCE.md`.
 
 Os recursos de marca estão separados dos ícones Fluent UI, que possuem origem e licença próprias em `assets/icons/fluent/`. Não se atribui ao projeto uma licença para os logotipos da Microsoft.
+
+## Licença
+
+O código e a documentação originais do projeto estão disponíveis sob a
+[licença MIT](LICENSE), com copyright de Pedro Augusto Barbosa Aparecido.
+Os recursos de terceiros mantêm seus próprios termos, detalhados em
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
