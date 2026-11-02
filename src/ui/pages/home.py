@@ -16,6 +16,7 @@ from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.ui.components.folder_table import FolderTable
 from src.ui.components.empty_state import EmptyState
+from src.ui.components.sync_status import SyncStatus
 from src.ui.themes.theme_manager import AvailableTheme
 
 
@@ -138,6 +139,9 @@ class HomePage(QWidget):
 
         page_layout.addLayout(header_layout)
         page_layout.addLayout(actions_layout)
+
+        self.sync_status = SyncStatus()
+        page_layout.addWidget(self.sync_status)
 
         # Mantém o conteúdo agrupado no topo.
         self.folder_table = FolderTable()

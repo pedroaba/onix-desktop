@@ -176,3 +176,15 @@ QPushButton[role="view-mode"]:disabled {
     background-color: #262626;
     border-color: #383838;
 }
+
+QLabel#SyncStatusText {
+    color: #f5f5f5;
+}
+
+QLabel#SyncStatusTime {
+    color: #b7b7b7;
+}
+
+QFrame#SyncStatusDivider {
+    background-color: #484848;
+}

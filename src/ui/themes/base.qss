@@ -140,3 +140,16 @@ QPushButton[role="view-mode"] {
     border-radius: 2px;
     padding: 0;
 }
+
+QLabel#SyncStatusText {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#SyncStatusTime {
+    font-size: 13px;
+}
+
+QFrame#SyncStatusDivider {
+    border: none;
+}
