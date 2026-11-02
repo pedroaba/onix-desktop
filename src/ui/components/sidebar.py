@@ -99,7 +99,7 @@ class Sidebar(QFrame):
         self.theme_button.setIconSize(QSize(20, 20))
         self.theme_button.clicked.connect(self._request_theme_toggle)
 
-        layout.addWidget(self.theme_button)
+        # layout.addWidget(self.theme_button)
 
         self.settings_button = QPushButton("Configurações")
         self.settings_button.setIconSize(QSize(20, 20))
