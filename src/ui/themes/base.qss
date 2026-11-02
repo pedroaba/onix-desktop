@@ -109,3 +109,8 @@ QFrame#NavigationIndicator {
     border: none;
     border-radius: 2px;
 }
+
+QLabel#ResultsSummary {
+    font-size: 13px;
+    padding-top: 8px;
+}

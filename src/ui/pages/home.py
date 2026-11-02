@@ -60,6 +60,9 @@ class HomePage(QWidget):
         self.folder_table = FolderTable()
         self.folder_table.set_folders(self._folders)
 
+        self.results_label = QLabel()
+        self.results_label.setObjectName("ResultsSummary")
+
         self.folder_table.folder_selected.connect(self.folder_selected.emit)
 
         self.empty_state = EmptyState()
@@ -71,10 +74,22 @@ class HomePage(QWidget):
         self._update_results(self.folder_table.visible_count)
 
         page_layout.addWidget(self.result_stack, stretch=1)
+        page_layout.addWidget(self.results_label)
         self.new_folder_button.clicked.connect(self._create_folder)
 
     @Slot(int)
     def _update_results(self, count: int) -> None:
+        total = len(self._folders)
+        noun = "pasta"
+        if total > 1:
+            noun = "pastas"
+
+        text = f"{count} de {total} {noun}"
+        if count == total:
+            text = f"{total} {noun}"
+
+        self.results_label.setText(text)
+
         if count > 0:
             self.result_stack.setCurrentWidget(self.folder_table)
             return

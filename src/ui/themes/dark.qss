@@ -127,3 +127,7 @@ QLabel#AccountSubtitle {
 QFrame#NavigationIndicator {
     background-color: #80c6ff;
 }
+
+QLabel#ResultsSummary {
+    color: #b7b7b7;
+}

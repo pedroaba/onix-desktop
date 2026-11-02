@@ -98,5 +98,6 @@ class FolderTable(QTableView):
         self.selectionModel().clear()
 
         self._filter_model.setFilterFixedString(text.strip())
+
         self.folder_selected.emit(None)
         self.result_count_changed.emit(self.visible_count)
