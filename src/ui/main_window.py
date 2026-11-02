@@ -51,3 +51,4 @@ class MainWindow(QMainWindow):
 
     def set_theme(self, theme: AvailableTheme) -> None:
         self.__sidebar.set_theme(theme)
+        self.__home_page.set_theme(theme)

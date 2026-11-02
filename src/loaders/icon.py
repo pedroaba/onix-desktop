@@ -41,20 +41,7 @@ class IconLoader:
         size: int | QSize | None = None,
         height: int | None = None,
     ) -> QIcon:
-        icon = QIcon(self._resolve_icon_path())
-        dimensions = self._resolve_dimensions(size, height)
-        pixmap = icon.pixmap(dimensions)
-
-        color = self._options.color
-        if color is not None and not pixmap.isNull():
-            painter = QPainter(pixmap)
-            painter.setCompositionMode(
-                QPainter.CompositionMode.CompositionMode_SourceIn
-            )
-            painter.fillRect(pixmap.rect(), QColor(color))
-            painter.end()
-
-        return QIcon(pixmap)
+        return QIcon(self._render_pixmap(self._resolve_dimensions(size, height)))
 
     @overload
     def load_as_pixmap(self) -> QPixmap: ...
@@ -70,7 +57,28 @@ class IconLoader:
         size: int | QSize | None = None,
         height: int | None = None,
     ) -> QPixmap:
-        return self.load().pixmap(self._resolve_dimensions(size, height))
+        return self._render_pixmap(self._resolve_dimensions(size, height))
+
+    def _render_pixmap(self, dimensions: QSize) -> QPixmap:
+        path = self._resolve_icon_path()
+        if not Path(path).is_file():
+            raise FileNotFoundError(f"Ícone não encontrado: {path}")
+
+        icon = QIcon(path)
+        pixmap = icon.pixmap(dimensions)
+        if pixmap.isNull():
+            raise ValueError(f"Não foi possível renderizar o ícone: {path}")
+
+        color = self._options.color
+        if color is not None:
+            painter = QPainter(pixmap)
+            painter.setCompositionMode(
+                QPainter.CompositionMode.CompositionMode_SourceIn
+            )
+            painter.fillRect(pixmap.rect(), QColor(color))
+            painter.end()
+
+        return pixmap
 
     def _resolve_dimensions(
         self, size: int | QSize | None = None, height: int | None = None

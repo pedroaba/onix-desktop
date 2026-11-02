@@ -110,3 +110,7 @@ QFrame#NavigationIndicator {
 QLabel#ResultsSummary {
     color: #616161;
 }
+
+QLabel#PageBreadcrumb {
+    color: #616161;
+}

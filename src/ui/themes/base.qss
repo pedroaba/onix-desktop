@@ -10,8 +10,15 @@ QLabel#PageTitle {
     font-weight: 600;
 }
 
-QLabel#PageDescription,
+QLabel#PageDescription {
+    font-size: 14px;
+}
+
 QLabel#AccountName {
+    font-size: 13px;
+}
+
+QLabel#PageBreadcrumb {
     font-size: 13px;
 }
 
@@ -113,4 +120,9 @@ QFrame#NavigationIndicator {
 QLabel#ResultsSummary {
     font-size: 13px;
     padding-top: 8px;
+}
+
+QLabel#PageTitle {
+    font-size: 32px;
+    font-weight: 600;
 }

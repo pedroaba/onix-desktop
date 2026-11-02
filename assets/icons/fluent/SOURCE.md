@@ -1,14 +1,40 @@
-Source: Microsoft Fluent UI System Icons
+# Fluent 2 — ícones de sistema
 
-https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Cloud/SVG/ic_fluent_cloud_48_filled.svg
+Diretrizes: https://fluent2.microsoft.design/iconography
 
-cloud_filled.svg is the original asset. cloud_blue.svg changes only the fill color to #0067b8 for this personal app. This is a Fluent cloud icon, not the OneDrive brand logo. License: see LICENSE.
+A documentação do Fluent 2 aponta para a coleção Microsoft Fluent UI System Icons.
+Os SVGs desta pasta são originais, sem alterações; as cores são aplicadas em memória pelo IconLoader.
 
+- Repositório: https://github.com/microsoft/fluentui-system-icons
+- Revisão fixada: `9eb184e96268d3293462f9d9d19225b4c7b07774`
+- Consulta e download: 02/11/2026
+- Variante em uso: regular, com desenho nativo de 20 × 20 px.
+- Licença original: [LICENSE](LICENSE).
+- Arquivos, URLs imutáveis e checksums: [manifest.json](manifest.json).
 
-Navigation icons (24px, regular), downloaded from Microsoft Fluent UI System Icons on 2026-11-02. Original SVGs; license: see LICENSE.
+## Organização
 
-- folder.svg: https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Folder/SVG/ic_fluent_folder_24_regular.svg
-- clock.svg: https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Clock/SVG/ic_fluent_clock_24_regular.svg
-- star.svg: https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Star/SVG/ic_fluent_star_24_regular.svg
-- arrow_sync.svg: https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Arrow%20Sync/SVG/ic_fluent_arrow_sync_24_regular.svg
-- delete.svg: https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Delete/SVG/ic_fluent_delete_24_regular.svg
+`<tamanho>/<variante>/<nome>.svg`, por exemplo `20/regular/folder.svg`.
+Usar `IconLoaderOptions(folder_name="fluent/20/regular", color="...")`.
+Ao adicionar outros tamanhos/variantes nas próximas aulas, obter o SVG correspondente
+na mesma revisão ou atualizar o conjunto e registrar a nova revisão no manifesto.
+Não guardar cópias recoloridas: o loader aplica uma cor sólida preservando a transparência.
+
+## Ícones em uso
+
+| Nome | Uso |
+| --- | --- |
+| folder | Minhas pastas |
+| clock | Recentes |
+| star | Favoritos |
+| arrow_sync | Sincronização |
+| delete | Lixeira |
+| settings | Configurações |
+| dark_theme | Alternar tema |
+
+A navegação mantém regular nos estados marcado/desmarcado, como nos conceitos aprovados,
+e usa cor para a seleção. Filled é uma variante disponível na coleção, mas não é necessária
+neste conjunto. Os logotipos de produto ficam em `../brands/` e mantêm suas cores originais.
+
+As antigas nuvens `cloud_filled.svg` e `cloud_blue.svg` não tinham referências no aplicativo
+e foram removidas, assim como as cópias de 24 px substituídas por desenhos nativos de 20 px.

@@ -1,0 +1,42 @@
+{
+  "repository": "https://github.com/microsoft/fluentui-system-icons",
+  "revision": "9eb184e96268d3293462f9d9d19225b4c7b07774",
+  "retrieved_on": "2026-11-02",
+  "icons": [
+    {
+      "path": "20/regular/folder.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Folder/SVG/ic_fluent_folder_20_regular.svg",
+      "sha256": "7fb7fb2567a518b9e09997c9ddd4588a78c9e02fd1c3e2bb714efa7798a2e560"
+    },
+    {
+      "path": "20/regular/clock.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Clock/SVG/ic_fluent_clock_20_regular.svg",
+      "sha256": "a8330d82a8701f240a5e92fabadb6f73a4179f5980c7e329440f542ceb8deee2"
+    },
+    {
+      "path": "20/regular/star.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Star/SVG/ic_fluent_star_20_regular.svg",
+      "sha256": "dec99558a39bededa688446716215216a8e051c6518a51f886f53a08a67e16cb"
+    },
+    {
+      "path": "20/regular/arrow_sync.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Arrow%20Sync/SVG/ic_fluent_arrow_sync_20_regular.svg",
+      "sha256": "1713352c66b798bd1bbf86467ab33e45ac615d8a18d3f79c50b195034a51ab9e"
+    },
+    {
+      "path": "20/regular/delete.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Delete/SVG/ic_fluent_delete_20_regular.svg",
+      "sha256": "c3ce6fcb04fa1564fc50e00677d763ddf5cafa0ade58604df4c478268ef54452"
+    },
+    {
+      "path": "20/regular/settings.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Settings/SVG/ic_fluent_settings_20_regular.svg",
+      "sha256": "ac5bdb808bed91dc8c0b6f346e7a0a1ee1901fc4b50f5641987498a65e200685"
+    },
+    {
+      "path": "20/regular/dark_theme.svg",
+      "source": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/9eb184e96268d3293462f9d9d19225b4c7b07774/assets/Dark%20Theme/SVG/ic_fluent_dark_theme_20_regular.svg",
+      "sha256": "caa1b69fb3c868758f8f7fe756287b9927664ee0e8e9222803e51c84c919a2d6"
+    }
+  ]
+}

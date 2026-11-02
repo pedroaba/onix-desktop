@@ -68,6 +68,7 @@ class Sidebar(QFrame):
         for index, (text, icon_name) in enumerate(navigation_items):
             button = QPushButton(text)
             button.setProperty("icon_name", icon_name)
+            button.setIconSize(QSize(20, 20))
 
             button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
 
@@ -95,11 +96,13 @@ class Sidebar(QFrame):
         layout.addStretch()
 
         self.theme_button = QPushButton("Alternar tema")
+        self.theme_button.setIconSize(QSize(20, 20))
         self.theme_button.clicked.connect(self._request_theme_toggle)
 
         layout.addWidget(self.theme_button)
 
         self.settings_button = QPushButton("Configurações")
+        self.settings_button.setIconSize(QSize(20, 20))
         layout.addWidget(self.settings_button)
 
     def set_theme(self, theme: AvailableTheme) -> None:
@@ -118,7 +121,9 @@ class Sidebar(QFrame):
             states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
 
             for state, color in states:
-                options = IconLoaderOptions(folder_name="fluent", color=color)
+                options = IconLoaderOptions(
+                    folder_name="fluent/20/regular", color=color
+                )
 
                 pixmap = IconLoader(icon_name, options=options).load_as_pixmap(
                     QSize(20, 20)
@@ -127,6 +132,10 @@ class Sidebar(QFrame):
                 for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
                     icon.addPixmap(pixmap, mode, state)
             button.setIcon(icon)
+
+        options = IconLoaderOptions(folder_name="fluent/20/regular", color=normal_color)
+        self.settings_button.setIcon(IconLoader("settings", options=options).load(20))
+        self.theme_button.setIcon(IconLoader("dark_theme", options=options).load(20))
 
     @Slot()
     def _request_theme_toggle(self) -> None:
