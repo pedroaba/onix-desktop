@@ -73,13 +73,46 @@ class IconTests(unittest.TestCase):
     def test_fluent_inventory_matches_files_and_checksums(self):
         root = Path(IconLoaderOptions().folder_path) / "fluent"
         manifest = json.loads((root / "manifest.json").read_text())
-        files = {str(path.relative_to(root)) for path in root.rglob("*.svg")}
+        files = {
+            str(path.relative_to(root))
+            for path in root.rglob("*")
+            if path.suffix in {".svg", ".png", ".webp"}
+        }
         self.assertEqual(files, {entry["path"] for entry in manifest["icons"]})
         for entry in manifest["icons"]:
             self.assertEqual(
                 hashlib.sha256((root / entry["path"]).read_bytes()).hexdigest(),
                 entry["sha256"],
             )
+
+    def test_complete_system_catalog_is_present(self):
+        root = Path(IconLoaderOptions().folder_path) / "fluent"
+        expected = json.loads((root / "catalogs/system-svg-paths.json").read_text())
+        manifest = json.loads((root / "manifest.json").read_text())
+        system_icons = [entry for entry in manifest["icons"] if entry["collection"] == "system"]
+        self.assertEqual(len(system_icons), len(expected))
+        self.assertEqual({entry["upstream_path"] for entry in system_icons}, set(expected))
+
+    def test_cdn_catalog_is_fully_accounted_for(self):
+        root = Path(IconLoaderOptions().folder_path) / "fluent"
+        catalog = json.loads((root / "catalogs/cdn-requests.json").read_text())
+        unavailable = json.loads((root / "catalogs/cdn-unavailable.json").read_text())
+        manifest = json.loads((root / "manifest.json").read_text())
+        expected = {entry["source"] for entry in catalog["requests"]}
+        downloaded = {
+            entry["source"] for entry in manifest["icons"]
+            if entry["collection"] in {"files", "launch"}
+        }
+        absent = {entry["source"] for entry in unavailable}
+        self.assertEqual(downloaded | absent, expected)
+        self.assertFalse(downloaded & absent)
+        self.assertTrue(all(entry["status"] == "404" for entry in unavailable))
+        for collection in ("files", "launch"):
+            names = {
+                entry["name"] for entry in manifest["icons"]
+                if entry["collection"] == collection
+            }
+            self.assertEqual(names, set(manifest["collections"][collection]["catalog_names"]))
 
     def test_sidebar_states_and_theme_switching(self):
         sidebar = Sidebar()

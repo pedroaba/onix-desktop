@@ -131,8 +131,14 @@ Os relatórios individuais das aulas e a explicação detalhada do projeto foram
 Projeto independente para uso pessoal e estudo, sem afiliação oficial com a Microsoft. O SVG do OneDrive foi obtido no CDN da Microsoft para corresponder ao conceito aprovado. Sua origem está em `assets/icons/brands/SOURCE.md`.
 
 Os recursos de marca estão separados dos ícones de sistema usados pelo Fluent 2.
-Os SVGs nativos de 20px, variante regular, ficam em `assets/icons/fluent/20/regular/`.
-O loader aplica a cor por tema em memória; o logotipo OneDrive mantém as cores originais.
+Todos os 21.833 SVGs de sistema da revisão oficial fixada ficam em
+`assets/icons/fluent/<tamanho>/<variante>/`, incluindo regular, filled, light,
+color e versões localizadas. O caminho de 20px usado pela sidebar permanece válido.
+Os ícones de produtos ficam em `assets/icons/fluent/launch/` (17 produtos,
+338 arquivos), e os de arquivos em `assets/icons/fluent/files/` (93 tipos,
+5.001 arquivos). Ambos preservam os formatos e densidades disponíveis no CDN.
+O loader pode aplicar cor por tema aos monocromáticos em memória; os ícones
+multicoloridos e o logotipo OneDrive mantêm as cores originais.
 Origem, revisão e licença estão em `assets/icons/fluent/SOURCE.md`; o inventário
 com URLs e checksums fica em `assets/icons/fluent/manifest.json`.
 Não se atribui ao projeto uma licença para os logotipos da Microsoft.
