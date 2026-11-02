@@ -67,7 +67,6 @@ QFrame#Sidebar QPushButton:focus {
 QTableView#FolderTable {
     background-color: #1b1b1b;
     color: #f5f5f5;
-    border-color: #383838;
     selection-background-color: #17364f;
     selection-color: #ffffff;
 }
@@ -77,7 +76,7 @@ QTableView#FolderTable::item {
 }
 
 QTableView#FolderTable QHeaderView::section {
-    background-color: #202020;
+    background-color: #1b1b1b;
     color: #b7b7b7;
     border-bottom-color: #383838;
 }

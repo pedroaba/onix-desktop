@@ -56,7 +56,7 @@ QFrame#Sidebar QPushButton:checked {
 
 /* Estrutura da tabela. */
 QTableView#FolderTable {
-    border: 1px solid transparent;
+    border: none;
 }
 
 QTableView#FolderTable::item {
