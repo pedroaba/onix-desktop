@@ -1,8 +1,11 @@
-from PySide6.QtCore import Qt, Signal, Slot, QSortFilterProxyModel
+from datetime import date, timedelta
+
+from PySide6.QtCore import Qt, Signal, Slot, QSortFilterProxyModel, QSize
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableView, QWidget
 
 from src.models.folder import Folder
+from src.loaders.icon import IconLoader, IconLoaderOptions
 
 
 class FolderTable(QTableView):
@@ -13,9 +16,19 @@ class FolderTable(QTableView):
         super().__init__(parent)
 
         self.setObjectName("FolderTable")
+        self._folder_icon = IconLoader(
+            "folder",
+            options=IconLoaderOptions(
+                folder_name="fluent/files/32/color",
+            ),
+        ).load(32)
 
-        self._items_model = QStandardItemModel(0, 3, self)
-        self._items_model.setHorizontalHeaderLabels(["Nome", "Status", "Tamanho"])
+        self.setIconSize(QSize(32, 32))
+
+        self._items_model = QStandardItemModel(0, 4, self)
+        self._items_model.setHorizontalHeaderLabels(
+            ["Nome", "Status", "Tamanho", "Modificado"]
+        )
 
         self._filter_model = QSortFilterProxyModel(self)
         self._filter_model.setSourceModel(self._items_model)
@@ -33,16 +46,50 @@ class FolderTable(QTableView):
 
         self.setShowGrid(False)
         self.verticalHeader().hide()
-        self.verticalHeader().setDefaultSectionSize(52)
+        self.verticalHeader().setDefaultSectionSize(64)
 
         header = self.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
 
         header.setDefaultAlignment(
             Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
         )
+
+    @staticmethod
+    def _format_modified_date(value: date | None) -> str:
+        if value is None:
+            return "-"
+
+        today = date.today()
+        if value == today:
+            return "Hoje"
+
+        if value == today - timedelta(days=1):
+            return "Ontem"
+
+        months = (
+            "jan.",
+            "fev.",
+            "mar.",
+            "abr.",
+            "mai.",
+            "jun.",
+            "jul.",
+            "ago.",
+            "set.",
+            "out.",
+            "nov.",
+            "dez.",
+        )
+
+        text = f"{value.day} {months[value.month - 1]}"
+        if value.year != today.year:
+            text += f" {value.year}"
+
+        return text
 
     def set_folders(self, folders: list[Folder]) -> None:
         self._items_model.removeRows(0, self._items_model.rowCount())
@@ -54,10 +101,17 @@ class FolderTable(QTableView):
             name_item = QStandardItem(folder.name)
             name_item.setData(folder, Qt.ItemDataRole.UserRole)
 
+            name_item.setIcon(self._folder_icon)
+
+            name_font = name_item.font()
+            name_font.setBold(True)
+            name_item.setFont(name_font)
+
             row = [
                 name_item,
                 QStandardItem(folder.status),
                 QStandardItem(size_text),
+                QStandardItem(self._format_modified_date(folder.modified_on)),
             ]
 
             self._items_model.appendRow(row)
