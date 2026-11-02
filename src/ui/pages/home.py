@@ -1,3 +1,4 @@
+from PySide6.QtGui import QIcon
 from PySide6.QtCore import Slot, Signal, QSize
 from PySide6.QtWidgets import (
     QHBoxLayout,
@@ -8,6 +9,7 @@ from PySide6.QtWidgets import (
     QWidget,
     QInputDialog,
     QMessageBox,
+    QButtonGroup,
 )
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
@@ -70,6 +72,31 @@ class HomePage(QWidget):
         self.sync_button.setIconSize(QSize(20, 20))
         self.sync_button.setFixedHeight(36)
 
+        self.list_view_button = QPushButton()
+        self.grid_view_button = QPushButton()
+
+        view_buttons = [
+            (self.list_view_button, "Visualização em lista"),
+            (self.grid_view_button, "Visualização em grade"),
+        ]
+
+        self._view_group = QButtonGroup(self)
+        self._view_group.setExclusive(True)
+
+        for button, description in view_buttons:
+            button.setProperty("role", "view-mode")
+            button.setCheckable(True)
+            button.setFixedSize(36, 36)
+            button.setIconSize(QSize(20, 20))
+            button.setToolTip(description)
+            button.setAccessibleName(description)
+
+            self._view_group.addButton(button)
+
+        self.list_view_button.setChecked(True)
+        self.grid_view_button.setEnabled(False)
+        self.grid_view_button.setToolTip("Visualização em grade indisponível")
+
         # organizando elementos da barra de ações lado a lado
         actions_layout = QHBoxLayout()
         actions_layout.setContentsMargins(0, 0, 0, 0)
@@ -78,6 +105,15 @@ class HomePage(QWidget):
         actions_layout.addWidget(self.new_folder_button)
         actions_layout.addWidget(self.sync_button)
         actions_layout.addStretch()
+
+        view_layout = QHBoxLayout()
+        view_layout.setContentsMargins(0, 0, 0, 0)
+        view_layout.setSpacing(8)
+
+        view_layout.addWidget(self.list_view_button)
+        view_layout.addWidget(self.grid_view_button)
+
+        actions_layout.addLayout(view_layout)
 
         header_layout = QVBoxLayout()
         header_layout.setContentsMargins(0, 0, 0, 0)
@@ -124,6 +160,28 @@ class HomePage(QWidget):
         page_layout.addWidget(self.results_label)
         self.new_folder_button.clicked.connect(self._create_folder)
 
+    def _update_view_icons(self, normal_color: str, selected_color: str) -> None:
+        buttons = [
+            (self.list_view_button, "text_align_left"),
+            (self.grid_view_button, "grid"),
+        ]
+
+        for button, icon_name in buttons:
+            icon = QIcon()
+            states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
+
+            for state, color in states:
+                pixmap = IconLoader(
+                    icon_name,
+                    options=IconLoaderOptions(
+                        color=color, folder_name="fluent/20/regular"
+                    ),
+                ).load_as_pixmap(20)
+
+                for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
+                    icon.addPixmap(pixmap, mode, state)
+            button.setIcon(icon)
+
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
@@ -133,6 +191,7 @@ class HomePage(QWidget):
                 chevron_color = "#616161"
                 action_color = "#0067b8"
 
+        self._update_view_icons(chevron_color, action_color)
         self.new_folder_button.setIcon(
             IconLoader(
                 "add",

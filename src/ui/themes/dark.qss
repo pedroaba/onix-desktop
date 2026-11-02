@@ -153,3 +153,26 @@ QPushButton#SyncButton:pressed {
 QPushButton#SyncButton:focus {
     border-color: #80c6ff;
 }
+
+QPushButton[role="view-mode"] {
+    background-color: #262626;
+    border-color: #484848;
+}
+
+QPushButton[role="view-mode"]:hover {
+    background-color: #303030;
+}
+
+QPushButton[role="view-mode"]:checked {
+    background-color: #17364f;
+    border-color: #0067b8;
+}
+
+QPushButton[role="view-mode"]:focus {
+    border-color: #80c6ff;
+}
+
+QPushButton[role="view-mode"]:disabled {
+    background-color: #262626;
+    border-color: #383838;
+}

@@ -134,3 +134,9 @@ QPushButton#SyncButton {
     border-radius: 2px;
     padding: 10px 16px;
 }
+
+QPushButton[role="view-mode"] {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 0;
+}
