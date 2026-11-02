@@ -1,11 +1,12 @@
 from datetime import date, timedelta
 
 from PySide6.QtCore import Qt, Signal, Slot, QSortFilterProxyModel, QSize
-from PySide6.QtGui import QStandardItem, QStandardItemModel
+from PySide6.QtGui import QStandardItem, QStandardItemModel, QIcon
 from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableView, QWidget
 
 from src.models.folder import Folder
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.ui.themes.theme_manager import AvailableTheme
 
 
 class FolderTable(QTableView):
@@ -16,6 +17,8 @@ class FolderTable(QTableView):
         super().__init__(parent)
 
         self.setObjectName("FolderTable")
+        self._status_icons = self._build_status_icon(AvailableTheme.LIGHT)
+
         self._folder_icon = IconLoader(
             "folder",
             options=IconLoaderOptions(
@@ -23,7 +26,7 @@ class FolderTable(QTableView):
             ),
         ).load(32)
 
-        self.setIconSize(QSize(32, 32))
+        self.setIconSize(QSize(20, 20))
 
         self._items_model = QStandardItemModel(0, 4, self)
         self._items_model.setHorizontalHeaderLabels(
@@ -57,6 +60,44 @@ class FolderTable(QTableView):
         header.setDefaultAlignment(
             Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
         )
+
+    @staticmethod
+    def _build_status_icon(theme: AvailableTheme) -> dict[str, QIcon]:
+        match theme:
+            case AvailableTheme.DARK:
+                green = "#54b054"
+                blue = "#80c6ff"
+            case _:
+                green = "#107c10"
+                blue = "#0067b8"
+
+        definitions = {
+            "Neste dispositivo": ("checkmark_circle", green),
+            "Sincronizando": ("arrow_sync", blue),
+            "Somente na nuvem": ("cloud", blue),
+        }
+
+        icons = {}
+
+        for status, (icon_name, color) in definitions.items():
+            pixmap = IconLoader(
+                icon_name,
+                options=IconLoaderOptions(
+                    folder_name="fluent/20/regular",
+                    color=color,
+                ),
+            ).load_as_pixmap(16)
+
+            icon = QIcon()
+
+            for mode in (
+                QIcon.Mode.Normal,
+                QIcon.Mode.Active,
+                QIcon.Mode.Selected,
+            ):
+                icon.addPixmap(pixmap, mode, QIcon.State.Off)
+            icons[status] = icon
+        return icons
 
     @staticmethod
     def _format_modified_date(value: date | None) -> str:
@@ -107,9 +148,12 @@ class FolderTable(QTableView):
             name_font.setBold(True)
             name_item.setFont(name_font)
 
+            status_item = QStandardItem(folder.status)
+            status_item.setIcon(self._status_icons.get(folder.status, QIcon()))
+
             row = [
                 name_item,
-                QStandardItem(folder.status),
+                status_item,
                 QStandardItem(size_text),
                 QStandardItem(self._format_modified_date(folder.modified_on)),
             ]
@@ -129,6 +173,15 @@ class FolderTable(QTableView):
                 if visible_index.isValid():
                     self.selectRow(visible_index.row())
                     return
+
+    def set_theme(self, theme: AvailableTheme) -> None:
+        self._status_icons = self._build_status_icon(theme)
+        for row in range(self._items_model.rowCount()):
+            status_item = self._items_model.item(row, 1)
+            if status_item is None:
+                continue
+
+            status_item.setIcon(self._status_icons.get(status_item.text(), QIcon()))
 
     @property
     def visible_count(self) -> int:

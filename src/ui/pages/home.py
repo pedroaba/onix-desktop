@@ -221,6 +221,7 @@ class HomePage(QWidget):
                 chevron_color = "#616161"
                 action_color = "#0067b8"
 
+        self.folder_table.set_theme(theme)
         self._update_view_icons(chevron_color, action_color)
         self.new_folder_button.setIcon(
             IconLoader(
