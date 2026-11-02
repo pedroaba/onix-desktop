@@ -1,4 +1,5 @@
-from PySide6.QtCore import Signal, Slot, Qt
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import Signal, Slot, Qt, QSize
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
@@ -9,7 +10,8 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
 )
 
-from src.loaders.icon import IconLoader
+from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.ui.themes.theme_manager import AvailableTheme
 
 
 class Sidebar(QFrame):
@@ -56,15 +58,16 @@ class Sidebar(QFrame):
         self._navigation_group.setExclusive(True)
 
         navigation_items = [
-            "Minhas pastas",
-            "Recentes",
-            "Favoritos",
-            "Sincronização",
-            "Lixeira",
+            ("Minhas pastas", "folder"),
+            ("Recentes", "clock"),
+            ("Favoritos", "star"),
+            ("Sincronização", "arrow_sync"),
+            ("Lixeira", "delete"),
         ]
 
-        for index, text in enumerate(navigation_items):
+        for index, (text, icon_name) in enumerate(navigation_items):
             button = QPushButton(text)
+            button.setProperty("icon_name", icon_name)
 
             button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
 
@@ -98,6 +101,32 @@ class Sidebar(QFrame):
 
         self.settings_button = QPushButton("Configurações")
         layout.addWidget(self.settings_button)
+
+    def set_theme(self, theme: AvailableTheme) -> None:
+        match theme:
+            case AvailableTheme.DARK:
+                normal_color = "#b7b7b7"
+                selected_color = "#80c6ff"
+            case _:
+                normal_color = "#616161"
+                selected_color = "#0067b8"
+
+        for button in self._navigation_group.buttons():
+            icon_name = button.property("icon_name")
+            icon = QIcon()
+
+            states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
+
+            for state, color in states:
+                options = IconLoaderOptions(folder_name="fluent", color=color)
+
+                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(
+                    QSize(20, 20)
+                )
+
+                for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
+                    icon.addPixmap(pixmap, mode, state)
+            button.setIcon(icon)
 
     @Slot()
     def _request_theme_toggle(self) -> None:

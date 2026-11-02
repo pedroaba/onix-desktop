@@ -7,6 +7,7 @@ from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
 from src.ui.pages.home import HomePage
 from src.ui.components.folder_details import FolderDetails
+from src.ui.themes.theme_manager import AvailableTheme
 
 
 class MainWindow(QMainWindow):
@@ -47,3 +48,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.__sidebar)
         layout.addWidget(self.__home_page, stretch=1)
         layout.addWidget(self.__folder_details)
+
+    def set_theme(self, theme: AvailableTheme) -> None:
+        self.__sidebar.set_theme(theme)

@@ -20,6 +20,7 @@ def main() -> int:
         current_theme = AvailableTheme.LIGHT
 
     apply_theme(app, current_theme)
+    window = MainWindow()
 
     def toggle_theme(app: QApplication) -> None:
         nonlocal current_theme
@@ -29,9 +30,10 @@ def main() -> int:
             case _:
                 current_theme = AvailableTheme.DARK
         apply_theme(app, current_theme)
+        window.set_theme(current_theme)
         settings.save_theme(current_theme.value)
 
-    window = MainWindow()
+    window.set_theme(current_theme)
     window.theme_toggle_requested.connect(lambda: toggle_theme(app))
 
     window.show()

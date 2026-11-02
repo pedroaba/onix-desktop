@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import overload
 
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QIcon, QPixmap, QPainter, QColor
 
 
 @dataclass(frozen=True)
@@ -12,6 +12,7 @@ class IconLoaderOptions:
 
     folder_path: Path = Path(__file__).resolve().parents[2] / "assets" / "icons"
     folder_name: str = "brands"
+    color: str | None = None
 
 
 class IconLoader:
@@ -42,8 +43,18 @@ class IconLoader:
     ) -> QIcon:
         icon = QIcon(self._resolve_icon_path())
         dimensions = self._resolve_dimensions(size, height)
+        pixmap = icon.pixmap(dimensions)
 
-        return QIcon(icon.pixmap(dimensions))
+        color = self._options.color
+        if color is not None and not pixmap.isNull():
+            painter = QPainter(pixmap)
+            painter.setCompositionMode(
+                QPainter.CompositionMode.CompositionMode_SourceIn
+            )
+            painter.fillRect(pixmap.rect(), QColor(color))
+            painter.end()
+
+        return QIcon(pixmap)
 
     @overload
     def load_as_pixmap(self) -> QPixmap: ...
