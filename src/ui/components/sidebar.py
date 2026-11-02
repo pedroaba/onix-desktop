@@ -1,7 +1,4 @@
-from pathlib import Path
-
-from PySide6.QtCore import Signal, Slot, QSize, Qt
-from PySide6.QtGui import QIcon
+from PySide6.QtCore import Signal, Slot, Qt
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
@@ -11,6 +8,8 @@ from PySide6.QtWidgets import (
     QWidget,
     QHBoxLayout,
 )
+
+from src.loaders.icon import IconLoader
 
 
 class Sidebar(QFrame):
@@ -26,14 +25,12 @@ class Sidebar(QFrame):
         layout.setContentsMargins(16, 24, 16, 24)
         layout.setSpacing(8)
 
-        icons_directory = (
-            Path(__file__).resolve().parents[3] / "assets" / "icons" / "brands"
-        )
+        icon_loader = IconLoader("onedrive")
+        cloud_icon_pixmap = icon_loader.load_as_pixmap(40)
 
-        cloud_icon = QIcon(str(icons_directory / "onedrive.svg"))
         cloud_label = QLabel()
         cloud_label.setFixedSize(40, 40)
-        cloud_label.setPixmap(cloud_icon.pixmap(QSize(40, 40)))
+        cloud_label.setPixmap(cloud_icon_pixmap)
 
         account_title = QLabel("Pedro")
         account_title.setObjectName("AccountTitle")
