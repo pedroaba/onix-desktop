@@ -10,3 +10,4 @@ class Folder:
     modified_on: date | None = None
     file_count: int | None = None
     location: str = "OneDrive Pessoal"
+    keep_on_device: bool = False

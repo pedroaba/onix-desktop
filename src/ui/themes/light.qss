@@ -183,3 +183,22 @@ QPushButton#CloseDetailsButton:pressed {
 QPushButton#CloseDetailsButton:focus {
     border-color: #0067b8;
 }
+
+QFrame#DetailsDivider {
+    background-color: #dddddd;
+}
+
+QLabel#LocalStorageDescription {
+    color: #616161;
+}
+
+QPushButton#FreeSpaceButton {
+    background-color: #ffffff;
+    color: #0067b8;
+    border-color: #b7b7b7;
+}
+
+QPushButton#FreeSpaceButton:disabled {
+    color: #969696;
+    border-color: #dddddd;
+}

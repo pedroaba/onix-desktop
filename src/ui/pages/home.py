@@ -31,6 +31,7 @@ sample_folders = [
         8_400_000_000,
         modified_on=today,
         file_count=248,
+        keep_on_device=True,
     ),
     Folder("Projetos", "Sincronizando", 12_800_000_000, modified_on=today),
     Folder(

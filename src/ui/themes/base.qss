@@ -173,3 +173,22 @@ QPushButton#CloseDetailsButton {
     border-radius: 2px;
     padding: 0;
 }
+
+QFrame#DetailsDivider {
+    border: none;
+}
+
+QLabel#LocalStorageHeading {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QLabel#LocalStorageDescription {
+    font-size: 13px;
+}
+
+QPushButton#FreeSpaceButton {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 8px 16px;
+}

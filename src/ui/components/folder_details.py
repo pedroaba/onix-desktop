@@ -7,11 +7,13 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QPushButton,
 )
-from PySide6.QtCore import Slot, Qt, Signal, QSize
+from PySide6.QtCore import Slot, Qt, Signal, QSize, QSignalBlocker
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.ui.themes.theme_manager import AvailableTheme
+
+from src.ui.components.toggle_switch import ToggleSwitch
 
 
 class FolderDetails(QFrame):
@@ -22,6 +24,8 @@ class FolderDetails(QFrame):
 
         self.setObjectName("FolderDetails")
         self.setFixedWidth(360)
+
+        self._folder: Folder | None = None
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(24, 24, 24, 24)
@@ -107,6 +111,46 @@ class FolderDetails(QFrame):
         content_layout.addSpacing(16)
         content_layout.addLayout(fields_layout)
 
+        divider = QFrame()
+        divider.setObjectName("DetailsDivider")
+        divider.setFixedHeight(1)
+
+        local_heading = QLabel("Neste computador")
+        local_heading.setObjectName("LocalStorageHeading")
+
+        self.keep_switch = ToggleSwitch()
+        self.keep_switch.setAccessibleName("Sempre manter neste dispositivo")
+
+        keep_label = QLabel("Sempre manter neste dispositivo")
+        keep_label.setWordWrap(True)
+
+        keep_layout = QHBoxLayout()
+        keep_layout.setContentsMargins(0, 0, 0, 0)
+        keep_layout.setSpacing(10)
+        keep_layout.addWidget(self.keep_switch)
+        keep_layout.addWidget(keep_label, stretch=1)
+
+        local_description = QLabel("Acesse esta pasta mesmo sem internet.")
+        local_description.setWordWrap(True)
+
+        self.free_space_button = QPushButton("Liberar espaço")
+        self.free_space_button.setObjectName("FreeSpaceButton")
+        self.free_space_button.setIconSize(QSize(20, 20))
+        self.free_space_button.setMinimumHeight(40)
+        self.free_space_button.setEnabled(False)
+        self.free_space_button.setToolTip("Liberação de espaço indisponível")
+
+        content_layout.addSpacing(16)
+        content_layout.addWidget(divider)
+        content_layout.addSpacing(16)
+        content_layout.addWidget(local_heading)
+        content_layout.addLayout(keep_layout)
+        content_layout.addWidget(local_description)
+        content_layout.addSpacing(16)
+        content_layout.addWidget(self.free_space_button)
+
+        self.keep_switch.toggled.connect(self._on_keep_changed)
+
         layout.addLayout(heading_layout)
         layout.addWidget(self.empty_label)
         layout.addWidget(self.content)
@@ -117,6 +161,7 @@ class FolderDetails(QFrame):
     def set_theme(self, theme: AvailableTheme) -> None:
         color = "#b7b7b7" if theme == AvailableTheme.DARK else "#616161"
 
+        self.keep_switch.set_theme(theme)
         self.close_button.setIcon(
             IconLoader(
                 "dismiss",
@@ -131,12 +176,23 @@ class FolderDetails(QFrame):
     def _request_close(self) -> None:
         self.close_requested.emit()
 
+    @Slot(bool)
+    def _on_keep_changed(self, checked: bool) -> None:
+        if self._folder is None:
+            return
+
+        self._folder.keep_on_device = checked
+
     @Slot(object)
     def show_folder(self, folder: Folder | None) -> None:
+        self._folder = folder
         if folder is None:
             self.content.hide()
             self.empty_label.show()
             return
+
+        with QSignalBlocker(self.keep_switch):
+            self.keep_switch.setChecked(folder.keep_on_device)
 
         self.name_label.setText(folder.name)
         if folder.file_count is None:
