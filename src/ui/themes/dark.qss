@@ -15,6 +15,7 @@ QLabel#PageTitle {
 }
 
 QLabel#PageDescription,
+QLabel#LocalDescriptionLabel,
 QLabel#AccountName {
     color: #b7b7b7;
 }

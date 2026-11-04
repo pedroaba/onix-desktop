@@ -1,19 +1,18 @@
+from PySide6.QtCore import QSignalBlocker, QSize, Qt, Signal, Slot
 from PySide6.QtWidgets import (
     QFrame,
-    QLabel,
-    QVBoxLayout,
-    QWidget,
     QGridLayout,
     QHBoxLayout,
+    QLabel,
     QPushButton,
+    QVBoxLayout,
+    QWidget,
 )
-from PySide6.QtCore import Slot, Qt, Signal, QSize, QSignalBlocker
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
-from src.ui.themes.theme_manager import AvailableTheme
-
 from src.ui.components.toggle_switch import ToggleSwitch
+from src.ui.themes.theme_manager import AvailableTheme
 
 
 class FolderDetails(QFrame):
@@ -131,6 +130,7 @@ class FolderDetails(QFrame):
         keep_layout.addWidget(keep_label, stretch=1)
 
         local_description = QLabel("Acesse esta pasta mesmo sem internet.")
+        local_description.setObjectName("LocalDescriptionLabel")
         local_description.setWordWrap(True)
 
         self.free_space_button = QPushButton("Liberar espaço")
