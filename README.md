@@ -68,6 +68,58 @@ A versão de Python está indicada em `.python-version`. Não é necessário ati
 
 Para adicionar dependências, use `uv add nome-do-pacote`. Mantenha `pyproject.toml` e `uv.lock` no controle de versão; o diretório `.venv` é local.
 
+### Desenvolvimento no Zed
+
+As configurações do projeto ficam em `.zed/settings.json`. Execute `uv sync --locked`
+para instalar também as ferramentas de desenvolvimento. No seletor de ambiente Python
+do Zed, escolha a `.venv` deste projeto caso ela ainda não esteja selecionada.
+
+- **BasedPyright:** autocomplete, navegação e análise de tipos de todo o projeto,
+  usando o ambiente `.venv` e os stubs de PyObjC em `typings`.
+- **Ruff:** linting, correções seguras, organização de imports e formatação ao salvar.
+  As regras compartilhadas estão em `pyproject.toml`, com Python 3.14 e linhas de 100 caracteres.
+- **QSS:** arquivos `.qss` usam o realce de CSS.
+- **Terminal:** abre na raiz do projeto e ativa a `.venv` automaticamente.
+
+Abra a paleta de comandos com `Cmd+Shift+P` no macOS (`Ctrl+Shift+P` no Windows)
+e procure `task: spawn` para executar o app, sincronizar o ambiente, verificar lint,
+formatação e tipos ou rodar os testes. As tarefas ficam em `.zed/tasks.json`.
+As tarefas usam a sintaxe de shell do macOS/Linux e acrescentam `~/.local/bin` ao
+PATH para localizar o UV instalado pelo instalador oficial. No Windows com
+PowerShell, troque o campo `command` das tarefas por `uv` e mantenha o UV no PATH.
+
+As mesmas verificações podem ser executadas no terminal:
+
+```bash
+uv run ruff check .
+uv run ruff format --check .
+uv run basedpyright
+uv run python -m unittest discover -s tests -v
+```
+
+Para aplicar as correções seguras e formatar manualmente, use `uv run ruff check --fix .`
+e `uv run ruff format .`. Arquivos de recursos em `assets` ficam fora do Ruff.
+O Ruff não lê `.pylintrc`; esse arquivo continua disponível para uso separado com Pylint.
+
+#### Configurações trazidas do VS Code
+
+A pasta `.vscode` foi preservada. O ambiente Python `.venv` e a ocultação de arquivos
+`.pyc`, `__pycache__` e `.pytest_cache` estão representados nas configurações do Zed.
+No Zed, a exclusão de `.pyc` é incondicional, pois não há a condição de arquivo irmão
+usada pelo `files.exclude` do VS Code.
+
+As opções de extensões do VS Code não são lidas pelo Zed:
+
+- **cSpell:** as palavras `AppKit`, `objc`, `PyObjC`, `NSToolbar` e `NSWindow`
+  continuam em `.vscode/settings.json`; este setup não instala um corretor ortográfico no Zed.
+- **SQLTools:** a conexão SQLite `sqlite_security_course`, apontando para `./storage.db`
+  e com limite de prévia de 50 linhas, continua em `.vscode/settings.json`.
+  Este setup não cria uma conexão de banco no Zed. O arquivo `storage.db` não está
+  presente no repositório atual.
+
+Referências: [Python no Zed](https://zed.dev/docs/languages/python) e
+[tarefas do Zed](https://zed.dev/docs/tasks).
+
 ### Plataformas
 
 O objetivo é executar no **macOS e no Windows**. O desenvolvimento e as verificações descritas nesta etapa aconteceram no Mac; o comportamento no Windows ainda precisa de validação na plataforma.
