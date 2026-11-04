@@ -144,7 +144,7 @@ src/
     ├── main_window.py          # Composição das três áreas e da barra superior
     ├── pages/home.py           # Coordenação da página e dos dados de exemplo
     ├── components/             # Sidebar, TitleBar, tabela, detalhes e estado vazio
-    └── themes/                 # base.qss, light.qss, dark.qss e carregador
+    └── themes/                 # base.py, light.py, dark.py, constants.py e carregador
 assets/
 ├── concept_light.png
 ├── concept_dark.png
@@ -159,7 +159,20 @@ typings/                       # Descrições locais de tipos do AppKit e objc
 - **Pesquisa:** `TitleBar` → `MainWindow` → `HomePage` → filtro da `FolderTable`.
 - **Detalhes:** `FolderTable.folder_selected` → `HomePage.folder_selected` → `FolderDetails`.
 - **Tema:** botão da sidebar → janela → `main.py` → `apply_theme` e `AppSettings`.
-- **Estilo:** `base.qss` define formatos e medidas; `light.qss` e `dark.qss` definem as cores.
+- **Estilo:** `base.py` define formatos e medidas; `light.py` e `dark.py` definem as cores.
+  Os três usam `QSSBuilder` e os tokens de `src/ui/themes/constants.py`. O carregador
+  combina o estilo base com o tema escolhido e aplica o QSS gerado à aplicação.
+
+Para ajustar fontes, tamanhos, espaçamentos, bordas ou cores, edite `constants.py`.
+As paletas `LIGHT_COLORS` e `DARK_COLORS` usam nomes por função, como `text_secondary`,
+`surface_sidebar` e `primary_hover`. As medidas já incluem a unidade esperada pelo QSS.
+Para visualizar um tema com destaque de sintaxe no terminal:
+
+```bash
+uv run python -m src.ui.themes.base
+uv run python -m src.ui.themes.light
+uv run python -m src.ui.themes.dark
+```
 
 ## Próximas etapas
 

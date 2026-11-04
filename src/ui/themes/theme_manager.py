@@ -1,6 +1,8 @@
 from enum import Enum
-from pathlib import Path
+
 from PySide6.QtWidgets import QApplication
+
+from src.ui.themes import base, dark, light
 
 
 class AvailableTheme(Enum):
@@ -8,18 +10,13 @@ class AvailableTheme(Enum):
     DARK = "dark"
 
 
-def apply_theme(
-    app: QApplication, theme: AvailableTheme = AvailableTheme.LIGHT
-) -> None:
+def apply_theme(app: QApplication, theme: AvailableTheme = AvailableTheme.LIGHT) -> None:
     if not isinstance(theme, AvailableTheme):
         raise ValueError(f"Tema desconhecido: {theme}")
 
-    theme_directory = Path(__file__).parent
-    base_stylesheet_dir = theme_directory / "base.qss"
-    color_stylesheet_dir = theme_directory / f"{theme.value}.qss"
-
-    base_stylesheet = base_stylesheet_dir.read_text(encoding="utf-8")
-    color_stylesheet = color_stylesheet_dir.read_text(encoding="utf-8")
+    color_theme = {AvailableTheme.LIGHT: light, AvailableTheme.DARK: dark}[theme]
+    base_stylesheet = base.build_stylesheet().value
+    color_stylesheet = color_theme.build_stylesheet().value
 
     stylesheet = base_stylesheet + "\n" + color_stylesheet
 
