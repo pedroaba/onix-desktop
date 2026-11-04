@@ -223,3 +223,13 @@ QPushButton#FreeSpaceButton:disabled {
     color: #808080;
     border-color: #383838;
 }
+
+QStatusBar#AppFooter {
+    background-color: #202020;
+    border-top-color: #383838;
+}
+
+QLabel#FooterCount,
+QLabel#FooterConnection {
+    color: #f5f5f5;
+}

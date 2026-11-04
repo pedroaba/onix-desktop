@@ -1,26 +1,25 @@
 from datetime import date, timedelta
 
+from PySide6.QtCore import QSize, Signal, Slot
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import Slot, Signal, QSize
 from PySide6.QtWidgets import (
+    QButtonGroup,
     QHBoxLayout,
+    QInputDialog,
     QLabel,
+    QMessageBox,
     QPushButton,
     QStackedWidget,
     QVBoxLayout,
     QWidget,
-    QInputDialog,
-    QMessageBox,
-    QButtonGroup,
 )
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
-from src.ui.components.folder_table import FolderTable
 from src.ui.components.empty_state import EmptyState
+from src.ui.components.folder_table import FolderTable
 from src.ui.components.sync_status import SyncStatus
 from src.ui.themes.theme_manager import AvailableTheme
-
 
 today = date.today()
 
@@ -63,6 +62,7 @@ sample_folders = [
 
 class HomePage(QWidget):
     folder_selected = Signal(object)
+    summary_changed = Signal(str)
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -180,9 +180,6 @@ class HomePage(QWidget):
         self.folder_table = FolderTable()
         self.folder_table.set_folders(self._folders)
 
-        self.results_label = QLabel()
-        self.results_label.setObjectName("ResultsSummary")
-
         self.folder_table.folder_selected.connect(self.folder_selected.emit)
 
         self.empty_state = EmptyState()
@@ -194,8 +191,18 @@ class HomePage(QWidget):
         self._update_results(self.folder_table.visible_count)
 
         page_layout.addWidget(self.result_stack, stretch=1)
-        page_layout.addWidget(self.results_label)
         self.new_folder_button.clicked.connect(self._create_folder)
+
+    @property
+    def results_summary(self) -> str:
+        count = self.folder_table.visible_count
+        total = len(self._folders)
+        noun = "pasta" if total == 1 else "pastas"
+
+        if count == total:
+            return f"{total} {noun}"
+
+        return f"{count} de {total} {noun}"
 
     def clear_folder_selection(self) -> None:
         self.folder_table.selectionModel().clear()
@@ -264,20 +271,11 @@ class HomePage(QWidget):
 
     @Slot(int)
     def _update_results(self, count: int) -> None:
-        total = len(self._folders)
-        noun = "pasta"
-        if total > 1:
-            noun = "pastas"
-
-        text = f"{count} de {total} {noun}"
-        if count == total:
-            text = f"{total} {noun}"
-
-        self.results_label.setText(text)
-
+        self.summary_changed.emit(self.results_summary)
         if count > 0:
             self.result_stack.setCurrentWidget(self.folder_table)
             return
+
         self.result_stack.setCurrentWidget(self.empty_state)
 
     @Slot()

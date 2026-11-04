@@ -1,14 +1,15 @@
 import sys
 
+from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QWidget
-from PySide6.QtCore import Signal, Qt, Slot
 
+from src.models.folder import Folder
+from src.ui.components.app_footer import AppFooter
+from src.ui.components.folder_details import FolderDetails
 from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
 from src.ui.pages.home import HomePage
-from src.ui.components.folder_details import FolderDetails
 from src.ui.themes.theme_manager import AvailableTheme
-from src.models.folder import Folder
 
 
 class MainWindow(QMainWindow):
@@ -41,11 +42,17 @@ class MainWindow(QMainWindow):
         self.__home_page = HomePage()
         self.__sidebar = Sidebar()
         self.__folder_details = FolderDetails()
+        self.__app_footer = AppFooter()
+
+        self.setStatusBar(self.__app_footer)
 
         self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
         self.__title_bar.search_text_changed.connect(self.__home_page.set_search_text)
         self.__home_page.folder_selected.connect(self._show_folder_details)
         self.__folder_details.close_requested.connect(self._close_folder_details)
+        self.__home_page.summary_changed.connect(self.__app_footer.set_summary)
+
+        self.__app_footer.set_summary(self.__home_page.results_summary)
 
         layout.addWidget(self.__sidebar)
         layout.addWidget(self.__home_page, stretch=1)

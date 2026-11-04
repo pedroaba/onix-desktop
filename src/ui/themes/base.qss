@@ -192,3 +192,17 @@ QPushButton#FreeSpaceButton {
     border-radius: 2px;
     padding: 8px 16px;
 }
+
+QStatusBar#AppFooter {
+    border: none;
+    border-top: 1px solid transparent;
+}
+
+QStatusBar#AppFooter::item {
+    border: none;
+}
+
+QLabel#FooterCount,
+QLabel#FooterConnection {
+    font-size: 13px;
+}
