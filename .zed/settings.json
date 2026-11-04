@@ -1,0 +1,47 @@
+{
+  "languages": {
+    "Python": {
+      "language_servers": ["basedpyright", "ruff"],
+      "tab_size": 4,
+      "hard_tabs": false,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": { "language_server": { "name": "ruff" } },
+      "code_actions_on_format": {
+        "source.fixAll.ruff": true,
+        "source.organizeImports.ruff": true
+      }
+    }
+  },
+  "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright": {
+          "analysis": {
+            "diagnosticMode": "workspace"
+          }
+        }
+      }
+    }
+  },
+  "file_types": {
+    "CSS": ["*.qss"]
+  },
+  "file_scan_exclusions": [
+    "...",
+    "**/*.pyc",
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+    "**/.venv"
+  ],
+  "terminal": {
+    "working_directory": "current_project_directory",
+    "detect_venv": {
+      "on": {
+        "directories": [".venv"],
+        "activate_script": "default"
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+[
+  {
+    "label": "Onix: executar aplicativo",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "run",
+      "python",
+      "main.py"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Python: sincronizar ambiente",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "sync",
+      "--locked"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Python: lint (Ruff)",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "run",
+      "ruff",
+      "check",
+      "."
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Python: verificar formatação",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "run",
+      "ruff",
+      "format",
+      "--check",
+      "."
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Python: verificar tipos (BasedPyright)",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "run",
+      "basedpyright"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Python: executar testes",
+    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "args": [
+      "run",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "QT_QPA_PLATFORM": "offscreen"
+    }
+  }
+]
