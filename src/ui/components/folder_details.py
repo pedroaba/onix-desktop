@@ -133,7 +133,7 @@ class FolderDetails(QFrame):
         local_description.setObjectName("LocalDescriptionLabel")
         local_description.setWordWrap(True)
 
-        self.free_space_button = QPushButton("Liberar espaço")
+        self.free_space_button = QPushButton("\u2003Liberar espaço")
         self.free_space_button.setObjectName("FreeSpaceButton")
         self.free_space_button.setIconSize(QSize(20, 20))
         self.free_space_button.setMinimumHeight(40)
@@ -159,7 +159,23 @@ class FolderDetails(QFrame):
         self.show_folder(None)
 
     def set_theme(self, theme: AvailableTheme) -> None:
-        color = "#b7b7b7" if theme == AvailableTheme.DARK else "#616161"
+        match theme:
+            case AvailableTheme.DARK:
+                blue = "#80c6ff"
+                color = "#b7b7b7"
+            case _:
+                blue = "#0067b8"
+                color = "#616161"
+
+        cloud_icon = IconLoader(
+            "cloud",
+            options=IconLoaderOptions(
+                folder_name="fluent/20/regular",
+                color=blue if self.free_space_button.isEnabled() else color,
+            ),
+        ).load_as_pixmap(20)
+
+        self.free_space_button.setIcon(cloud_icon)
 
         self.keep_switch.set_theme(theme)
         self.close_button.setIcon(

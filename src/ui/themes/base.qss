@@ -206,3 +206,33 @@ QLabel#FooterCount,
 QLabel#FooterConnection {
     font-size: 13px;
 }
+
+QFrame#StorageDivider {
+    border: none;
+}
+
+QLabel#StorageHeading {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+QLabel#StorageUsage {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+QProgressBar#StorageProgress {
+    border: none;
+    border-radius: 4px;
+}
+
+QProgressBar#StorageProgress::chunk {
+    border-radius: 4px;
+}
+
+QTableView#FolderTable QHeaderView::section {
+    font-weight: 400;
+    padding: 12px;
+    border: none;
+    border-bottom: 1px solid transparent;
+}

@@ -1,13 +1,14 @@
+from PySide6.QtCore import QSize, Qt, Signal, Slot
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import Signal, Slot, Qt, QSize
 from PySide6.QtWidgets import (
     QButtonGroup,
     QFrame,
+    QHBoxLayout,
     QLabel,
+    QProgressBar,
     QPushButton,
     QVBoxLayout,
     QWidget,
-    QHBoxLayout,
 )
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
@@ -79,9 +80,7 @@ class Sidebar(QFrame):
             indicator = QFrame(button)
             indicator.setObjectName("NavigationIndicator")
 
-            indicator.setAttribute(
-                Qt.WidgetAttribute.WA_TransparentForMouseEvents, True
-            )
+            indicator.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
             indicator.setGeometry(0, 0, 4, button.height())
 
             indicator.hide()
@@ -105,6 +104,40 @@ class Sidebar(QFrame):
         self.settings_button.setIconSize(QSize(20, 20))
         layout.addWidget(self.settings_button)
 
+        storage_widget = QWidget()
+
+        storage_layout = QVBoxLayout(storage_widget)
+        storage_layout.setContentsMargins(0, 0, 0, 0)
+        storage_layout.setSpacing(8)
+
+        storage_divider = QFrame()
+        storage_divider.setObjectName("StorageDivider")
+        storage_divider.setFixedHeight(1)
+
+        storage_heading = QLabel("Armazenamento")
+        storage_heading.setObjectName("StorageHeading")
+
+        self.storage_usage_label = QLabel("128 GB de 1TB")
+        self.storage_usage_label.setObjectName("StorageUsage")
+
+        self.storage_bar = QProgressBar()
+        self.storage_bar.setObjectName("StorageProgress")
+        self.storage_bar.setRange(0, 1000)
+        self.storage_bar.setValue(128)
+        self.storage_bar.setTextVisible(False)
+        self.storage_bar.setFixedHeight(8)
+        self.storage_bar.setAccessibleName("Armazenamento utilizado")
+        self.storage_bar.setAccessibleDescription("128 GB utilizados de 1 TB")
+
+        storage_layout.addWidget(storage_divider)
+        storage_layout.addSpacing(8)
+        storage_layout.addWidget(storage_heading)
+        storage_layout.addWidget(self.storage_usage_label)
+        storage_layout.addWidget(self.storage_bar)
+
+        layout.addSpacing(8)
+        layout.addWidget(storage_widget)
+
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
@@ -121,13 +154,9 @@ class Sidebar(QFrame):
             states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
 
             for state, color in states:
-                options = IconLoaderOptions(
-                    folder_name="fluent/20/regular", color=color
-                )
+                options = IconLoaderOptions(folder_name="fluent/20/regular", color=color)
 
-                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(
-                    QSize(20, 20)
-                )
+                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(QSize(20, 20))
 
                 for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
                     icon.addPixmap(pixmap, mode, state)

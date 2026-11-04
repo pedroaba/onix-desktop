@@ -1,12 +1,35 @@
 from datetime import date, timedelta
 
-from PySide6.QtCore import Qt, Signal, Slot, QSortFilterProxyModel, QSize
-from PySide6.QtGui import QStandardItem, QStandardItemModel, QIcon
-from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableView, QWidget
+from PySide6.QtCore import (
+    QModelIndex,
+    QPersistentModelIndex,
+    QSize,
+    QSortFilterProxyModel,
+    Qt,
+    Signal,
+    Slot,
+)
+from PySide6.QtGui import QIcon, QStandardItem, QStandardItemModel
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QHeaderView,
+    QStyledItemDelegate,
+    QStyleOptionViewItem,
+    QTableView,
+    QWidget,
+)
 
-from src.models.folder import Folder
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.models.folder import Folder
 from src.ui.themes.theme_manager import AvailableTheme
+
+
+class StatusIconDelegate(QStyledItemDelegate):
+    def initStyleOption(
+        self, option: QStyleOptionViewItem, index: QModelIndex | QPersistentModelIndex, /
+    ) -> None:
+        super().initStyleOption(option, index)
+        option.decorationSize = QSize(20, 20)
 
 
 class FolderTable(QTableView):
@@ -26,12 +49,10 @@ class FolderTable(QTableView):
             ),
         ).load(32)
 
-        self.setIconSize(QSize(20, 20))
+        self.setIconSize(QSize(32, 32))
 
         self._items_model = QStandardItemModel(0, 4, self)
-        self._items_model.setHorizontalHeaderLabels(
-            ["Nome", "Status", "Tamanho", "Modificado"]
-        )
+        self._items_model.setHorizontalHeaderLabels(["Nome", "Status", "Tamanho", "Modificado"])
 
         self._filter_model = QSortFilterProxyModel(self)
         self._filter_model.setSourceModel(self._items_model)
@@ -40,6 +61,7 @@ class FolderTable(QTableView):
         self._filter_model.setFilterCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
 
         self.setModel(self._filter_model)
+        self.setItemDelegateForColumn(1, StatusIconDelegate(self))
 
         self.selectionModel().selectionChanged.connect(self._on_selection_changed)
 
@@ -57,9 +79,7 @@ class FolderTable(QTableView):
         header.setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
 
-        header.setDefaultAlignment(
-            Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
-        )
+        header.setDefaultAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
 
     @staticmethod
     def _build_status_icon(theme: AvailableTheme) -> dict[str, QIcon]:
@@ -86,7 +106,7 @@ class FolderTable(QTableView):
                     folder_name="fluent/20/regular",
                     color=color,
                 ),
-            ).load_as_pixmap(16)
+            ).load_as_pixmap(20)
 
             icon = QIcon()
 

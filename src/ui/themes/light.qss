@@ -213,3 +213,19 @@ QLabel#FooterCount,
 QLabel#FooterConnection {
     color: #262626;
 }
+
+QFrame#StorageDivider {
+    background-color: #dddddd;
+}
+
+QLabel#StorageUsage {
+    color: #616161;
+}
+
+QProgressBar#StorageProgress {
+    background-color: #d7d7d7;
+}
+
+QProgressBar#StorageProgress::chunk {
+    background-color: #0067b8;
+}

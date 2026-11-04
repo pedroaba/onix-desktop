@@ -96,12 +96,12 @@ class HomePage(QWidget):
             ).load_as_pixmap(20)
         )
 
-        self.new_folder_button = QPushButton("Nova Pasta")
+        self.new_folder_button = QPushButton("\u2003Nova Pasta")
         self.new_folder_button.setObjectName("PrimaryButton")
         self.new_folder_button.setIconSize(QSize(20, 20))
         self.new_folder_button.setFixedHeight(36)
 
-        self.sync_button = QPushButton("Sincronizar agora")
+        self.sync_button = QPushButton("\u2003Sincronizar agora")
         self.sync_button.setObjectName("SyncButton")
         self.sync_button.setIconSize(QSize(20, 20))
         self.sync_button.setFixedHeight(36)
@@ -220,9 +220,7 @@ class HomePage(QWidget):
             for state, color in states:
                 pixmap = IconLoader(
                     icon_name,
-                    options=IconLoaderOptions(
-                        color=color, folder_name="fluent/20/regular"
-                    ),
+                    options=IconLoaderOptions(color=color, folder_name="fluent/20/regular"),
                 ).load_as_pixmap(20)
 
                 for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
@@ -263,9 +261,7 @@ class HomePage(QWidget):
         self.chevron_label.setPixmap(
             IconLoader(
                 "chevron-right",
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/regular", color=chevron_color
-                ),
+                options=IconLoaderOptions(folder_name="fluent/20/regular", color=chevron_color),
             ).load_as_pixmap(20)
         )
 
@@ -291,19 +287,13 @@ class HomePage(QWidget):
             QMessageBox.warning(self, "Nome inválido", "Digite um nome para a pasta.")
             return
 
-        already_exists = any(
-            folder.name.casefold() == name.casefold() for folder in self._folders
-        )
+        already_exists = any(folder.name.casefold() == name.casefold() for folder in self._folders)
 
         if already_exists:
-            QMessageBox.warning(
-                self, "Pasta existente", "Já existe uma pasta com esse nome."
-            )
+            QMessageBox.warning(self, "Pasta existente", "Já existe uma pasta com esse nome.")
             return
 
-        folder = Folder(
-            name=name, status="Exemplo local", size_bytes=0, modified_on=date.today()
-        )
+        folder = Folder(name=name, status="Exemplo local", size_bytes=0, modified_on=date.today())
 
         self._folders.append(folder)
         self.folder_table.set_folders(self._folders)
