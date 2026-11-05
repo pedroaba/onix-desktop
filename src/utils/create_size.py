@@ -18,7 +18,7 @@ def create_qsize(size: int | QSize | None = None, height: int | None = None) -> 
     if isinstance(size, QSize):
         return size
 
-    if isinstance(size, int) and height is not None:
+    if isinstance(size, int) and height is None:
         return QSize(size, size)
 
     return QSize(size or 0, height or 0)
