@@ -164,8 +164,8 @@ typings/                       # Descrições locais de tipos do AppKit e objc
   combina o estilo base com o tema escolhido e aplica o QSS gerado à aplicação.
 
 Para ajustar fontes, tamanhos, espaçamentos, bordas ou cores, edite `constants.py`.
-As paletas `LIGHT_COLORS` e `DARK_COLORS` usam nomes por função, como `text_secondary`,
-`surface_sidebar` e `primary_hover`. As medidas já incluem a unidade esperada pelo QSS.
+As paletas `LightColors` e `DarkColors` usam nomes por função, como `TextSecondary`,
+`SurfaceSidebar` e `PrimaryHover`. As medidas já incluem a unidade esperada pelo QSS.
 Para visualizar um tema com destaque de sintaxe no terminal:
 
 ```bash

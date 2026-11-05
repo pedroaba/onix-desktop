@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
+from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 
 
@@ -85,11 +86,11 @@ class FolderTable(QTableView):
     def _build_status_icon(theme: AvailableTheme) -> dict[str, QIcon]:
         match theme:
             case AvailableTheme.DARK:
-                green = "#54b054"
-                blue = "#80c6ff"
+                green = DarkColors.Success
+                blue = DarkColors.Accent
             case _:
-                green = "#107c10"
-                blue = "#0067b8"
+                green = LightColors.Success
+                blue = LightColors.Accent
 
         definitions = {
             "Neste dispositivo": ("checkmark_circle", green),

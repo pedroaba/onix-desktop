@@ -19,6 +19,7 @@ from src.models.folder import Folder
 from src.ui.components.empty_state import EmptyState
 from src.ui.components.folder_table import FolderTable
 from src.ui.components.sync_status import SyncStatus
+from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 
 today = date.today()
@@ -230,11 +231,13 @@ class HomePage(QWidget):
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
-                chevron_color = "#b7b7b7"
-                action_color = "#80c6ff"
+                chevron_color = DarkColors.TextSecondary
+                action_color = DarkColors.Accent
+                primary_foreground = DarkColors.TextOnPrimary
             case _:
-                chevron_color = "#616161"
-                action_color = "#0067b8"
+                chevron_color = LightColors.TextSecondary
+                action_color = LightColors.Accent
+                primary_foreground = LightColors.TextOnPrimary
 
         self.folder_table.set_theme(theme)
         self._update_view_icons(chevron_color, action_color)
@@ -243,7 +246,7 @@ class HomePage(QWidget):
                 "add",
                 options=IconLoaderOptions(
                     folder_name="fluent/20/regular",
-                    color="#ffffff",
+                    color=primary_foreground,
                 ),
             ).load(20)
         )

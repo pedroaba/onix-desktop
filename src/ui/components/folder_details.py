@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.ui.components.toggle_switch import ToggleSwitch
+from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 
 
@@ -161,11 +162,11 @@ class FolderDetails(QFrame):
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
-                blue = "#80c6ff"
-                color = "#b7b7b7"
+                blue = DarkColors.Accent
+                color = DarkColors.TextSecondary
             case _:
-                blue = "#0067b8"
-                color = "#616161"
+                blue = LightColors.Accent
+                color = LightColors.TextSecondary
 
         cloud_icon = IconLoader(
             "cloud",

@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
 )
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 
 
@@ -141,11 +142,11 @@ class Sidebar(QFrame):
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
-                normal_color = "#b7b7b7"
-                selected_color = "#80c6ff"
+                normal_color = DarkColors.TextSecondary
+                selected_color = DarkColors.Accent
             case _:
-                normal_color = "#616161"
-                selected_color = "#0067b8"
+                normal_color = LightColors.TextSecondary
+                selected_color = LightColors.Accent
 
         for button in self._navigation_group.buttons():
             icon_name = button.property("icon_name")

@@ -57,109 +57,118 @@ class Border(StrEnum):
 class ThemeColors:
     """Cores por função, permitindo ajustar cada estado independentemente."""
 
-    text: str
-    text_heading: str
-    text_secondary: str
-    text_disabled: str
-    text_on_primary: str
-    surface: str
-    surface_sidebar: str
-    surface_details: str
-    surface_input: str
-    surface_dialog_button: str
-    primary: str
-    primary_hover: str
-    primary_pressed: str
-    primary_focus: str
-    accent: str
-    navigation_hover: str
-    selection: str
-    selection_text: str
-    border: str
-    border_table_row: str
-    border_input: str
-    surface_button: str
-    surface_button_hover: str
-    surface_button_pressed: str
-    border_button: str
-    border_view_mode: str
-    border_view_mode_checked: str
-    surface_disabled: str
-    surface_close_hover: str
-    surface_close_pressed: str
-    divider_sync_status: str
-    progress_track: str
-    progress_fill: str
+    Text: str
+    TextHeading: str
+    TextSecondary: str
+    TextDisabled: str
+    TextOnPrimary: str
+    Surface: str
+    SurfaceSidebar: str
+    SurfaceDetails: str
+    SurfaceInput: str
+    SurfaceDialogButton: str
+    Primary: str
+    PrimaryHover: str
+    PrimaryPressed: str
+    PrimaryFocus: str
+    Accent: str
+    NavigationHover: str
+    Selection: str
+    SelectionText: str
+    Border: str
+    BorderTableRow: str
+    BorderInput: str
+    SurfaceButton: str
+    SurfaceButtonHover: str
+    SurfaceButtonPressed: str
+    BorderButton: str
+    BorderViewMode: str
+    BorderViewModeChecked: str
+    SurfaceDisabled: str
+    SurfaceCloseHover: str
+    SurfaceClosePressed: str
+    DividerSyncStatus: str
+    ProgressTrack: str
+    ProgressFill: str
+    Success: str
+    SwitchTrack: str
+    SwitchThumb: str
 
 
-LIGHT_COLORS: Final = ThemeColors(
-    text="#262626",
-    text_heading="#000000",
-    text_secondary="#616161",
-    text_disabled="#969696",
-    text_on_primary="#ffffff",
-    surface="#ffffff",
-    surface_sidebar="#f2f2f2",
-    surface_details="#ffffff",
-    surface_input="#ffffff",
-    surface_dialog_button="#ffffff",
-    primary="#0067b8",
-    primary_hover="#004a7f",
-    primary_pressed="#00385f",
-    primary_focus="#262626",
-    accent="#0067b8",
-    navigation_hover="#e5e5e5",
-    selection="#dceaf7",
-    selection_text="#262626",
-    border="#dddddd",
-    border_table_row="#eeeeee",
-    border_input="#b7b7b7",
-    surface_button="#ffffff",
-    surface_button_hover="#f2f2f2",
-    surface_button_pressed="#e5e5e5",
-    border_button="#b7b7b7",
-    border_view_mode="#dddddd",
-    border_view_mode_checked="#99caff",
-    surface_disabled="#f5f5f5",
-    surface_close_hover="#eeeeee",
-    surface_close_pressed="#dddddd",
-    divider_sync_status="#dddddd",
-    progress_track="#d7d7d7",
-    progress_fill="#0067b8",
+LightColors: Final = ThemeColors(
+    Text="#262626",
+    TextHeading="#000000",
+    TextSecondary="#616161",
+    TextDisabled="#969696",
+    TextOnPrimary="#ffffff",
+    Surface="#ffffff",
+    SurfaceSidebar="#f2f2f2",
+    SurfaceDetails="#ffffff",
+    SurfaceInput="#ffffff",
+    SurfaceDialogButton="#ffffff",
+    Primary="#0067b8",
+    PrimaryHover="#004a7f",
+    PrimaryPressed="#00385f",
+    PrimaryFocus="#262626",
+    Accent="#0067b8",
+    NavigationHover="#e5e5e5",
+    Selection="#dceaf7",
+    SelectionText="#262626",
+    Border="#dddddd",
+    BorderTableRow="#eeeeee",
+    BorderInput="#b7b7b7",
+    SurfaceButton="#ffffff",
+    SurfaceButtonHover="#f2f2f2",
+    SurfaceButtonPressed="#e5e5e5",
+    BorderButton="#b7b7b7",
+    BorderViewMode="#dddddd",
+    BorderViewModeChecked="#99caff",
+    SurfaceDisabled="#f5f5f5",
+    SurfaceCloseHover="#eeeeee",
+    SurfaceClosePressed="#dddddd",
+    DividerSyncStatus="#dddddd",
+    ProgressTrack="#d7d7d7",
+    ProgressFill="#0067b8",
+    Success="#107c10",
+    SwitchTrack="#8a8a8a",
+    SwitchThumb="#ffffff",
 )
 
-DARK_COLORS: Final = ThemeColors(
-    text="#f5f5f5",
-    text_heading="#ffffff",
-    text_secondary="#b7b7b7",
-    text_disabled="#808080",
-    text_on_primary="#ffffff",
-    surface="#1b1b1b",
-    surface_sidebar="#202020",
-    surface_details="#202020",
-    surface_input="#292929",
-    surface_dialog_button="#333333",
-    primary="#0067b8",
-    primary_hover="#0078d4",
-    primary_pressed="#004a7f",
-    primary_focus="#ffffff",
-    accent="#80c6ff",
-    navigation_hover="#2d2d2d",
-    selection="#17364f",
-    selection_text="#ffffff",
-    border="#383838",
-    border_table_row="#333333",
-    border_input="#616161",
-    surface_button="#262626",
-    surface_button_hover="#303030",
-    surface_button_pressed="#383838",
-    border_button="#484848",
-    border_view_mode="#484848",
-    border_view_mode_checked="#0067b8",
-    surface_disabled="#262626",
-    surface_close_hover="#303030",
-    surface_close_pressed="#383838",
-    divider_sync_status="#484848",
-    progress_track="#3a3a3a",
-    progress_fill="#0098ff",
+DarkColors: Final = ThemeColors(
+    Text="#f5f5f5",
+    TextHeading="#ffffff",
+    TextSecondary="#b7b7b7",
+    TextDisabled="#808080",
+    TextOnPrimary="#ffffff",
+    Surface="#1b1b1b",
+    SurfaceSidebar="#202020",
+    SurfaceDetails="#202020",
+    SurfaceInput="#292929",
+    SurfaceDialogButton="#333333",
+    Primary="#0067b8",
+    PrimaryHover="#0078d4",
+    PrimaryPressed="#004a7f",
+    PrimaryFocus="#ffffff",
+    Accent="#80c6ff",
+    NavigationHover="#2d2d2d",
+    Selection="#17364f",
+    SelectionText="#ffffff",
+    Border="#383838",
+    BorderTableRow="#333333",
+    BorderInput="#616161",
+    SurfaceButton="#262626",
+    SurfaceButtonHover="#303030",
+    SurfaceButtonPressed="#383838",
+    BorderButton="#484848",
+    BorderViewMode="#484848",
+    BorderViewModeChecked="#0067b8",
+    SurfaceDisabled="#262626",
+    SurfaceCloseHover="#303030",
+    SurfaceClosePressed="#383838",
+    DividerSyncStatus="#484848",
+    ProgressTrack="#3a3a3a",
+    ProgressFill="#0098ff",
+    Success="#54b054",
+    SwitchTrack="#666666",
+    SwitchThumb="#ffffff",
 )
