@@ -12,8 +12,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QWidget"),
             ],
             rules=[
-                QSSRuleProperty("font-family", tokens.FONT_FAMILY),
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
+                QSSRuleProperty("font-family", tokens.FontFamily.Default),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
             ],
         ),
     ]
@@ -24,8 +24,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageTitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_PAGE_TITLE_COMPACT),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.PageTitleCompact),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -33,7 +33,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageBreadcrumb"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
         QSSRule(
@@ -41,8 +41,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AppTitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -50,8 +50,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageTitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_PAGE_TITLE),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.PageTitle),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
     ]
@@ -63,8 +63,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#DetailsHeading"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
     ]
@@ -75,7 +75,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageDescription"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
             ],
         ),
     ]
@@ -86,7 +86,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AccountName"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
         QSSRule(
@@ -94,8 +94,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AccountTitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -103,7 +103,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AccountSubtitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
     ]
@@ -114,11 +114,11 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#PrimaryButton"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", f"{tokens.SPACE_10} {tokens.SPACE_16}"),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", f"{tokens.Space.Px10} {tokens.Space.Px16}"),
             ],
         ),
     ]
@@ -130,7 +130,7 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-right", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("border-right", tokens.Border.Transparent),
             ],
         ),
         QSSRule(
@@ -138,9 +138,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton"),
             ],
             rules=[
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", f"{tokens.SPACE_10} {tokens.SPACE_12}"),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", f"{tokens.Space.Px10} {tokens.Space.Px12}"),
                 QSSRuleProperty("text-align", "left"),
             ],
         ),
@@ -149,7 +149,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton:checked"),
             ],
             rules=[
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -158,7 +158,7 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
             ],
         ),
     ]
@@ -177,8 +177,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable::item"),
             ],
             rules=[
-                QSSRuleProperty("padding", tokens.SPACE_8),
-                QSSRuleProperty("border-bottom", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("padding", tokens.Space.Px8),
+                QSSRuleProperty("border-bottom", tokens.Border.Transparent),
             ],
         ),
         QSSRule(
@@ -186,10 +186,10 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable QHeaderView::section"),
             ],
             rules=[
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
-                QSSRuleProperty("padding", tokens.SPACE_12),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
+                QSSRuleProperty("padding", tokens.Space.Px12),
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-bottom", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("border-bottom", tokens.Border.Transparent),
             ],
         ),
         QSSRule(
@@ -197,8 +197,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#ResultsSummary"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
-                QSSRuleProperty("padding-top", tokens.SPACE_8),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
+                QSSRuleProperty("padding-top", tokens.Space.Px8),
             ],
         ),
         QSSRule(
@@ -206,10 +206,10 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable QHeaderView::section"),
             ],
             rules=[
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_REGULAR),
-                QSSRuleProperty("padding", tokens.SPACE_12),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Regular),
+                QSSRuleProperty("padding", tokens.Space.Px12),
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-bottom", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("border-bottom", tokens.Border.Transparent),
             ],
         ),
     ]
@@ -221,7 +221,7 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-bottom", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("border-bottom", tokens.Border.Transparent),
             ],
         ),
     ]
@@ -232,9 +232,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLineEdit#SearchInput"),
             ],
             rules=[
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", f"{tokens.SPACE_6} {tokens.SPACE_12}"),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", f"{tokens.Space.Px6} {tokens.Space.Px12}"),
             ],
         ),
     ]
@@ -245,8 +245,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#EmptyStateTitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -254,7 +254,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#EmptyStateDescription"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
     ]
@@ -265,11 +265,11 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#SyncButton"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_REGULAR),
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", f"{tokens.SPACE_10} {tokens.SPACE_16}"),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Regular),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", f"{tokens.Space.Px10} {tokens.Space.Px16}"),
             ],
         ),
         QSSRule(
@@ -277,8 +277,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#SyncStatusText"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -286,7 +286,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#SyncStatusTime"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
         QSSRule(
@@ -305,9 +305,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]'),
             ],
             rules=[
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", tokens.SPACE_NONE),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", tokens.Space.Zero),
             ],
         ),
     ]
@@ -319,8 +319,8 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-left", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_NONE),
+                QSSRuleProperty("border-left", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Zero),
             ],
         ),
         QSSRule(
@@ -328,8 +328,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#DetailsFolderName"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_DETAILS_TITLE),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.DetailsTitle),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -337,7 +337,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#DetailsSubtitle"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
             ],
         ),
         QSSRule(
@@ -345,7 +345,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QLabel[role="details-field-label"]'),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
             ],
         ),
         QSSRule(
@@ -353,10 +353,10 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#CloseDetailsButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", tokens.TRANSPARENT),
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", tokens.SPACE_NONE),
+                QSSRuleProperty("background-color", tokens.Color.Transparent),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", tokens.Space.Zero),
             ],
         ),
         QSSRule(
@@ -375,7 +375,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#LocalStorageDescription"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
         QSSRule(
@@ -383,9 +383,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#FreeSpaceButton"),
             ],
             rules=[
-                QSSRuleProperty("border", tokens.BORDER_TRANSPARENT),
-                QSSRuleProperty("border-radius", tokens.RADIUS_SMALL),
-                QSSRuleProperty("padding", f"{tokens.SPACE_8} {tokens.SPACE_16}"),
+                QSSRuleProperty("border", tokens.Border.Transparent),
+                QSSRuleProperty("border-radius", tokens.Radius.Small),
+                QSSRuleProperty("padding", f"{tokens.Space.Px8} {tokens.Space.Px16}"),
             ],
         ),
     ]
@@ -396,8 +396,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#LocalStorageHeading"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_HEADING),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Heading),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -413,8 +413,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#StorageHeading"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_BODY),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_SEMIBOLD),
+                QSSRuleProperty("font-size", tokens.FontSize.Body),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
             ],
         ),
         QSSRule(
@@ -422,8 +422,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#StorageUsage"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
-                QSSRuleProperty("font-weight", tokens.FONT_WEIGHT_REGULAR),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
+                QSSRuleProperty("font-weight", tokens.FontWeight.Regular),
             ],
         ),
         QSSRule(
@@ -432,7 +432,7 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-radius", tokens.RADIUS_MEDIUM),
+                QSSRuleProperty("border-radius", tokens.Radius.Medium),
             ],
         ),
         QSSRule(
@@ -440,7 +440,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QProgressBar#StorageProgress::chunk"),
             ],
             rules=[
-                QSSRuleProperty("border-radius", tokens.RADIUS_MEDIUM),
+                QSSRuleProperty("border-radius", tokens.Radius.Medium),
             ],
         ),
     ]
@@ -452,7 +452,7 @@ def build_stylesheet() -> QSSStrResult:
             ],
             rules=[
                 QSSRuleProperty("border", "none"),
-                QSSRuleProperty("border-top", tokens.BORDER_TRANSPARENT),
+                QSSRuleProperty("border-top", tokens.Border.Transparent),
             ],
         ),
         QSSRule(
@@ -469,7 +469,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#FooterConnection"),
             ],
             rules=[
-                QSSRuleProperty("font-size", tokens.FONT_SIZE_CAPTION),
+                QSSRuleProperty("font-size", tokens.FontSize.Caption),
             ],
         ),
     ]

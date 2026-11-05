@@ -2,31 +2,55 @@
 
 import sys
 from dataclasses import dataclass
+from enum import StrEnum
 from typing import Final
 
-FONT_FAMILY: Final = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
-FONT_SIZE_CAPTION: Final = "13px"
-FONT_SIZE_BODY: Final = "14px"
-FONT_SIZE_HEADING: Final = "16px"
-FONT_SIZE_DETAILS_TITLE: Final = "22px"
-FONT_SIZE_PAGE_TITLE_COMPACT: Final = "29px"
-FONT_SIZE_PAGE_TITLE: Final = "32px"
-FONT_WEIGHT_REGULAR: Final = "400"
-FONT_WEIGHT_SEMIBOLD: Final = "600"
 
-SPACE_NONE: Final = "0"
-SPACE_6: Final = "6px"
-SPACE_8: Final = "8px"
-SPACE_10: Final = "10px"
-SPACE_12: Final = "12px"
-SPACE_16: Final = "16px"
+class FontFamily(StrEnum):
+    Windows = '"Segoe UI"'
+    Macos = '"Helvetica Neue"'
+    Default = Windows if sys.platform == "win32" else Macos
 
-BORDER_WIDTH: Final = "1px"
-RADIUS_NONE: Final = "0"
-RADIUS_SMALL: Final = "2px"
-RADIUS_MEDIUM: Final = "4px"
-TRANSPARENT: Final = "transparent"
-BORDER_TRANSPARENT: Final = f"{BORDER_WIDTH} solid {TRANSPARENT}"
+
+class FontSize(StrEnum):
+    Caption = "13px"
+    Body = "14px"
+    Heading = "16px"
+    DetailsTitle = "22px"
+    PageTitleCompact = "29px"
+    PageTitle = "32px"
+
+
+class FontWeight(StrEnum):
+    Regular = "400"
+    Semibold = "600"
+
+
+class Space(StrEnum):
+    Zero = "0"
+    Px6 = "6px"
+    Px8 = "8px"
+    Px10 = "10px"
+    Px12 = "12px"
+    Px16 = "16px"
+
+
+class BorderWidth(StrEnum):
+    Thin = "1px"
+
+
+class Radius(StrEnum):
+    Zero = "0"
+    Small = "2px"
+    Medium = "4px"
+
+
+class Color(StrEnum):
+    Transparent = "transparent"
+
+
+class Border(StrEnum):
+    Transparent = f"{BorderWidth.Thin} solid {Color.Transparent}"
 
 
 @dataclass(frozen=True)

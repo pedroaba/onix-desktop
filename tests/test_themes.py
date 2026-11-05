@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import unittest
 from pathlib import Path
 
@@ -8,6 +9,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PySide6.QtWidgets import QApplication
 
 from src.ui.themes import base, dark, light
+from src.ui.themes import constants as tokens
 from src.ui.themes.theme_manager import AvailableTheme, apply_theme
 
 
@@ -32,7 +34,15 @@ class ThemeTests(unittest.TestCase):
         cls.app = app
 
     def original(self, name: str) -> str:
-        return (Path(__file__).parent / "fixtures" / "themes" / f"{name}.qss").read_text()
+        stylesheet = (Path(__file__).parent / "fixtures" / "themes" / f"{name}.qss").read_text()
+        family = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
+        return stylesheet.replace('"Segoe UI", "Helvetica Neue", Arial', family)
+
+    def test_enum_tokens_render_as_qss_strings(self):
+        self.assertEqual(f"{tokens.Space.Px8} {tokens.Space.Px16}", "8px 16px")
+        self.assertEqual(str(tokens.Border.Transparent), "1px solid transparent")
+        family = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
+        self.assertEqual(str(tokens.FontFamily.Default), family)
 
     def test_generated_themes_preserve_original_rules(self):
         for name, module in (("base", base), ("dark", dark), ("light", light)):

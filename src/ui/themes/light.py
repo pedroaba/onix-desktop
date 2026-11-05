@@ -124,7 +124,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", tokens.TRANSPARENT),
+                QSSRuleProperty("background-color", tokens.Color.Transparent),
             ],
         ),
         QSSRule(
