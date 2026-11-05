@@ -2,6 +2,7 @@ from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QStatusBar, QWidget
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.utils.create_size import create_qsize
 
 
 class AppFooter(QStatusBar):
@@ -16,7 +17,7 @@ class AppFooter(QStatusBar):
         self.count_label.setObjectName("FooterCount")
 
         self.connection_icon = QLabel()
-        self.connection_icon.setFixedSize(20, 20)
+        self.connection_icon.setFixedSize(create_qsize(20))
         self.connection_icon.setPixmap(
             IconLoader(
                 "checkmark_circle",

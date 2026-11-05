@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QAbstractButton, QWidget
 
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_size import create_qsize
 
 
 class ToggleSwitch(QAbstractButton):
@@ -11,7 +12,7 @@ class ToggleSwitch(QAbstractButton):
         super().__init__(parent)
 
         self.setCheckable(True)
-        self.setFixedSize(44, 28)
+        self.setFixedSize(create_qsize(44, 28))
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         # self.setCursor(Qt.CursorShape.PointingHandCursor)
 

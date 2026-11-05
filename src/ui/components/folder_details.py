@@ -1,4 +1,4 @@
-from PySide6.QtCore import QSignalBlocker, QSize, Qt, Signal, Slot
+from PySide6.QtCore import QSignalBlocker, Qt, Signal, Slot
 from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
@@ -14,6 +14,7 @@ from src.models.folder import Folder
 from src.ui.components.toggle_switch import ToggleSwitch
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_size import create_qsize
 
 
 class FolderDetails(QFrame):
@@ -36,8 +37,8 @@ class FolderDetails(QFrame):
 
         self.close_button = QPushButton()
         self.close_button.setObjectName("CloseDetailsButton")
-        self.close_button.setFixedSize(28, 28)
-        self.close_button.setIconSize(QSize(20, 20))
+        self.close_button.setFixedSize(create_qsize(28))
+        self.close_button.setIconSize(create_qsize(20))
         self.close_button.setToolTip("Fechar painel de detalhes")
         self.close_button.setAccessibleName("Fechar painel de detalhes")
         self.close_button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
@@ -60,7 +61,7 @@ class FolderDetails(QFrame):
         content_layout.setSpacing(8)
 
         icon_label = QLabel()
-        icon_label.setFixedSize(144, 144)
+        icon_label.setFixedSize(create_qsize(144))
         icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         icon_label.setPixmap(
             IconLoader(
@@ -136,7 +137,7 @@ class FolderDetails(QFrame):
 
         self.free_space_button = QPushButton("\u2003Liberar espaço")
         self.free_space_button.setObjectName("FreeSpaceButton")
-        self.free_space_button.setIconSize(QSize(20, 20))
+        self.free_space_button.setIconSize(create_qsize(20))
         self.free_space_button.setMinimumHeight(40)
         self.free_space_button.setEnabled(False)
         self.free_space_button.setToolTip("Liberação de espaço indisponível")

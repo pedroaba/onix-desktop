@@ -3,7 +3,9 @@ from pathlib import Path
 from typing import overload
 
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QIcon, QPixmap, QPainter, QColor
+from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
+
+from src.utils.create_size import create_qsize
 
 
 @dataclass(frozen=True)
@@ -16,7 +18,7 @@ class IconLoaderOptions:
 
 
 class IconLoader:
-    __DEFAULT_SIZE = QSize(40, 40)
+    __DEFAULT_SIZE = create_qsize(40)
 
     def __init__(
         self,
@@ -72,9 +74,7 @@ class IconLoader:
         color = self._options.color
         if color is not None:
             painter = QPainter(pixmap)
-            painter.setCompositionMode(
-                QPainter.CompositionMode.CompositionMode_SourceIn
-            )
+            painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceIn)
             painter.fillRect(pixmap.rect(), QColor(color))
             painter.end()
 

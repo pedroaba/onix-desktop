@@ -5,6 +5,7 @@ from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QWidget
 
 from src.loaders.icon import IconLoader
+from src.utils.create_size import create_qsize
 
 
 class TitleBar(QFrame):
@@ -29,7 +30,7 @@ class TitleBar(QFrame):
         cloud_icon_pixmap = icon_loader.load_as_pixmap(32)
 
         cloud_label = QLabel()
-        cloud_label.setFixedSize(32, 32)
+        cloud_label.setFixedSize(create_qsize(32))
         cloud_label.setPixmap(cloud_icon_pixmap)
 
         self.app_title = QLabel("Onix Desktop")

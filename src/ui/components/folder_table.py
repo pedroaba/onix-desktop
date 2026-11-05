@@ -3,7 +3,6 @@ from datetime import date, timedelta
 from PySide6.QtCore import (
     QModelIndex,
     QPersistentModelIndex,
-    QSize,
     QSortFilterProxyModel,
     Qt,
     Signal,
@@ -23,6 +22,7 @@ from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_size import create_qsize
 
 
 class StatusIconDelegate(QStyledItemDelegate):
@@ -30,7 +30,7 @@ class StatusIconDelegate(QStyledItemDelegate):
         self, option: QStyleOptionViewItem, index: QModelIndex | QPersistentModelIndex, /
     ) -> None:
         super().initStyleOption(option, index)
-        option.decorationSize = QSize(20, 20)
+        option.decorationSize = create_qsize(20)
 
 
 class FolderTable(QTableView):
@@ -50,7 +50,7 @@ class FolderTable(QTableView):
             ),
         ).load(32)
 
-        self.setIconSize(QSize(32, 32))
+        self.setIconSize(create_qsize(32))
 
         self._items_model = QStandardItemModel(0, 4, self)
         self._items_model.setHorizontalHeaderLabels(["Nome", "Status", "Tamanho", "Modificado"])

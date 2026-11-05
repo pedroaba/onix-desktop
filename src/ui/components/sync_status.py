@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.utils.create_size import create_qsize
 
 
 class SyncStatus(QWidget):
@@ -10,7 +11,7 @@ class SyncStatus(QWidget):
         self.setObjectName("SyncStatus")
 
         icon_label = QLabel()
-        icon_label.setFixedSize(20, 20)
+        icon_label.setFixedSize(create_qsize(20))
         icon_label.setPixmap(
             IconLoader(
                 "checkmark_circle",
@@ -27,7 +28,7 @@ class SyncStatus(QWidget):
 
         divider = QFrame()
         divider.setObjectName("SyncStatusDivider")
-        divider.setFixedSize(1, 18)
+        divider.setFixedSize(create_qsize(1, 18))
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)

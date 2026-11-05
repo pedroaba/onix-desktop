@@ -1,4 +1,4 @@
-from PySide6.QtCore import QSize, Qt, Signal, Slot
+from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_size import create_qsize
 
 
 class Sidebar(QFrame):
@@ -33,7 +34,7 @@ class Sidebar(QFrame):
         cloud_icon_pixmap = icon_loader.load_as_pixmap(40)
 
         cloud_label = QLabel()
-        cloud_label.setFixedSize(40, 40)
+        cloud_label.setFixedSize(create_qsize(40))
         cloud_label.setPixmap(cloud_icon_pixmap)
 
         account_title = QLabel("Pedro")
@@ -70,7 +71,7 @@ class Sidebar(QFrame):
         for index, (text, icon_name) in enumerate(navigation_items):
             button = QPushButton(text)
             button.setProperty("icon_name", icon_name)
-            button.setIconSize(QSize(20, 20))
+            button.setIconSize(create_qsize(20))
 
             button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
 
@@ -96,13 +97,13 @@ class Sidebar(QFrame):
         layout.addStretch()
 
         self.theme_button = QPushButton("Alternar tema")
-        self.theme_button.setIconSize(QSize(20, 20))
+        self.theme_button.setIconSize(create_qsize(20))
         self.theme_button.clicked.connect(self._request_theme_toggle)
 
         # layout.addWidget(self.theme_button)
 
         self.settings_button = QPushButton("Configurações")
-        self.settings_button.setIconSize(QSize(20, 20))
+        self.settings_button.setIconSize(create_qsize(20))
         layout.addWidget(self.settings_button)
 
         storage_widget = QWidget()
@@ -157,7 +158,7 @@ class Sidebar(QFrame):
             for state, color in states:
                 options = IconLoaderOptions(folder_name="fluent/20/regular", color=color)
 
-                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(QSize(20, 20))
+                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(create_qsize(20))
 
                 for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
                     icon.addPixmap(pixmap, mode, state)

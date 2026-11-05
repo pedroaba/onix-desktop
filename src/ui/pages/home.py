@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from PySide6.QtCore import QSize, Signal, Slot
+from PySide6.QtCore import Signal, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -21,6 +21,7 @@ from src.ui.components.folder_table import FolderTable
 from src.ui.components.sync_status import SyncStatus
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_size import create_qsize
 
 today = date.today()
 
@@ -99,12 +100,12 @@ class HomePage(QWidget):
 
         self.new_folder_button = QPushButton("\u2003Nova Pasta")
         self.new_folder_button.setObjectName("PrimaryButton")
-        self.new_folder_button.setIconSize(QSize(20, 20))
+        self.new_folder_button.setIconSize(create_qsize(20))
         self.new_folder_button.setFixedHeight(36)
 
         self.sync_button = QPushButton("\u2003Sincronizar agora")
         self.sync_button.setObjectName("SyncButton")
-        self.sync_button.setIconSize(QSize(20, 20))
+        self.sync_button.setIconSize(create_qsize(20))
         self.sync_button.setFixedHeight(36)
 
         self.list_view_button = QPushButton()
@@ -121,8 +122,8 @@ class HomePage(QWidget):
         for button, description in view_buttons:
             button.setProperty("role", "view-mode")
             button.setCheckable(True)
-            button.setFixedSize(36, 36)
-            button.setIconSize(QSize(20, 20))
+            button.setFixedSize(create_qsize(36))
+            button.setIconSize(create_qsize(20))
             button.setToolTip(description)
             button.setAccessibleName(description)
 
