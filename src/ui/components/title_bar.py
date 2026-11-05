@@ -1,11 +1,12 @@
 import sys
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import QMargins, Qt, Signal
 from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QWidget
 
 from src.loaders.icon import IconLoader
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class TitleBar(QFrame):
@@ -19,12 +20,17 @@ class TitleBar(QFrame):
 
         self.setFixedHeight(54)
 
-        layout = QHBoxLayout(self)
         left_margin = 92 if sys.platform == "darwin" else 16
         right_margin = 156 if sys.platform == "win32" else 16
 
-        layout.setContentsMargins(left_margin, 8, right_margin, 8)
-        layout.setSpacing(24)
+        layout = get_default_layout(
+            QHBoxLayout,
+            GetDefaultLayoutOptions(
+                margins=QMargins(left_margin, 8, right_margin, 8),
+                spacing=24,
+            ),
+            parent=self,
+        )
 
         icon_loader = IconLoader("onedrive")
         cloud_icon_pixmap = icon_loader.load_as_pixmap(32)
@@ -37,9 +43,7 @@ class TitleBar(QFrame):
         self.app_title.setObjectName("AppTitle")
         self.app_title.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
 
-        title_layout = QHBoxLayout()
-        title_layout.setContentsMargins(0, 0, 0, 0)
-        title_layout.setSpacing(0)
+        title_layout = get_default_layout(QHBoxLayout)
         title_layout.addWidget(cloud_label)
         title_layout.addSpacing(8)
         title_layout.addWidget(self.app_title)

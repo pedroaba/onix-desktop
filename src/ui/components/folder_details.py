@@ -14,7 +14,9 @@ from src.models.folder import Folder
 from src.ui.components.toggle_switch import ToggleSwitch
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_margins import create_qmargins
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class FolderDetails(QFrame):
@@ -28,9 +30,11 @@ class FolderDetails(QFrame):
 
         self._folder: Folder | None = None
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(16)
+        layout = get_default_layout(
+            QVBoxLayout,
+            GetDefaultLayoutOptions(margins=create_qmargins(24), spacing=16),
+            parent=self,
+        )
 
         heading = QLabel("Detalhes")
         heading.setObjectName("DetailsHeading")
@@ -44,9 +48,7 @@ class FolderDetails(QFrame):
         self.close_button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
         self.close_button.clicked.connect(self._request_close)
 
-        heading_layout = QHBoxLayout()
-        heading_layout.setContentsMargins(0, 0, 0, 0)
-        heading_layout.setSpacing(8)
+        heading_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=8))
         heading_layout.addWidget(heading)
         heading_layout.addStretch()
         heading_layout.addWidget(self.close_button)
@@ -56,9 +58,9 @@ class FolderDetails(QFrame):
 
         self.content = QWidget()
 
-        content_layout = QVBoxLayout(self.content)
-        content_layout.setContentsMargins(0, 0, 0, 0)
-        content_layout.setSpacing(8)
+        content_layout = get_default_layout(
+            QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self.content
+        )
 
         icon_label = QLabel()
         icon_label.setFixedSize(create_qsize(144))
@@ -84,8 +86,7 @@ class FolderDetails(QFrame):
         self.location_label = QLabel()
         self.status_label = QLabel()
 
-        fields_layout = QGridLayout()
-        fields_layout.setContentsMargins(0, 0, 0, 0)
+        fields_layout = get_default_layout(QGridLayout)
         fields_layout.setHorizontalSpacing(16)
         fields_layout.setVerticalSpacing(16)
         fields_layout.setColumnStretch(1, 1)
@@ -125,9 +126,7 @@ class FolderDetails(QFrame):
         keep_label = QLabel("Sempre manter neste dispositivo")
         keep_label.setWordWrap(True)
 
-        keep_layout = QHBoxLayout()
-        keep_layout.setContentsMargins(0, 0, 0, 0)
-        keep_layout.setSpacing(10)
+        keep_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=10))
         keep_layout.addWidget(self.keep_switch)
         keep_layout.addWidget(keep_label, stretch=1)
 

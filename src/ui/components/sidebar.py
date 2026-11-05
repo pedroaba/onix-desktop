@@ -14,7 +14,9 @@ from PySide6.QtWidgets import (
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.create_margins import create_qmargins
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class Sidebar(QFrame):
@@ -26,9 +28,11 @@ class Sidebar(QFrame):
         self.setObjectName("Sidebar")
         self.setFixedWidth(256)
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(16, 24, 16, 24)
-        layout.setSpacing(8)
+        layout = get_default_layout(
+            QVBoxLayout,
+            GetDefaultLayoutOptions(margins=create_qmargins(16, 24), spacing=8),
+            parent=self,
+        )
 
         icon_loader = IconLoader("onedrive")
         cloud_icon_pixmap = icon_loader.load_as_pixmap(40)
@@ -43,14 +47,11 @@ class Sidebar(QFrame):
         account_subtitle = QLabel("OneDrive pessoal")
         account_subtitle.setObjectName("AccountSubtitle")
 
-        account_text_layout = QVBoxLayout()
-        account_text_layout.setContentsMargins(0, 0, 0, 0)
-        account_text_layout.setSpacing(0)
+        account_text_layout = get_default_layout(QVBoxLayout)
         account_text_layout.addWidget(account_title)
         account_text_layout.addWidget(account_subtitle)
 
-        account_layout = QHBoxLayout()
-        account_layout.setSpacing(12)
+        account_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=12))
         account_layout.addWidget(cloud_label)
         account_layout.addLayout(account_text_layout)
 
@@ -108,9 +109,9 @@ class Sidebar(QFrame):
 
         storage_widget = QWidget()
 
-        storage_layout = QVBoxLayout(storage_widget)
-        storage_layout.setContentsMargins(0, 0, 0, 0)
-        storage_layout.setSpacing(8)
+        storage_layout = get_default_layout(
+            QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=storage_widget
+        )
 
         storage_divider = QFrame()
         storage_divider.setObjectName("StorageDivider")

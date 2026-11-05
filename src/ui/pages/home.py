@@ -22,7 +22,9 @@ from src.ui.components.sync_status import SyncStatus
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.add_spacing_string import add_spacing_string
+from src.utils.create_margins import create_qmargins
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 today = date.today()
 
@@ -73,9 +75,11 @@ class HomePage(QWidget):
         self._folders = list(sample_folders)
 
         # organizando o conteudo da página de cima para baixo
-        page_layout = QVBoxLayout(self)
-        page_layout.setContentsMargins(24, 24, 24, 24)
-        page_layout.setSpacing(16)
+        page_layout = get_default_layout(
+            QVBoxLayout,
+            GetDefaultLayoutOptions(margins=create_qmargins(24), spacing=16),
+            parent=self,
+        )
 
         self.title_label = QLabel("Minhas pastas")
         self.title_label.setObjectName("PageTitle")
@@ -135,30 +139,22 @@ class HomePage(QWidget):
         self.grid_view_button.setToolTip("Visualização em grade indisponível")
 
         # organizando elementos da barra de ações lado a lado
-        actions_layout = QHBoxLayout()
-        actions_layout.setContentsMargins(0, 0, 0, 0)
-        actions_layout.setSpacing(12)
+        actions_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=12))
 
         actions_layout.addWidget(self.new_folder_button)
         actions_layout.addWidget(self.sync_button)
         actions_layout.addStretch()
 
-        view_layout = QHBoxLayout()
-        view_layout.setContentsMargins(0, 0, 0, 0)
-        view_layout.setSpacing(8)
+        view_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=8))
 
         view_layout.addWidget(self.list_view_button)
         view_layout.addWidget(self.grid_view_button)
 
         actions_layout.addLayout(view_layout)
 
-        header_layout = QVBoxLayout()
-        header_layout.setContentsMargins(0, 0, 0, 0)
-        header_layout.setSpacing(0)
+        header_layout = get_default_layout(QVBoxLayout)
 
-        breadcrumb_layout = QHBoxLayout()
-        breadcrumb_layout.setContentsMargins(0, 0, 0, 0)
-        breadcrumb_layout.setSpacing(0)
+        breadcrumb_layout = get_default_layout(QHBoxLayout)
 
         breadcrumb_layout.addWidget(self.breadcrumb_label)
         breadcrumb_layout.addSpacing(4)

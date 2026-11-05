@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import get_default_layout
 
 
 class SyncStatus(QWidget):
@@ -30,9 +31,7 @@ class SyncStatus(QWidget):
         divider.setObjectName("SyncStatusDivider")
         divider.setFixedSize(create_qsize(1, 18))
 
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        layout = get_default_layout(QHBoxLayout, parent=self)
 
         layout.addWidget(icon_label)
         layout.addSpacing(8)

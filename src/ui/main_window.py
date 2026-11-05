@@ -10,6 +10,7 @@ from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
 from src.ui.pages.home import HomePage
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.get_default_layout import get_default_layout
 
 
 class MainWindow(QMainWindow):
@@ -35,9 +36,7 @@ class MainWindow(QMainWindow):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
-        layout = QHBoxLayout(central_widget)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        layout = get_default_layout(QHBoxLayout, parent=central_widget)
 
         self.__home_page = HomePage()
         self.__sidebar = Sidebar()

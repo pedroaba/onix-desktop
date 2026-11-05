@@ -1,14 +1,19 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
+from src.utils.create_margins import create_qmargins
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
+
 
 class EmptyState(QWidget):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(8)
+        layout = get_default_layout(
+            QVBoxLayout,
+            GetDefaultLayoutOptions(margins=create_qmargins(24), spacing=8),
+            parent=self,
+        )
 
         title = QLabel("Nenhuma pasta encontrada")
         title.setObjectName("EmptyStateTitle")

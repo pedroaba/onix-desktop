@@ -2,7 +2,9 @@ from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QHBoxLayout, QLabel, QStatusBar, QWidget
 
 from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.utils.create_margins import create_qmargins
 from src.utils.create_size import create_qsize
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class AppFooter(QStatusBar):
@@ -32,9 +34,11 @@ class AppFooter(QStatusBar):
 
         content = QWidget()
 
-        layout = QHBoxLayout(content)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(8)
+        layout = get_default_layout(
+            QHBoxLayout,
+            GetDefaultLayoutOptions(margins=create_qmargins(20, 0), spacing=8),
+            parent=content,
+        )
 
         layout.addWidget(self.count_label)
         layout.addStretch()
