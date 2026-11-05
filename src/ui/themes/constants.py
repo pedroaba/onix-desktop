@@ -1,9 +1,10 @@
 """Tokens de estilo compartilhados. Medidas incluem a unidade usada pelo QSS."""
 
+import sys
 from dataclasses import dataclass
 from typing import Final
 
-FONT_FAMILY: Final = '"Segoe UI", "Helvetica Neue", Arial'
+FONT_FAMILY: Final = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
 FONT_SIZE_CAPTION: Final = "13px"
 FONT_SIZE_BODY: Final = "14px"
 FONT_SIZE_HEADING: Final = "16px"
