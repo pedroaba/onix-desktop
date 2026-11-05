@@ -21,6 +21,7 @@ from src.ui.components.folder_table import FolderTable
 from src.ui.components.sync_status import SyncStatus
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.utils.add_spacing_string import add_spacing_string
 from src.utils.create_size import create_qsize
 
 today = date.today()
@@ -98,12 +99,12 @@ class HomePage(QWidget):
             ).load_as_pixmap(20)
         )
 
-        self.new_folder_button = QPushButton("\u2003Nova Pasta")
+        self.new_folder_button = QPushButton(add_spacing_string("Nova Pasta"))
         self.new_folder_button.setObjectName("PrimaryButton")
         self.new_folder_button.setIconSize(create_qsize(20))
         self.new_folder_button.setFixedHeight(36)
 
-        self.sync_button = QPushButton("\u2003Sincronizar agora")
+        self.sync_button = QPushButton(add_spacing_string("Sincronizar agora"))
         self.sync_button.setObjectName("SyncButton")
         self.sync_button.setIconSize(create_qsize(20))
         self.sync_button.setFixedHeight(36)
