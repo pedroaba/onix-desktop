@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QVBoxLayout, QWidget
 
+from src.ui.components.primitive.label import StyledLabel
 from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
@@ -15,15 +16,19 @@ class EmptyState(QWidget):
             parent=self,
         )
 
-        title = QLabel("Nenhuma pasta encontrada")
-        title.setObjectName("EmptyStateTitle")
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        title.setWordWrap(True)
+        title = StyledLabel(
+            "Nenhuma pasta encontrada",
+            object_name="EmptyStateTitle",
+            alignment=Qt.AlignmentFlag.AlignCenter,
+            word_wrap=True,
+        )
 
-        description = QLabel("Tente outro nome ou limpe o campo de pesquisa.")
-        description.setObjectName("EmptyStateDescription")
-        description.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        description.setWordWrap(True)
+        description = StyledLabel(
+            "Tente outro nome ou limpe o campo de pesquisa.",
+            object_name="EmptyStateDescription",
+            alignment=Qt.AlignmentFlag.AlignCenter,
+            word_wrap=True,
+        )
 
         layout.addStretch()
         layout.addWidget(title)

@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QApplication
 
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.folder_table import FolderTable
-from src.ui.components.toggle_switch import ToggleSwitch
+from src.ui.components.primitive.toggle_switch import ToggleSwitch
 from src.ui.pages.home import HomePage
 from src.ui.themes.theme_manager import AvailableTheme
 

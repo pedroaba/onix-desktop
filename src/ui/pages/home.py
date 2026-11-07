@@ -1,29 +1,22 @@
 from datetime import date, timedelta
 
 from PySide6.QtCore import Signal, Slot
-from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
-    QButtonGroup,
-    QHBoxLayout,
     QInputDialog,
-    QLabel,
     QMessageBox,
-    QPushButton,
     QStackedWidget,
     QVBoxLayout,
     QWidget,
 )
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.ui.components.empty_state import EmptyState
 from src.ui.components.folder_table import FolderTable
+from src.ui.components.folder_toolbar import FolderToolbar
+from src.ui.components.page_header import PageHeader
 from src.ui.components.sync_status import SyncStatus
-from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
-from src.utils.add_spacing_string import add_spacing_string
 from src.utils.create_margins import create_qmargins
-from src.utils.create_size import create_qsize
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 today = date.today()
@@ -81,96 +74,25 @@ class HomePage(QWidget):
             parent=self,
         )
 
-        self.title_label = QLabel("Minhas pastas")
-        self.title_label.setObjectName("PageTitle")
-
-        self.breadcrumb_label = QLabel("OneDrive pessoal")
-        self.breadcrumb_label.setObjectName("PageBreadcrumb")
-
-        self.description_label = QLabel(
-            "Organize suas pastas e escolha o que manter neste computador."
+        self.header = PageHeader(
+            title="Minhas pastas",
+            breadcrumb="OneDrive pessoal",
+            description="Organize suas pastas e escolha o que manter neste computador.",
         )
+        self.toolbar = FolderToolbar()
+        page_layout.addWidget(self.header)
+        page_layout.addWidget(self.toolbar)
 
-        self.description_label.setObjectName("PageDescription")
-        self.description_label.setWordWrap(True)
-
-        self.chevron_label = QLabel(
-            pixmap=IconLoader(
-                "chevron-right",
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/regular",
-                ),
-            ).load_as_pixmap(20)
-        )
-
-        self.new_folder_button = QPushButton(add_spacing_string("Nova Pasta"))
-        self.new_folder_button.setObjectName("PrimaryButton")
-        self.new_folder_button.setIconSize(create_qsize(20))
-        self.new_folder_button.setFixedHeight(36)
-
-        self.sync_button = QPushButton(add_spacing_string("Sincronizar agora"))
-        self.sync_button.setObjectName("SyncButton")
-        self.sync_button.setIconSize(create_qsize(20))
-        self.sync_button.setFixedHeight(36)
-
-        self.list_view_button = QPushButton()
-        self.grid_view_button = QPushButton()
-
-        view_buttons = [
-            (self.list_view_button, "Visualização em lista"),
-            (self.grid_view_button, "Visualização em grade"),
-        ]
-
-        self._view_group = QButtonGroup(self)
-        self._view_group.setExclusive(True)
-
-        for button, description in view_buttons:
-            button.setProperty("role", "view-mode")
-            button.setCheckable(True)
-            button.setFixedSize(create_qsize(36))
-            button.setIconSize(create_qsize(20))
-            button.setToolTip(description)
-            button.setAccessibleName(description)
-
-            self._view_group.addButton(button)
-
-        self.list_view_button.setChecked(True)
-        self.grid_view_button.setEnabled(False)
-        self.grid_view_button.setToolTip("Visualização em grade indisponível")
-
-        # organizando elementos da barra de ações lado a lado
-        actions_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=12))
-
-        actions_layout.addWidget(self.new_folder_button)
-        actions_layout.addWidget(self.sync_button)
-        actions_layout.addStretch()
-
-        view_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=8))
-
-        view_layout.addWidget(self.list_view_button)
-        view_layout.addWidget(self.grid_view_button)
-
-        actions_layout.addLayout(view_layout)
-
-        header_layout = get_default_layout(QVBoxLayout)
-
-        breadcrumb_layout = get_default_layout(QHBoxLayout)
-
-        breadcrumb_layout.addWidget(self.breadcrumb_label)
-        breadcrumb_layout.addSpacing(4)
-        breadcrumb_layout.addWidget(self.chevron_label)
-        breadcrumb_layout.addStretch()
-
-        header_layout.addLayout(breadcrumb_layout)
-        header_layout.addSpacing(12)
-
-        header_layout.addWidget(self.title_label)
-        header_layout.addSpacing(4)
-
-        header_layout.addWidget(self.description_label)
-
-        page_layout.addLayout(header_layout)
-        page_layout.addLayout(actions_layout)
+        # Preserve the page's existing child-widget API.
+        self.title_label = self.header.title_label
+        self.breadcrumb_label = self.header.breadcrumb_label
+        self.description_label = self.header.description_label
+        self.chevron_label = self.header.chevron_label
+        self.new_folder_button = self.toolbar.new_folder_button
+        self.sync_button = self.toolbar.sync_button
+        self.list_view_button = self.toolbar.view_selector.list_button
+        self.grid_view_button = self.toolbar.view_selector.grid_button
+        self._view_group = self.toolbar.view_selector.button_group
 
         self.sync_status = SyncStatus()
         page_layout.addWidget(self.sync_status)
@@ -190,7 +112,7 @@ class HomePage(QWidget):
         self._update_results(self.folder_table.visible_count)
 
         page_layout.addWidget(self.result_stack, stretch=1)
-        self.new_folder_button.clicked.connect(self._create_folder)
+        self.toolbar.new_folder_requested.connect(self._create_folder)
 
     @property
     def results_summary(self) -> str:
@@ -206,65 +128,10 @@ class HomePage(QWidget):
     def clear_folder_selection(self) -> None:
         self.folder_table.selectionModel().clear()
 
-    def _update_view_icons(self, normal_color: str, selected_color: str) -> None:
-        buttons = [
-            (self.list_view_button, "text_align_left"),
-            (self.grid_view_button, "grid"),
-        ]
-
-        for button, icon_name in buttons:
-            icon = QIcon()
-            states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
-
-            for state, color in states:
-                pixmap = IconLoader(
-                    icon_name,
-                    options=IconLoaderOptions(color=color, folder_name="fluent/20/regular"),
-                ).load_as_pixmap(20)
-
-                for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
-                    icon.addPixmap(pixmap, mode, state)
-            button.setIcon(icon)
-
     def set_theme(self, theme: AvailableTheme) -> None:
-        match theme:
-            case AvailableTheme.DARK:
-                chevron_color = DarkColors.TextSecondary
-                action_color = DarkColors.Accent
-                primary_foreground = DarkColors.TextOnPrimary
-            case _:
-                chevron_color = LightColors.TextSecondary
-                action_color = LightColors.Accent
-                primary_foreground = LightColors.TextOnPrimary
-
+        self.header.set_theme(theme)
+        self.toolbar.set_theme(theme)
         self.folder_table.set_theme(theme)
-        self._update_view_icons(chevron_color, action_color)
-        self.new_folder_button.setIcon(
-            IconLoader(
-                "add",
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/regular",
-                    color=primary_foreground,
-                ),
-            ).load(20)
-        )
-
-        self.sync_button.setIcon(
-            IconLoader(
-                "arrow_sync",
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/regular",
-                    color=action_color,
-                ),
-            ).load(20)
-        )
-
-        self.chevron_label.setPixmap(
-            IconLoader(
-                "chevron-right",
-                options=IconLoaderOptions(folder_name="fluent/20/regular", color=chevron_color),
-            ).load_as_pixmap(20)
-        )
 
     @Slot(int)
     def _update_results(self, count: int) -> None:

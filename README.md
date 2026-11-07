@@ -143,7 +143,17 @@ src/
 └── ui/
     ├── main_window.py          # Composição das três áreas e da barra superior
     ├── pages/home.py           # Coordenação da página e dos dados de exemplo
-    ├── components/             # Sidebar, TitleBar, tabela, detalhes e estado vazio
+    ├── components/             # Blocos compostos da interface
+    │   ├── primitive/          # Botões, labels, ícones, divisores e ToggleSwitch
+    │   ├── account_header.py
+    │   ├── sidebar_navigation.py
+    │   ├── storage_usage.py
+    │   ├── page_header.py
+    │   ├── folder_toolbar.py
+    │   ├── view_mode_selector.py
+    │   ├── details_header.py
+    │   ├── folder_summary.py
+    │   └── folder_availability.py
     └── themes/                 # base.py, light.py, dark.py, constants.py e carregador
 assets/
 ├── concept_light.png
@@ -153,6 +163,33 @@ typings/                       # Descrições locais de tipos do AppKit e objc
 ```
 
 `src` é atualmente um pacote Python: os imports usam `src.ui...`, e a execução parte de `main.py`. O projeto ainda não configura um pacote instalável com um comando próprio.
+
+### Componentização da interface
+
+`Sidebar` compõe `AccountHeader`, `SidebarNavigation` e `StorageUsage`.
+`HomePage` compõe `PageHeader`, `FolderToolbar`, `SyncStatus` e os resultados,
+e continua coordenando pesquisa e criação das pastas de exemplo.
+`FolderDetails` coordena `DetailsHeader`, `FolderSummary` e `FolderAvailability`;
+este último mantém o vínculo entre o switch e a pasta selecionada.
+
+Os elementos básicos ficam em `src/ui/components/primitive`:
+
+- `StyledLabel`: texto, `objectName`, papel QSS, alinhamento e quebra de linha.
+- `IconLabel`: carregamento de ícone, dimensões e recoloração.
+- `IconButton` e `ActionButton`: tamanho do ícone, acessibilidade, cores dos
+  estados normal/selecionado e configuração das ações com texto.
+- `NavigationButton`: botão selecionável com indicador lateral.
+- `Divider` e `ToggleSwitch`: separadores e controle de alternância.
+
+Os primitivos preservam os controles nativos do Qt. Cores e tipografia continuam
+nos temas compartilhados; os componentes mantêm os seletores QSS existentes.
+`set_theme()` nos blocos compostos encaminha o tema aos filhos responsáveis pelos
+ícones e pelo switch. O `ToggleSwitch` agora é importado de
+`src.ui.components.primitive.toggle_switch`.
+
+Os testes em `test_primitives.py`, `test_composed_components.py` e
+`test_component_flows.py` cobrem os componentes isolados e sua integração com
+criação de pastas, pesquisa, detalhes, navegação e rodapé.
 
 ### Fluxos principais
 
@@ -187,7 +224,9 @@ A sincronização real, a persistência de arquivos e a disponibilidade offline 
 
 ## Aulas e documentação
 
-O percurso cobre janela, layouts, QSS, sidebar, modelos e tabela, sinais, detalhes, diálogos, temas, preferências, integração nativa, pesquisa e estado vazio. A etapa atual é o acabamento da barra lateral; os ícones de todos os botões ainda estão pendentes.
+O percurso cobre janela, layouts, QSS, sidebar, modelos e tabela, sinais, detalhes,
+diálogos, temas, preferências, integração nativa, pesquisa e estado vazio. A etapa
+atual organiza o protótipo em componentes compostos e primitivos reutilizáveis.
 
 Os relatórios individuais das aulas e a explicação detalhada do projeto foram registrados no vault pessoal do Obsidian, em **Projetos/onix-desktop**. A documentação reflete a conversa e a leitura do código em **01/11/2026**; testes relatados em aulas anteriores não foram integralmente reexecutados nesta atualização documental.
 

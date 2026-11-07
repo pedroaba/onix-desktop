@@ -1,21 +1,17 @@
-from PySide6.QtCore import Qt, Signal, Slot
-from PySide6.QtGui import QIcon
+from PySide6.QtCore import Signal, Slot
 from PySide6.QtWidgets import (
-    QButtonGroup,
     QFrame,
-    QHBoxLayout,
-    QLabel,
-    QProgressBar,
-    QPushButton,
     QVBoxLayout,
     QWidget,
 )
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.ui.components.account_header import AccountHeader
+from src.ui.components.primitive.button import IconButton
+from src.ui.components.sidebar_navigation import SidebarNavigation
+from src.ui.components.storage_usage import StorageUsage
 from src.ui.themes.constants import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_margins import create_qmargins
-from src.utils.create_size import create_qsize
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
@@ -34,140 +30,36 @@ class Sidebar(QFrame):
             parent=self,
         )
 
-        icon_loader = IconLoader("onedrive")
-        cloud_icon_pixmap = icon_loader.load_as_pixmap(40)
+        self.account_header_widget = AccountHeader()
 
-        cloud_label = QLabel()
-        cloud_label.setFixedSize(create_qsize(40))
-        cloud_label.setPixmap(cloud_icon_pixmap)
-
-        account_title = QLabel("Pedro")
-        account_title.setObjectName("AccountTitle")
-
-        account_subtitle = QLabel("OneDrive pessoal")
-        account_subtitle.setObjectName("AccountSubtitle")
-
-        account_text_layout = get_default_layout(QVBoxLayout)
-        account_text_layout.addWidget(account_title)
-        account_text_layout.addWidget(account_subtitle)
-
-        account_layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=12))
-        account_layout.addWidget(cloud_label)
-        account_layout.addLayout(account_text_layout)
-
-        layout.addLayout(account_layout)
+        layout.addWidget(self.account_header_widget)
         layout.addSpacing(24)
 
-        self._navigation_group = QButtonGroup(self)
-        self._navigation_group.setExclusive(True)
-
-        navigation_items = [
-            ("Minhas pastas", "folder"),
-            ("Recentes", "clock"),
-            ("Favoritos", "star"),
-            ("Sincronização", "arrow_sync"),
-            ("Lixeira", "delete"),
-        ]
-
-        for index, (text, icon_name) in enumerate(navigation_items):
-            button = QPushButton(text)
-            button.setProperty("icon_name", icon_name)
-            button.setIconSize(create_qsize(20))
-
-            button.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
-
-            button.setCheckable(True)
-            button.setFixedHeight(44)
-            button.setProperty("role", "navigation")
-
-            indicator = QFrame(button)
-            indicator.setObjectName("NavigationIndicator")
-
-            indicator.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
-            indicator.setGeometry(0, 0, 4, button.height())
-
-            indicator.hide()
-            button.toggled.connect(indicator.setVisible)
-
-            self._navigation_group.addButton(button)
-            layout.addWidget(button)
-
-            if index == 0:
-                button.setChecked(True)
+        self.navigation = SidebarNavigation()
+        self._navigation_group = self.navigation.button_group
+        layout.addWidget(self.navigation)
 
         layout.addStretch()
 
-        self.theme_button = QPushButton("Alternar tema")
-        self.theme_button.setIconSize(create_qsize(20))
+        self.theme_button = IconButton("dark_theme", "Alternar tema")
         self.theme_button.clicked.connect(self._request_theme_toggle)
 
         # layout.addWidget(self.theme_button)
 
-        self.settings_button = QPushButton("Configurações")
-        self.settings_button.setIconSize(create_qsize(20))
+        self.settings_button = IconButton("settings", "Configurações")
         layout.addWidget(self.settings_button)
 
-        storage_widget = QWidget()
-
-        storage_layout = get_default_layout(
-            QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=storage_widget
-        )
-
-        storage_divider = QFrame()
-        storage_divider.setObjectName("StorageDivider")
-        storage_divider.setFixedHeight(1)
-
-        storage_heading = QLabel("Armazenamento")
-        storage_heading.setObjectName("StorageHeading")
-
-        self.storage_usage_label = QLabel("128 GB de 1TB")
-        self.storage_usage_label.setObjectName("StorageUsage")
-
-        self.storage_bar = QProgressBar()
-        self.storage_bar.setObjectName("StorageProgress")
-        self.storage_bar.setRange(0, 1000)
-        self.storage_bar.setValue(128)
-        self.storage_bar.setTextVisible(False)
-        self.storage_bar.setFixedHeight(8)
-        self.storage_bar.setAccessibleName("Armazenamento utilizado")
-        self.storage_bar.setAccessibleDescription("128 GB utilizados de 1 TB")
-
-        storage_layout.addWidget(storage_divider)
-        storage_layout.addSpacing(8)
-        storage_layout.addWidget(storage_heading)
-        storage_layout.addWidget(self.storage_usage_label)
-        storage_layout.addWidget(self.storage_bar)
-
+        self.storage = StorageUsage()
+        self.storage_usage_label = self.storage.storage_usage_label
+        self.storage_bar = self.storage.storage_bar
         layout.addSpacing(8)
-        layout.addWidget(storage_widget)
+        layout.addWidget(self.storage)
 
     def set_theme(self, theme: AvailableTheme) -> None:
-        match theme:
-            case AvailableTheme.DARK:
-                normal_color = DarkColors.TextSecondary
-                selected_color = DarkColors.Accent
-            case _:
-                normal_color = LightColors.TextSecondary
-                selected_color = LightColors.Accent
-
-        for button in self._navigation_group.buttons():
-            icon_name = button.property("icon_name")
-            icon = QIcon()
-
-            states = [(QIcon.State.Off, normal_color), (QIcon.State.On, selected_color)]
-
-            for state, color in states:
-                options = IconLoaderOptions(folder_name="fluent/20/regular", color=color)
-
-                pixmap = IconLoader(icon_name, options=options).load_as_pixmap(create_qsize(20))
-
-                for mode in (QIcon.Mode.Normal, QIcon.Mode.Active, QIcon.Mode.Selected):
-                    icon.addPixmap(pixmap, mode, state)
-            button.setIcon(icon)
-
-        options = IconLoaderOptions(folder_name="fluent/20/regular", color=normal_color)
-        self.settings_button.setIcon(IconLoader("settings", options=options).load(20))
-        self.theme_button.setIcon(IconLoader("dark_theme", options=options).load(20))
+        colors = DarkColors if theme == AvailableTheme.DARK else LightColors
+        self.navigation.set_theme(theme)
+        self.settings_button.set_icon_color(colors.TextSecondary)
+        self.theme_button.set_icon_color(colors.TextSecondary)
 
     @Slot()
     def _request_theme_toggle(self) -> None:

@@ -1,9 +1,9 @@
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QHBoxLayout, QLabel, QStatusBar, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QStatusBar, QWidget
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.ui.components.primitive.icon_label import IconLabel
+from src.ui.components.primitive.label import StyledLabel
 from src.utils.create_margins import create_qmargins
-from src.utils.create_size import create_qsize
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
@@ -15,22 +15,11 @@ class AppFooter(QStatusBar):
         self.setSizeGripEnabled(False)
         self.setFixedHeight(44)
 
-        self.count_label = QLabel()
-        self.count_label.setObjectName("FooterCount")
+        self.count_label = StyledLabel(object_name="FooterCount")
 
-        self.connection_icon = QLabel()
-        self.connection_icon.setFixedSize(create_qsize(20))
-        self.connection_icon.setPixmap(
-            IconLoader(
-                "checkmark_circle",
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/color",
-                ),
-            ).load_as_pixmap(20)
-        )
+        self.connection_icon = IconLabel("checkmark_circle", 20, folder_name="fluent/20/color")
 
-        self.connection_label = QLabel()
-        self.connection_label.setObjectName("FooterConnection")
+        self.connection_label = StyledLabel(object_name="FooterConnection")
 
         content = QWidget()
 

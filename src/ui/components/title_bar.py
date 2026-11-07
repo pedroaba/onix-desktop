@@ -2,10 +2,10 @@ import sys
 
 from PySide6.QtCore import QMargins, Qt, Signal
 from PySide6.QtGui import QMouseEvent
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QWidget
+from PySide6.QtWidgets import QFrame, QHBoxLayout, QLineEdit, QWidget
 
-from src.loaders.icon import IconLoader
-from src.utils.create_size import create_qsize
+from src.ui.components.primitive.icon_label import IconLabel
+from src.ui.components.primitive.label import StyledLabel
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
@@ -32,15 +32,9 @@ class TitleBar(QFrame):
             parent=self,
         )
 
-        icon_loader = IconLoader("onedrive")
-        cloud_icon_pixmap = icon_loader.load_as_pixmap(32)
+        cloud_label = IconLabel("onedrive", 32)
 
-        cloud_label = QLabel()
-        cloud_label.setFixedSize(create_qsize(32))
-        cloud_label.setPixmap(cloud_icon_pixmap)
-
-        self.app_title = QLabel("Onix Desktop")
-        self.app_title.setObjectName("AppTitle")
+        self.app_title = StyledLabel("Onix Desktop", object_name="AppTitle")
         self.app_title.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
 
         title_layout = get_default_layout(QHBoxLayout)

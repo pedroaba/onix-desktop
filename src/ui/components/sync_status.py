@@ -1,7 +1,8 @@
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QWidget
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
-from src.utils.create_size import create_qsize
+from src.ui.components.primitive.divider import Divider
+from src.ui.components.primitive.icon_label import IconLabel
+from src.ui.components.primitive.label import StyledLabel
 from src.utils.get_default_layout import get_default_layout
 
 
@@ -11,25 +12,16 @@ class SyncStatus(QWidget):
 
         self.setObjectName("SyncStatus")
 
-        icon_label = QLabel()
-        icon_label.setFixedSize(create_qsize(20))
-        icon_label.setPixmap(
-            IconLoader(
-                "checkmark_circle",
-                options=IconLoaderOptions(folder_name="fluent/20/color"),
-            ).load_as_pixmap(20)
-        )
+        icon_label = IconLabel("checkmark_circle", 20, folder_name="fluent/20/color")
 
         # dados demostrativos para a composição da interface
-        self.status_label = QLabel("Tudo atualizado")
-        self.status_label.setObjectName("SyncStatusText")
+        self.status_label = StyledLabel("Tudo atualizado", object_name="SyncStatusText")
 
-        self.last_sync_label = QLabel("Última sincronização há 2min")
-        self.last_sync_label.setObjectName("SyncStatusTime")
+        self.last_sync_label = StyledLabel(
+            "Última sincronização há 2min", object_name="SyncStatusTime"
+        )
 
-        divider = QFrame()
-        divider.setObjectName("SyncStatusDivider")
-        divider.setFixedSize(create_qsize(1, 18))
+        divider = Divider("SyncStatusDivider", vertical_height=18)
 
         layout = get_default_layout(QHBoxLayout, parent=self)
 
