@@ -115,6 +115,10 @@ class HomePage(QWidget):
         self.toolbar.new_folder_requested.connect(self._create_folder)
 
     @property
+    def folders(self) -> list[Folder]:
+        return self._folders.copy()
+
+    @property
     def results_summary(self) -> str:
         count = self.folder_table.visible_count
         total = len(self._folders)
