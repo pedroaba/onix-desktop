@@ -17,6 +17,7 @@ from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_la
 
 class Sidebar(QFrame):
     theme_toggle_requested = Signal()
+    page_requested = Signal(int)
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -37,6 +38,8 @@ class Sidebar(QFrame):
 
         self.navigation = SidebarNavigation()
         self._navigation_group = self.navigation.button_group
+
+        self.navigation.page_requested.connect(self.page_requested.emit)
         layout.addWidget(self.navigation)
 
         layout.addStretch()
@@ -52,6 +55,7 @@ class Sidebar(QFrame):
         self.storage = StorageUsage()
         self.storage_usage_label = self.storage.storage_usage_label
         self.storage_bar = self.storage.storage_bar
+
         layout.addSpacing(8)
         layout.addWidget(self.storage)
 

@@ -1,3 +1,4 @@
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QButtonGroup, QVBoxLayout, QWidget
 
 from src.ui.components.primitive.navigation_button import NavigationButton
@@ -7,9 +8,13 @@ from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_la
 
 
 class SidebarNavigation(QWidget):
+    page_requested = Signal(int)
+
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
+
         layout = get_default_layout(QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self)
+
         self.button_group = QButtonGroup(self)
         self.button_group.setExclusive(True)
 
@@ -24,11 +29,13 @@ class SidebarNavigation(QWidget):
         for index, (text, icon_name) in enumerate(navigation_items):
             button = NavigationButton(text, icon_name)
 
-            self.button_group.addButton(button)
+            self.button_group.addButton(button, index)
             layout.addWidget(button)
 
             if index == 0:
                 button.setChecked(True)
+
+        self.button_group.idClicked.connect(self.page_requested.emit)
 
     def set_theme(self, theme: AvailableTheme) -> None:
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
