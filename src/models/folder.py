@@ -11,3 +11,4 @@ class Folder:
     file_count: int | None = None
     location: str = "OneDrive Pessoal"
     keep_on_device: bool = False
+    is_favorite: bool = False

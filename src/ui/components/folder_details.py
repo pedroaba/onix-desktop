@@ -1,5 +1,5 @@
-from PySide6.QtCore import Signal, Slot
-from PySide6.QtWidgets import QFrame, QVBoxLayout, QWidget
+from PySide6.QtCore import QSignalBlocker, Signal, Slot
+from PySide6.QtWidgets import QCheckBox, QFrame, QVBoxLayout, QWidget
 
 from src.models.folder import Folder
 from src.ui.components.details_header import DetailsHeader
@@ -13,27 +13,39 @@ from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_la
 
 class FolderDetails(QFrame):
     close_requested = Signal()
+    favorite_changed = Signal(object)
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setObjectName("FolderDetails")
         self.setFixedWidth(360)
         self._folder: Folder | None = None
+
         layout = get_default_layout(
             QVBoxLayout,
             GetDefaultLayoutOptions(margins=create_qmargins(24), spacing=16),
             parent=self,
         )
+
         self.header = DetailsHeader()
         self.header.close_requested.connect(self.close_requested.emit)
+
         self.empty_label = StyledLabel("Selecione uma pasta", word_wrap=True)
         self.content = QWidget()
+
         content_layout = get_default_layout(
             QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self.content
         )
+
         self.summary = FolderSummary()
         self.availability = FolderAvailability()
+
         content_layout.addWidget(self.summary)
+
+        self.favorite_checkbox = QCheckBox("Marcar como favorito")
+        self.favorite_checkbox.toggled.connect(self._on_favorite_changed)
+        content_layout.addWidget(self.favorite_checkbox)
+
         content_layout.addSpacing(16)
         content_layout.addWidget(self.availability)
 
@@ -57,14 +69,27 @@ class FolderDetails(QFrame):
         self.header.set_theme(theme)
         self.availability.set_theme(theme)
 
+    @Slot(bool)
+    def _on_favorite_changed(self, checked: bool) -> None:
+        if self._folder is None:
+            return
+
+        self._folder.is_favorite = checked
+        self.favorite_changed.emit(self._folder)
+
     @Slot(object)
     def show_folder(self, folder: Folder | None) -> None:
         self._folder = folder
         self.availability.show_folder(folder)
+
         if folder is None:
             self.content.hide()
             self.empty_label.show()
             return
+
+        with QSignalBlocker(self.favorite_checkbox):
+            self.favorite_checkbox.setChecked(folder.is_favorite)
+
         self.summary.show_folder(folder)
         self.empty_label.hide()
         self.content.show()
