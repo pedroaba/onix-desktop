@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget, QWidget
 
 from src.models.folder import Folder
+from src.services.folder_store import FolderStore, get_folder_store
 from src.ui.components.app_footer import AppFooter
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.sidebar import Sidebar
@@ -20,8 +21,10 @@ from src.utils.get_default_layout import get_default_layout
 class MainWindow(QMainWindow):
     theme_toggle_requested = Signal()
 
-    def __init__(self) -> None:
+    def __init__(self, *, store: FolderStore | None = None) -> None:
         super().__init__()
+
+        self.__store = store if store is not None else get_folder_store()
 
         self.setWindowTitle("Onix Desktop")
         self.setWindowFlag(Qt.WindowType.ExpandedClientAreaHint, True)
@@ -42,7 +45,7 @@ class MainWindow(QMainWindow):
 
         layout = get_default_layout(QHBoxLayout, parent=central_widget)
 
-        self.__home_page = HomePage()
+        self.__home_page = HomePage(store=self.__store)
         self.__recent_page = RecentPage()
         self.__favorite_page = FavoritesPage()
 
@@ -117,7 +120,7 @@ class MainWindow(QMainWindow):
 
         page = self.__page_stack.currentWidget()
         if isinstance(page, FolderListPage):
-            page.set_folders(self.__home_page.folders)
+            page.set_folders(self.__store.folders)
 
         searchable = isinstance(page, (HomePage, FolderListPage))
         self.__title_bar.search_input.setEnabled(searchable)
@@ -136,7 +139,7 @@ class MainWindow(QMainWindow):
     @Slot(object)
     def _on_favorite_changed(self, folder: Folder) -> None:
         if self.__page_stack.currentWidget() is self.__favorite_page:
-            self.__favorite_page.set_folders(self.__home_page.folders)
+            self.__favorite_page.set_folders(self.__store.folders)
             self.__folder_details.hide()
 
     @Slot()

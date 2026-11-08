@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 
 from PySide6.QtCore import Signal, Slot
 from PySide6.QtWidgets import (
@@ -9,7 +9,10 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from src.exceptions.duplicate_folder_name import DuplicateFolderNameError
+from src.exceptions.invalid_folder_name import InvalidFolderNameError
 from src.models.folder import Folder
+from src.services.folder_store import FolderStore, get_folder_store
 from src.ui.components.empty_state import EmptyState
 from src.ui.components.folder_table import FolderTable
 from src.ui.components.folder_toolbar import FolderToolbar
@@ -19,53 +22,15 @@ from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
-today = date.today()
-
-sample_folders = [
-    Folder(
-        "Documentos",
-        "Neste dispositivo",
-        8_400_000_000,
-        modified_on=today,
-        file_count=248,
-        keep_on_device=True,
-    ),
-    Folder("Projetos", "Sincronizando", 12_800_000_000, modified_on=today),
-    Folder(
-        "Fotos",
-        "Somente na nuvem",
-        64_200_000_000,
-        modified_on=today - timedelta(days=1),
-    ),
-    Folder(
-        "Estudos",
-        "Neste dispositivo",
-        3_100_000_000,
-        modified_on=today - timedelta(days=5),
-    ),
-    Folder(
-        "Pessoal",
-        "Somente na nuvem",
-        2_600_000_000,
-        modified_on=today - timedelta(days=7),
-    ),
-    Folder(
-        "Arquivo",
-        "Somente na nuvem",
-        36_900_000_000,
-        modified_on=today - timedelta(days=12),
-    ),
-]
-
 
 class HomePage(QWidget):
     folder_selected = Signal(object)
     summary_changed = Signal(str)
 
-    def __init__(self, parent: QWidget | None = None) -> None:
+    def __init__(self, parent: QWidget | None = None, *, store: FolderStore | None = None) -> None:
         super().__init__(parent)
 
-        self._folders = list(sample_folders)
+        self._store = store if store is not None else get_folder_store()
 
         # organizando o conteudo da página de cima para baixo
         page_layout = get_default_layout(
@@ -99,7 +64,7 @@ class HomePage(QWidget):
 
         # Mantém o conteúdo agrupado no topo.
         self.folder_table = FolderTable()
-        self.folder_table.set_folders(self._folders)
+        self.folder_table.set_folders(self._store.folders)
 
         self.folder_table.folder_selected.connect(self.folder_selected.emit)
 
@@ -114,14 +79,16 @@ class HomePage(QWidget):
         page_layout.addWidget(self.result_stack, stretch=1)
         self.toolbar.new_folder_requested.connect(self._create_folder)
 
+        self._store.folders_changed.connect(self._refresh_folders)
+
     @property
     def folders(self) -> list[Folder]:
-        return self._folders.copy()
+        return self._store.folders.copy()
 
     @property
     def results_summary(self) -> str:
         count = self.folder_table.visible_count
-        total = len(self._folders)
+        total = len(self._store.folders)
         noun = "pasta" if total == 1 else "pastas"
 
         if count == total:
@@ -136,6 +103,10 @@ class HomePage(QWidget):
         self.header.set_theme(theme)
         self.toolbar.set_theme(theme)
         self.folder_table.set_theme(theme)
+
+    @Slot()
+    def _refresh_folders(self) -> None:
+        self.folder_table.set_folders(self._store.folders)
 
     @Slot(int)
     def _update_results(self, count: int) -> None:
@@ -153,22 +124,22 @@ class HomePage(QWidget):
         if not accepted:
             return
 
-        name = name.strip()
+        folder = Folder(
+            name=name,
+            status="Exemplo local",
+            size_bytes=0,
+            modified_on=date.today(),
+            is_favorite=False,
+        )
 
-        if not name:
-            QMessageBox.warning(self, "Nome inválido", "Digite um nome para a pasta.")
+        try:
+            self._store.add_folder(folder)
+        except InvalidFolderNameError as error:
+            QMessageBox.warning(self, "Nome inválido", str(error))
             return
-
-        already_exists = any(folder.name.casefold() == name.casefold() for folder in self._folders)
-
-        if already_exists:
-            QMessageBox.warning(self, "Pasta existente", "Já existe uma pasta com esse nome.")
+        except DuplicateFolderNameError as error:
+            QMessageBox.warning(self, "Pasta existente", str(error))
             return
-
-        folder = Folder(name=name, status="Exemplo local", size_bytes=0, modified_on=date.today())
-
-        self._folders.append(folder)
-        self.folder_table.set_folders(self._folders)
 
         # seleciona a pasta recentemente adicionada
         self.folder_table.select_folder(folder)
