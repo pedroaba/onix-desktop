@@ -16,3 +16,7 @@ def get_recent_folders(
     ]
 
     return sorted(recent_folders, key=lambda folder: folder.modified_on or date.min, reverse=True)
+
+
+def get_favorite_folders(folders: list[Folder]) -> list[Folder]:
+    return [folder for folder in folders if folder.is_favorite]

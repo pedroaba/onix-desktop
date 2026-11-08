@@ -8,6 +8,8 @@ from src.ui.components.app_footer import AppFooter
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.sidebar import Sidebar
 from src.ui.components.title_bar import TitleBar
+from src.ui.pages.favorite import FavoritesPage
+from src.ui.pages.folder_list import FolderListPage
 from src.ui.pages.home import HomePage
 from src.ui.pages.recent import RecentPage
 from src.ui.pages.section import SectionPage
@@ -42,12 +44,14 @@ class MainWindow(QMainWindow):
 
         self.__home_page = HomePage()
         self.__recent_page = RecentPage()
+        self.__favorite_page = FavoritesPage()
 
         self.__page_stack = QStackedWidget()
         self.__page_stack.addWidget(self.__home_page)
+
         self.__sections_pages = [
             self.__recent_page,
-            SectionPage("Favoritos"),
+            self.__favorite_page,
             SectionPage("Sincronização"),
             SectionPage("Lixeira"),
         ]
@@ -69,6 +73,9 @@ class MainWindow(QMainWindow):
         self.__recent_page.summary_changed.connect(self._update_summary)
         self.__sidebar.page_requested.connect(self._change_page)
         self.__recent_page.folder_selected.connect(self._show_folder_details)
+        self.__favorite_page.folder_selected.connect(self._show_folder_details)
+        self.__favorite_page.summary_changed.connect(self._update_summary)
+        self.__folder_details.favorite_changed.connect(self._on_favorite_changed)
 
         self.__app_footer.set_summary(self.__home_page.results_summary)
 
@@ -88,7 +95,7 @@ class MainWindow(QMainWindow):
     def _update_summary(self) -> None:
         page = self.__page_stack.currentWidget()
 
-        if isinstance(page, (HomePage, RecentPage)):
+        if isinstance(page, (HomePage, FolderListPage)):
             summary = page.results_summary
         else:
             summary = ""
@@ -97,7 +104,7 @@ class MainWindow(QMainWindow):
     @Slot(str)
     def _search_current_page(self, text: str) -> None:
         page = self.__page_stack.currentWidget()
-        if isinstance(page, (HomePage, RecentPage)):
+        if isinstance(page, (HomePage, FolderListPage)):
             page.set_search_text(text)
 
     @Slot(int)
@@ -105,18 +112,14 @@ class MainWindow(QMainWindow):
         if not 0 <= page_id < self.__page_stack.count():
             return
 
-        self.__home_page.clear_folder_selection()
-        self.__recent_page.clear_folder_selection()
-        self.__folder_details.hide()
-
-        if page_id == 1:
-            self.__recent_page.set_folders(self.__home_page.folders)
-
+        self._close_folder_details()
         self.__page_stack.setCurrentIndex(page_id)
-        self.__title_bar.search_input.setEnabled(page_id == 0)
 
-        SEARCHABLE_PAGES = (0, 1)
-        searchable = page_id in SEARCHABLE_PAGES
+        page = self.__page_stack.currentWidget()
+        if isinstance(page, FolderListPage):
+            page.set_folders(self.__home_page.folders)
+
+        searchable = isinstance(page, (HomePage, FolderListPage))
         self.__title_bar.search_input.setEnabled(searchable)
 
         if searchable:
@@ -130,8 +133,15 @@ class MainWindow(QMainWindow):
         if folder is not None:
             self.__folder_details.show()
 
+    @Slot(object)
+    def _on_favorite_changed(self, folder: Folder) -> None:
+        if self.__page_stack.currentWidget() is self.__favorite_page:
+            self.__favorite_page.set_folders(self.__home_page.folders)
+            self.__folder_details.hide()
+
     @Slot()
     def _close_folder_details(self) -> None:
         self.__home_page.clear_folder_selection()
         self.__recent_page.clear_folder_selection()
+        self.__favorite_page.clear_folder_selection()
         self.__folder_details.hide()
