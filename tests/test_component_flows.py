@@ -6,7 +6,9 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtWidgets import QApplication, QFrame, QLabel
 
+from src.data.sample_folders import create_sample_folders
 from src.models.folder import Folder
+from src.services.folder_store import FolderStore
 from src.ui.components.app_footer import AppFooter
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.primitive.icon_label import IconLabel
@@ -24,8 +26,11 @@ class ComponentFlowTests(unittest.TestCase):
         assert isinstance(app, QApplication)
         cls.app = app
 
+    def setUp(self):
+        self.store = FolderStore(create_sample_folders())
+
     def test_window_search_selection_details_and_footer(self):
-        window = MainWindow()
+        window = MainWindow(store=self.store)
         self.addCleanup(window.deleteLater)
         page = window.findChild(HomePage)
         details = window.findChild(FolderDetails)
@@ -37,12 +42,12 @@ class ComponentFlowTests(unittest.TestCase):
                 apply_theme(self.app, theme)
                 window.set_theme(theme)
                 title.search_input.setText("")
-                page.folder_table.select_folder(page._folders[0])
+                page.folder_table.select_folder(page.folders[0])
                 self.assertEqual(details.name_label.text(), "Documentos")
                 details.close_button.click()
                 self.assertTrue(details.isHidden())
                 self.assertFalse(page.folder_table.selectionModel().selectedRows())
-                page.folder_table.select_folder(page._folders[0])
+                page.folder_table.select_folder(page.folders[0])
                 self.assertFalse(details.isHidden())
                 title.search_input.setText("doc")
                 self.assertEqual(footer.count_label.text(), "1 de 6 pastas")
@@ -55,7 +60,7 @@ class ComponentFlowTests(unittest.TestCase):
                 self.assertEqual(footer.count_label.text(), "6 pastas")
 
     def test_create_folder_validation_cancel_and_success(self):
-        page = HomePage()
+        page = HomePage(store=self.store)
         self.addCleanup(page.deleteLater)
         selected = []
         summaries = []
@@ -120,7 +125,7 @@ class ComponentFlowTests(unittest.TestCase):
             self.assertEqual(indicator.isHidden(), index != 2)
 
     def test_long_name_layout_settles_after_resize_and_theme_switch(self):
-        window = MainWindow()
+        window = MainWindow(store=self.store)
         self.addCleanup(window.close)
         self.addCleanup(window.deleteLater)
         page = window.findChild(HomePage)

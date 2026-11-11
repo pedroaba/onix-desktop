@@ -1,5 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
+from uuid import uuid4
 
 
 @dataclass
@@ -12,3 +13,5 @@ class Folder:
     location: str = "OneDrive Pessoal"
     keep_on_device: bool = False
     is_favorite: bool = False
+
+    id: str = field(default_factory=lambda: uuid4().hex)

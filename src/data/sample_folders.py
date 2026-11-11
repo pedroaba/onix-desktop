@@ -14,31 +14,42 @@ def create_sample_folders() -> list[Folder]:
             modified_on=today,
             file_count=248,
             keep_on_device=True,
+            id="sample-documentos",
         ),
-        Folder("Projetos", "Sincronizando", 12_800_000_000, modified_on=today),
+        Folder(
+            "Projetos",
+            "Sincronizando",
+            12_800_000_000,
+            modified_on=today,
+            id="sample-projetos",
+        ),
         Folder(
             "Fotos",
             "Somente na nuvem",
             64_200_000_000,
             modified_on=today - timedelta(days=1),
+            id="sample-fotos",
         ),
         Folder(
             "Estudos",
             "Neste dispositivo",
             3_100_000_000,
             modified_on=today - timedelta(days=5),
+            id="sample-estudos",
         ),
         Folder(
             "Pessoal",
             "Somente na nuvem",
             2_600_000_000,
             modified_on=today - timedelta(days=7),
+            id="sample-pessoal",
         ),
         Folder(
             "Arquivo",
             "Somente na nuvem",
             36_900_000_000,
             modified_on=today - timedelta(days=12),
+            id="sample-arquivo",
         ),
     ]
 

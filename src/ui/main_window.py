@@ -4,6 +4,7 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget, QWidget
 
 from src.models.folder import Folder
+from src.services.app_settings import AppSettings
 from src.services.folder_store import FolderStore, get_folder_store
 from src.ui.components.app_footer import AppFooter
 from src.ui.components.folder_details import FolderDetails
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
     def __init__(self, *, store: FolderStore | None = None) -> None:
         super().__init__()
 
+        self.__settings = AppSettings()
         self.__store = store if store is not None else get_folder_store()
 
         self.setWindowTitle("Onix Desktop")
@@ -138,6 +140,8 @@ class MainWindow(QMainWindow):
 
     @Slot(object)
     def _on_favorite_changed(self, folder: Folder) -> None:
+        self.__store.save_favorites()
+
         if self.__page_stack.currentWidget() is self.__favorite_page:
             self.__favorite_page.set_folders(self.__store.folders)
             self.__folder_details.hide()
