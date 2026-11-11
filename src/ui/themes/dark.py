@@ -2,6 +2,7 @@
 
 from src.builders.qss import QSSBuilder
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector, QSSStrResult
+from src.ui.themes import account
 from src.ui.themes import constants as tokens
 
 Colors = tokens.DarkColors
@@ -534,6 +535,7 @@ def build_stylesheet() -> QSSStrResult:
         *storage_progress_rules,
         *footer_rules,
         *dialog_rules,
+        *account.color_rules(Colors),
     ]
     return QSSBuilder(rules).build()
 

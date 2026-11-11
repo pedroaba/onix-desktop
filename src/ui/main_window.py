@@ -1,11 +1,14 @@
 import sys
+from queue import Empty, Queue
+from threading import Thread
 
-from PySide6.QtCore import Qt, Signal, Slot
-from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget, QWidget
+from PySide6.QtCore import Qt, QTimer, Signal, Slot
+from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QMessageBox, QStackedWidget, QWidget
 
 from src.models.folder import Folder
 from src.services.app_settings import AppSettings
 from src.services.folder_store import FolderStore, get_folder_store
+from src.services.onedrive_service import OneDriveLoginError, OneDriveSession, sign_in_to_onedrive
 from src.ui.components.app_footer import AppFooter
 from src.ui.components.folder_details import FolderDetails
 from src.ui.components.sidebar import Sidebar
@@ -67,6 +70,14 @@ class MainWindow(QMainWindow):
         self.__sidebar = Sidebar()
         self.__folder_details = FolderDetails()
         self.__app_footer = AppFooter()
+        self.__onedrive_session: OneDriveSession | None = None
+        self.__login_results: Queue[OneDriveSession | str] = Queue()
+        self.__login_timer = QTimer(self)
+        self.__login_timer.setInterval(100)
+        self.__login_timer.timeout.connect(self._finish_onedrive_login)
+        self.__sidebar.account_header_widget.connection_requested.connect(
+            self._toggle_onedrive_connection
+        )
 
         self.setStatusBar(self.__app_footer)
 
@@ -95,6 +106,50 @@ class MainWindow(QMainWindow):
 
         for page in self.__sections_pages:
             page.set_theme(theme)
+
+    @Slot()
+    def _toggle_onedrive_connection(self) -> None:
+        if self.__login_timer.isActive():
+            return
+
+        header = self.__sidebar.account_header_widget
+        if self.__onedrive_session is not None:
+            self.__onedrive_session = None
+            header.set_login_state()
+            self.__app_footer.set_connection(False)
+            return
+
+        results = self.__login_results
+
+        def authenticate() -> None:
+            try:
+                results.put(sign_in_to_onedrive())
+            except OneDriveLoginError as error:
+                results.put(str(error))
+            except Exception:
+                results.put("Não foi possível iniciar o login no OneDrive. Tente novamente.")
+
+        header.set_login_state(pending=True)
+        Thread(target=authenticate, name="onedrive-login", daemon=True).start()
+        self.__login_timer.start()
+
+    @Slot()
+    def _finish_onedrive_login(self) -> None:
+        try:
+            result = self.__login_results.get_nowait()
+        except Empty:
+            return
+
+        self.__login_timer.stop()
+        header = self.__sidebar.account_header_widget
+        if isinstance(result, str):
+            header.set_login_state()
+            QMessageBox.warning(self, "Conectar OneDrive", result)
+            return
+
+        self.__onedrive_session = result
+        header.set_login_state(result.account_name)
+        self.__app_footer.set_connection(True)
 
     @Slot()
     def _update_summary(self) -> None:

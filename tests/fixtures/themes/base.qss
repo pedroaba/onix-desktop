@@ -236,3 +236,18 @@ QTableView#FolderTable QHeaderView::section {
     border: none;
     border-bottom: 1px solid transparent;
 }
+
+
+
+QFrame#AccountHeader {
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton {
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 6px 12px;
+  text-align: center;
+}

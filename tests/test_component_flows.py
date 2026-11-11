@@ -114,7 +114,7 @@ class ComponentFlowTests(unittest.TestCase):
         self.addCleanup(sidebar.deleteLater)
         account_title = sidebar.account_header_widget.findChild(QLabel, "AccountTitle")
         assert account_title
-        self.assertEqual(account_title.text(), "Pedro")
+        self.assertEqual(account_title.text(), "OneDrive pessoal")
         self.assertEqual(sidebar.storage_bar.maximum(), 1000)
         self.assertEqual(sidebar.storage_bar.value(), 128)
         buttons = sidebar._navigation_group.buttons()

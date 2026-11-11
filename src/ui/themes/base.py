@@ -2,6 +2,7 @@
 
 from src.builders.qss import QSSBuilder
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector, QSSStrResult
+from src.ui.themes import account
 from src.ui.themes import constants as tokens
 
 
@@ -492,6 +493,7 @@ def build_stylesheet() -> QSSStrResult:
         *local_storage_rules,
         *storage_progress_rules,
         *footer_rules,
+        *account.base_rules(),
     ]
     return QSSBuilder(rules).build()
 

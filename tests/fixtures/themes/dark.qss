@@ -250,3 +250,53 @@ QProgressBar#StorageProgress {
 QProgressBar#StorageProgress::chunk {
     background-color: #0098ff;
 }
+
+
+
+QFrame#AccountHeader {
+  background-color: #292929;
+  border-color: #383838;
+}
+
+QLabel#AccountSubtitle[connected="true"] {
+  color: #54b054;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton {
+  background-color: #0067b8;
+  color: #ffffff;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton:hover {
+  background-color: #0078d4;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton:pressed {
+  background-color: #004a7f;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"] {
+  background-color: #262626;
+  color: #b7b7b7;
+  border-color: #484848;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:hover {
+  background-color: #303030;
+  color: #f5f5f5;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:pressed {
+  background-color: #383838;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton:focus,
+QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:focus {
+  border-color: #ffffff;
+}
+
+QFrame#Sidebar QPushButton#AccountConnectionButton:disabled {
+  background-color: #262626;
+  color: #b7b7b7;
+  border-color: #484848;
+}

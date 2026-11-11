@@ -1,5 +1,7 @@
 import sys
+from pathlib import Path
 
+from dotenv import load_dotenv
 from PySide6.QtWidgets import QApplication
 
 from src.platforms.macos import configure_macos_title_bar
@@ -9,6 +11,7 @@ from src.ui.themes.theme_manager import AvailableTheme, apply_theme
 
 
 def main() -> int:
+    load_dotenv(Path(__file__).resolve().with_name(".env"), override=False)
     app = QApplication()
     app.setApplicationName("Onix Desktop")
     settings = AppSettings()
