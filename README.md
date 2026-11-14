@@ -16,7 +16,7 @@ O login Microsoft está disponível em Configurações. A navegação usa dados 
 
 | Tecnologia | Papel |
 | --- | --- |
-| Python 3.14+ | Linguagem do projeto. |
+| Python 3.15.2+ | Linguagem do projeto. |
 | UV | Gerenciamento de dependências, ambiente e execução. |
 | PySide6 / Qt Widgets | Interface desktop. |
 | QSS | Estilos compartilhados e cores dos temas. |
@@ -31,7 +31,8 @@ Python foi escolhido pela experiência prévia do autor e pelo objetivo didátic
 Com o UV instalado, abra um terminal na raiz deste repositório:
 
 ```bash
-uv sync
+uv python install
+uv sync --locked
 uv run python main.py
 ```
 
@@ -48,7 +49,7 @@ do Zed, escolha a `.venv` deste projeto caso ela ainda não esteja selecionada.
 - **BasedPyright:** autocomplete, navegação e análise de tipos de todo o projeto,
   usando o ambiente `.venv` e os stubs de PyObjC em `typings`.
 - **Ruff:** linting, correções seguras, organização de imports e formatação ao salvar.
-  As regras compartilhadas estão em `pyproject.toml`, com Python 3.14 e linhas de 100 caracteres.
+  As regras compartilhadas estão em `pyproject.toml`, com Python 3.15 e linhas de 100 caracteres.
 - **QSS:** arquivos `.qss` usam o realce de CSS.
 - **Terminal:** abre na raiz do projeto e ativa a `.venv` automaticamente.
 
