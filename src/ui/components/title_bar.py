@@ -3,7 +3,7 @@ from typing import Callable
 
 from PySide6.QtCore import QPoint, Qt
 from PySide6.QtGui import QMouseEvent, QPixmap
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
+from PySide6.QtWidgets import QApplication, QFrame, QHBoxLayout, QLabel, QWidget
 
 from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
@@ -111,34 +111,67 @@ class TitleBar(QFrame):
     def mousePressEvent(self, event: QMouseEvent, /) -> None:
         window = self.window()
 
-        if event.button() == Qt.MouseButton.LeftButton and not window.isFullScreen():
-            handle = window.windowHandle()
-            if handle is not None and handle.startSystemMove():
-                event.accept()
-                return
-
-            if not window.isMaximized():
-                self._drag_offset = (
-                    event.globalPosition().toPoint() - window.frameGeometry().topLeft()
-                )
-                event.accept()
-                return
+        if (
+            event.button() == Qt.MouseButton.LeftButton
+            and not window.isFullScreen()
+            and not window.isMaximized()
+        ):
+            self._drag_start = event.globalPosition().toPoint()
+            event.accept()
+            return
 
         super().mousePressEvent(event)
 
+    def mouseDoubleClickEvent(self, event: QMouseEvent, /) -> None:
+        window = self.window()
+        if event.button() == Qt.MouseButton.LeftButton and not window.isFullScreen():
+            self._drag_start = None
+            self._drag_offset = None
+
+            if window.isMaximized():
+                window.showNormal()
+            else:
+                window.showMaximized()
+
+            event.accept()
+            return
+
+        return super().mouseDoubleClickEvent(event)
+
     def mouseMoveEvent(self, event: QMouseEvent, /) -> None:
-        if self._drag_offset is not None and event.buttons() & Qt.MouseButton.LeftButton:
-            self.window().move(event.globalPosition().toPoint() - self._drag_offset)
+        if not event.buttons() & Qt.MouseButton.LeftButton:
+            super().mouseMoveEvent(event)
+            return
+
+        cursor = event.globalPosition().toPoint()
+        window = self.window()
+
+        if self._drag_start is not None:
+            distance = (cursor - self._drag_start).manhattanLength()
+            if distance < QApplication.startDragDistance():
+                event.accept()
+                return
+
+            self._drag_offset = self._drag_start - window.frameGeometry().topLeft()
+            self._drag_start = None
+
+            handle = window.windowHandle()
+            if handle is not None and handle.startSystemMove():
+                self._drag_offset = None
+                event.accept()
+                return
+
+        if self._drag_offset is not None:
+            window.move(cursor - self._drag_offset)
             event.accept()
             return
 
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent, /) -> None:
-        if event.button() == Qt.MouseButton.LeftButton and self._drag_offset is not None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_start = None
             self._drag_offset = None
-            event.accept()
-            return
 
         super().mouseReleaseEvent(event)
 

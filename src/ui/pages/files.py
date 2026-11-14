@@ -33,6 +33,14 @@ from src.utils.get_default_layout import get_default_layout
 class FilesPage(QWidget):
     section_requested = Signal(str)
 
+    section_icons = {
+        "Todos os arquivos": Icons.Folder.Fluent.Size16.Regular,
+        "Recentes": Icons.Clock.Fluent.Size16.Regular,
+        "Favoritos": Icons.Star.Fluent.Size16.Regular,
+        "OneDrive": Icons.Cloud.Fluent.Size16.Regular,
+        "Lixeira": Icons.Delete.Fluent.Size16.Regular,
+    }
+
     def __init__(self, title_bar: TitleBar, *, store: FolderStore | None = None) -> None:
         super().__init__()
         self._store = store if store is not None else get_folder_store()
@@ -150,15 +158,13 @@ class FilesPage(QWidget):
         if self._active:
             if folder is not None:
                 self._show_folder_breadcrumb(folder)
-            elif section == "OneDrive":
-                self._title_bar.set_title("OneDrive > Meus arquivos")
-            else:
-                self._title_bar.set_title(section)
-                self._title_bar.set_title_icon(
-                    Icons.Folder.Fluent.Size16.Regular.get_pixmap(
-                        color=colors.TextOnPrimary.to_hex()
-                    )
-                )
+
+            icon = Icons.Folder.Fluent.Size16.Regular
+            if folder is None:
+                icon = FilesPage.section_icons.get(section, icon)
+
+            self._title_bar.set_title(section)
+            self._title_bar.set_title_icon(icon.get_pixmap(color=colors.TextSecondary.to_hex()))
 
         editable = folder.provider == "OneDrive" if folder else section == "OneDrive"
         self.upload_button.setVisible(editable)
