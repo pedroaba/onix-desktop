@@ -5,7 +5,7 @@ from PySide6.QtCore import QTimer, Signal
 from PySide6.QtWidgets import QHBoxLayout, QMessageBox, QVBoxLayout, QWidget
 
 from src.services.onedrive_service import OneDriveLoginError, OneDriveSession, sign_in_to_onedrive
-from src.ui.components.title_bar import workspace_bar
+from src.ui.components.title_bar import TitleBar
 from src.ui.components.workspace_controls import WorkspaceButton, frame, label
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
 from src.utils.get_default_layout import get_default_layout
@@ -14,7 +14,7 @@ from src.utils.get_default_layout import get_default_layout
 class ProvidersPage(QWidget):
     theme_toggle_requested = Signal()
 
-    def __init__(self) -> None:
+    def __init__(self, title_bar: TitleBar) -> None:
         super().__init__()
 
         self._session: OneDriveSession | None = None
@@ -23,12 +23,9 @@ class ProvidersPage(QWidget):
         self._login_timer = QTimer(self, interval=100)
         self._login_timer.timeout.connect(self._finish_login)
 
-        body = get_default_layout(QVBoxLayout, parent=self)
+        self._title_bar = title_bar
 
-        header, bar = workspace_bar(draggable=True)
-        location = label("Provedores", "section")
-        bar.addWidget(location, 1)
-        body.addWidget(header)
+        body = get_default_layout(QVBoxLayout, parent=self)
 
         settings = QWidget()
         body.addWidget(settings, 1)
@@ -81,6 +78,9 @@ class ProvidersPage(QWidget):
         content.addStretch()
         outer.addWidget(panel, 8)
         outer.addStretch()
+
+    def activate(self):
+        self._title_bar.set_title("Provedores")
 
     @staticmethod
     def _provider_card(name: str, description: QWidget, action: QWidget) -> QWidget:

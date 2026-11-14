@@ -12,13 +12,14 @@ from PySide6.QtWidgets import (
 
 from src.exceptions.duplicate_folder_name import DuplicateFolderNameError
 from src.exceptions.invalid_folder_name import InvalidFolderNameError
+from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
 from src.services.folder_queries import get_favorite_folders, get_recent_folders
 from src.services.folder_store import FolderStore, get_folder_store
 from src.ui.components.file_filter_popup import FileFilterPopup
 from src.ui.components.files_view import FilesView
 from src.ui.components.folder_details import FolderDetails
-from src.ui.components.title_bar import workspace_bar
+from src.ui.components.title_bar import TitleBar, workspace_bar
 from src.ui.components.view_mode_selector import ViewModeSelector
 from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.dialogs.new_folder import new_folder
@@ -30,7 +31,7 @@ from src.utils.get_default_layout import get_default_layout
 class FilesPage(QWidget):
     section_requested = Signal(str)
 
-    def __init__(self, *, store: FolderStore | None = None) -> None:
+    def __init__(self, title_bar: TitleBar, *, store: FolderStore | None = None) -> None:
         super().__init__()
         self._store = store if store is not None else get_folder_store()
         self._theme = AvailableTheme.LIGHT
@@ -43,17 +44,10 @@ class FilesPage(QWidget):
         self._provider_filter: str | None = None
         self._sort_by_date = False
 
+        self._active = False
+
         body = get_default_layout(QVBoxLayout, parent=self)
-
-        header, bar = workspace_bar(draggable=True)
-        self.location = label(role="section")
-        self.location.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
-        self.back_button = WorkspaceButton(icon="chevron_left", quiet=True)
-        self.back_button.setToolTip("Voltar à pasta anterior")
-        self.back_button.clicked.connect(self._go_up)
-
-        bar.addWidget(self.back_button)
-        bar.addWidget(self.location, 1)
+        self._title_bar = title_bar
 
         self.upload_button = WorkspaceButton("Enviar arquivos", "arrow_upload")
         self.upload_button.setToolTip("Adiciona arquivos locais a esta sessão")
@@ -61,10 +55,6 @@ class FilesPage(QWidget):
 
         self.new_button = WorkspaceButton("Nova pasta", "add", primary=True)
         self.new_button.clicked.connect(self._create_folder)
-
-        bar.addWidget(self.upload_button)
-        bar.addWidget(self.new_button)
-        body.addWidget(header)
 
         self.content = QWidget()
 
@@ -138,20 +128,33 @@ class FilesPage(QWidget):
         self.files.select_item(None, emit=True)
         self._refresh()
 
+    def set_active(self, active: bool) -> None:
+        self._active = active
+
     def _refresh(self) -> None:
         section = self._section
         folder = self._folder
+        colors = theme_colors(self._theme)
 
-        self.location.setText(
-            f"{folder.provider}  /  {folder.name}"
-            if folder
-            else "OneDrive  /  Meus arquivos"
-            if section == "OneDrive"
-            else "Provedores"
-            if section == "Configurações"
-            else section
-        )
-        self.back_button.setVisible(folder is not None)
+        if self._active:
+            icon = None
+            if folder is not None:
+                title = f"{folder.provider}  /  {folder.name}"
+            elif section == "OneDrive":
+                title = "OneDrive  /  Meus arquivos"
+            else:
+                title = section
+                icon = IconLoader(
+                    "folder",
+                    IconLoaderOptions(
+                        folder_name="fluent/16/regular",
+                        color=colors.TextOnPrimary.to_hex(),
+                    ),
+                ).load_as_pixmap(16)
+
+            self._title_bar.set_title(title)
+            if icon is not None:
+                self._title_bar.set_title_icon(icon)
 
         editable = folder.provider == "OneDrive" if folder else section == "OneDrive"
         self.upload_button.setVisible(editable)
@@ -317,7 +320,7 @@ class FilesPage(QWidget):
         self._store.add_folder(item)
 
     def _create_folder(self) -> None:
-        new_folder(self, self.location.text(), self._add_item)
+        new_folder(self, self._title_bar.title(), self._add_item)
 
     def _add_local_files(self) -> None:
         paths, _ = QFileDialog.getOpenFileNames(self, "Adicionar arquivos locais")

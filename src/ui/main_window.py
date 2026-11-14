@@ -2,15 +2,17 @@ import sys
 
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QKeySequence, QShortcut
-from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget
+from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget, QVBoxLayout
 
 from src.services.folder_store import FolderStore
 from src.ui.components.sidebar import Sidebar
+from src.ui.components.title_bar import get_title_bar
 from src.ui.components.workspace_controls import frame
 from src.ui.pages.files import FilesPage
 from src.ui.pages.providers import ProvidersPage
 from src.ui.themes.theme_manager import AvailableTheme
-from src.utils.get_default_layout import get_default_layout
+from src.utils.create_margins import create_qmargins
+from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class MainWindow(QMainWindow):
@@ -35,14 +37,23 @@ class MainWindow(QMainWindow):
 
         self.sidebar = Sidebar()
         self.pages = QStackedWidget()
-        self.files_page = FilesPage(store=store)
-        self.providers_page = ProvidersPage()
+
+        self._title_bar = get_title_bar()
+        pages_layout = get_default_layout(
+            QVBoxLayout, GetDefaultLayoutOptions(margins=create_qmargins(0), spacing=0)
+        )
+
+        pages_layout.addWidget(self._title_bar)
+        pages_layout.addWidget(self.pages, 1)
+
+        self.files_page = FilesPage(store=store, title_bar=self._title_bar)
+        self.providers_page = ProvidersPage(title_bar=self._title_bar)
 
         self.pages.addWidget(self.files_page)
         self.pages.addWidget(self.providers_page)
 
         layout.addWidget(self.sidebar)
-        layout.addWidget(self.pages, 1)
+        layout.addLayout(pages_layout)
 
         self.sidebar.page_requested.connect(self._navigate)
         self.sidebar.search_requested.connect(self._open_search)
@@ -62,9 +73,11 @@ class MainWindow(QMainWindow):
 
     def _navigate(self, section: str) -> None:
         self.sidebar.set_current_page(section)
+        self.files_page.set_active(section != "Configurações")
 
         if section == "Configurações":
             self.pages.setCurrentWidget(self.providers_page)
+            self.providers_page.activate()
         else:
             self.pages.setCurrentWidget(self.files_page)
             self.files_page.navigate(section)
