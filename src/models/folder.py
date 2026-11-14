@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import date
+from pathlib import Path
 from uuid import uuid4
 
 
@@ -15,3 +16,8 @@ class Folder:
     is_favorite: bool = False
 
     id: str = field(default_factory=lambda: uuid4().hex)
+
+    provider: str = "OneDrive"
+    is_directory: bool = True
+    parent_id: str | None = None
+    local_path: Path | None = None

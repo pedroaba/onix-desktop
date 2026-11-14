@@ -49,23 +49,5 @@
       "basedpyright"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
-  },
-  {
-    "label": "Python: executar testes",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
-    "args": [
-      "run",
-      "python",
-      "-m",
-      "unittest",
-      "discover",
-      "-s",
-      "tests",
-      "-v"
-    ],
-    "cwd": "$ZED_WORKTREE_ROOT",
-    "env": {
-      "QT_QPA_PLATFORM": "offscreen"
-    }
   }
 ]

@@ -13,6 +13,7 @@ class Divider(QFrame):
     ) -> None:
         super().__init__(parent)
         self.setObjectName(object_name)
+
         if vertical_height is None:
             self.setFixedHeight(1)
         else:

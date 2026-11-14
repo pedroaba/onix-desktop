@@ -34,7 +34,12 @@ class FolderStore(QObject):
         if not name:
             raise InvalidFolderNameError("Digite um nome para a pasta")
 
-        already_exists = any(item.name.casefold() == name.casefold() for item in self._folders)
+        already_exists = any(
+            item.name.casefold() == name.casefold()
+            and item.provider == folder.provider
+            and item.parent_id == folder.parent_id
+            for item in self._folders
+        )
 
         if already_exists:
             raise DuplicateFolderNameError("Já existe uma pasta com esse nome")

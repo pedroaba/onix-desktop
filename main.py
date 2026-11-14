@@ -4,7 +4,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from PySide6.QtWidgets import QApplication
 
-from src.platforms.macos import configure_macos_title_bar
 from src.services.app_settings import AppSettings
 from src.ui.main_window import MainWindow
 from src.ui.themes.theme_manager import AvailableTheme, apply_theme
@@ -40,7 +39,6 @@ def main() -> int:
     window.theme_toggle_requested.connect(lambda: toggle_theme(app))
 
     window.show()
-    configure_macos_title_bar(window)
 
     return app.exec()
 

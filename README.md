@@ -8,38 +8,9 @@ O aplicativo também é um projeto de aprendizado: está sendo construído em au
 
 ## Estado atual
 
-**Protótipo de interface, versão 0.1.0.** A tela usa dados de exemplo; ainda não autentica uma conta Microsoft nem consulta ou modifica o OneDrive real. O nome “Pedro” e os status das pastas são demonstrativos.
+O Onix Desktop reúne arquivos e pastas em uma tela unificada, com lista, cards, busca rápida, filtros, favoritos e painel de detalhes. A interface segue o protótipo do FigCraft inspirado na Linear. Os temas claro e escuro podem ser alternados em Configurações.
 
-O comando “Nova Pasta” adiciona um objeto apenas à memória da aplicação. As pastas criadas nessa demonstração desaparecem ao fechar o app. A preferência de tema é salva localmente.
-
-### Implementado
-
-- Janela principal com barra superior e pesquisa integrada à área de título.
-- Barra lateral com identificação de conta, logotipo do OneDrive e seleção exclusiva de navegação.
-- Tabela de pastas com nome, status e tamanho, cabeçalhos alinhados à esquerda e seleção por linha.
-- Pesquisa por nome com `QSortFilterProxyModel`, preservando os dados originais.
-- Estado vazio quando a pesquisa não encontra pastas.
-- Painel de detalhes atualizado pela seleção.
-- Criação de pastas de exemplo, com validação de nome vazio e duplicidade.
-- Temas claro e escuro, alternância em execução e preferência persistida com `QSettings`.
-- Integração nativa no macOS para a barra superior e o alinhamento dos controles da janela.
-- Ajustes de análise estática para a ponte dinâmica do PyObjC.
-
-Os itens “Recentes”, “Favoritos”, “Sincronização” e “Lixeira” têm seleção visual, mas ainda não possuem páginas e operações próprias. “Configurações” também não abre uma tela. A interface está em aproximação gradual aos conceitos aprovados.
-
-## Direção visual
-
-A referência escolhida é o **design system Microsoft**, adaptado para um gerenciador desktop pessoal: azul Microsoft, superfícies neutras, hierarquia de textos e cantos discretos. No macOS, mantemos os controles nativos da janela.
-
-A fonte possui alternativas locais quando Segoe UI não está instalada. As imagens abaixo são **conceitos aprovados**, não capturas da implementação atual.
-
-### Conceito claro
-
-![Conceito aprovado em tema claro](assets/concept_light.png)
-
-### Conceito escuro
-
-![Conceito aprovado em tema escuro](assets/concept_dark.png)
+O login Microsoft está disponível em Configurações. A navegação usa dados demonstrativos de OneDrive, Google Drive e Dropbox. Novas pastas e arquivos locais adicionados ficam disponíveis durante a sessão. Arquivos de imagem locais podem ser visualizados nos cards, e os dados de exemplo ilustram prévias de PDF e planilha.
 
 ## Tecnologias
 
@@ -83,7 +54,7 @@ do Zed, escolha a `.venv` deste projeto caso ela ainda não esteja selecionada.
 
 Abra a paleta de comandos com `Cmd+Shift+P` no macOS (`Ctrl+Shift+P` no Windows)
 e procure `task: spawn` para executar o app, sincronizar o ambiente, verificar lint,
-formatação e tipos ou rodar os testes. As tarefas ficam em `.zed/tasks.json`.
+formatação e tipos. As tarefas ficam em `.zed/tasks.json`.
 As tarefas usam a sintaxe de shell do macOS/Linux e acrescentam `~/.local/bin` ao
 PATH para localizar o UV instalado pelo instalador oficial. No Windows com
 PowerShell, troque o campo `command` das tarefas por `uv` e mantenha o UV no PATH.
@@ -94,7 +65,6 @@ As mesmas verificações podem ser executadas no terminal:
 uv run ruff check .
 uv run ruff format --check .
 uv run basedpyright
-uv run python -m unittest discover -s tests -v
 ```
 
 Para aplicar as correções seguras e formatar manualmente, use `uv run ruff check --fix .`

@@ -17,6 +17,7 @@ class OneDriveSession:
 
 def _required_env(name: str) -> str:
     value = os.getenv(name, "").strip()
+
     if not value:
         raise OneDriveLoginError(f"Preencha {name} no arquivo .env.")
     return value
@@ -47,13 +48,16 @@ def sign_in_to_onedrive() -> OneDriveSession:
         ) from error
 
     access_token = result.get("access_token")
+
     if not isinstance(access_token, str) or not access_token:
         error_code = result.get("error")
         if error_code in ("access_denied", "abort"):
             raise OneDriveLoginError("A autorização foi recusada. Você pode tentar novamente.")
+
         description = str(result.get("error_description", ""))
         diagnostic_code = re.search(r"\bAADSTS\d+\b", description)
         message = "A Microsoft não concluiu o login. Tente novamente."
+
         if diagnostic_code:
             message = f"{message} Código da Microsoft: {diagnostic_code.group()}"
         raise OneDriveLoginError(message)
@@ -61,4 +65,5 @@ def sign_in_to_onedrive() -> OneDriveSession:
     claims = result.get("id_token_claims")
     name = claims.get("name") if isinstance(claims, dict) else None
     account_name = name.strip() if isinstance(name, str) and name.strip() else "Conta Microsoft"
+
     return OneDriveSession(account_name=account_name, access_token=access_token)

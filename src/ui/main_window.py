@@ -1,23 +1,14 @@
 import sys
-from queue import Empty, Queue
-from threading import Thread
 
-from PySide6.QtCore import Qt, QTimer, Signal, Slot
-from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QMessageBox, QStackedWidget, QWidget
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtGui import QKeySequence, QShortcut
+from PySide6.QtWidgets import QHBoxLayout, QMainWindow, QStackedWidget
 
-from src.models.folder import Folder
-from src.services.app_settings import AppSettings
-from src.services.folder_store import FolderStore, get_folder_store
-from src.services.onedrive_service import OneDriveLoginError, OneDriveSession, sign_in_to_onedrive
-from src.ui.components.app_footer import AppFooter
-from src.ui.components.folder_details import FolderDetails
+from src.services.folder_store import FolderStore
 from src.ui.components.sidebar import Sidebar
-from src.ui.components.title_bar import TitleBar
-from src.ui.pages.favorite import FavoritesPage
-from src.ui.pages.folder_list import FolderListPage
-from src.ui.pages.home import HomePage
-from src.ui.pages.recent import RecentPage
-from src.ui.pages.section import SectionPage
+from src.ui.components.workspace_controls import frame
+from src.ui.pages.files import FilesPage
+from src.ui.pages.providers import ProvidersPage
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import get_default_layout
 
@@ -28,182 +19,58 @@ class MainWindow(QMainWindow):
     def __init__(self, *, store: FolderStore | None = None) -> None:
         super().__init__()
 
-        self.__settings = AppSettings()
-        self.__store = store if store is not None else get_folder_store()
-
-        self.setWindowTitle("Onix Desktop")
-        self.setWindowFlag(Qt.WindowType.ExpandedClientAreaHint, True)
-        self.setWindowFlag(Qt.WindowType.NoTitleBarBackgroundHint, True)
-        self.setAttribute(Qt.WidgetAttribute.WA_ContentsMarginsRespectsSafeArea, False)
+        self.setWindowTitle("")
 
         if sys.platform == "darwin":
-            self.setWindowTitle("")
+            self.setWindowFlag(Qt.WindowType.ExpandedClientAreaHint, True)
+            self.setWindowFlag(Qt.WindowType.NoTitleBarBackgroundHint, True)
+            self.setAttribute(Qt.WidgetAttribute.WA_ContentsMarginsRespectsSafeArea, False)
 
-        self.resize(1440, 900)
-        self.setMinimumSize(1100, 700)
+        self.resize(1280, 760)
+        self.setMinimumSize(900, 600)
 
-        self.__title_bar = TitleBar(self)
-        self.setMenuWidget(self.__title_bar)
+        root = frame("OnixWorkspace")
+        self.setCentralWidget(root)
+        layout = get_default_layout(QHBoxLayout, parent=root)
 
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
+        self.sidebar = Sidebar()
+        self.pages = QStackedWidget()
+        self.files_page = FilesPage(store=store)
+        self.providers_page = ProvidersPage()
 
-        layout = get_default_layout(QHBoxLayout, parent=central_widget)
+        self.pages.addWidget(self.files_page)
+        self.pages.addWidget(self.providers_page)
 
-        self.__home_page = HomePage(store=self.__store)
-        self.__recent_page = RecentPage()
-        self.__favorite_page = FavoritesPage()
+        layout.addWidget(self.sidebar)
+        layout.addWidget(self.pages, 1)
 
-        self.__page_stack = QStackedWidget()
-        self.__page_stack.addWidget(self.__home_page)
+        self.sidebar.page_requested.connect(self._navigate)
+        self.sidebar.search_requested.connect(self._open_search)
+        self.files_page.section_requested.connect(self._navigate)
+        self.providers_page.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
 
-        self.__sections_pages = [
-            self.__recent_page,
-            self.__favorite_page,
-            SectionPage("Sincronização"),
-            SectionPage("Lixeira"),
-        ]
+        for key in (QKeySequence(QKeySequence.StandardKey.Find), QKeySequence("Ctrl+K")):
+            QShortcut(key, self).activated.connect(self._open_search)
 
-        for section in self.__sections_pages:
-            self.__page_stack.addWidget(section)
-
-        self.__sidebar = Sidebar()
-        self.__folder_details = FolderDetails()
-        self.__app_footer = AppFooter()
-        self.__onedrive_session: OneDriveSession | None = None
-        self.__login_results: Queue[OneDriveSession | str] = Queue()
-        self.__login_timer = QTimer(self)
-        self.__login_timer.setInterval(100)
-        self.__login_timer.timeout.connect(self._finish_onedrive_login)
-        self.__sidebar.account_header_widget.connection_requested.connect(
-            self._toggle_onedrive_connection
-        )
-
-        self.setStatusBar(self.__app_footer)
-
-        self.__sidebar.theme_toggle_requested.connect(self.theme_toggle_requested.emit)
-        self.__title_bar.search_text_changed.connect(self._search_current_page)
-        self.__home_page.folder_selected.connect(self._show_folder_details)
-        self.__folder_details.close_requested.connect(self._close_folder_details)
-        self.__home_page.summary_changed.connect(self._update_summary)
-        self.__recent_page.summary_changed.connect(self._update_summary)
-        self.__sidebar.page_requested.connect(self._change_page)
-        self.__recent_page.folder_selected.connect(self._show_folder_details)
-        self.__favorite_page.folder_selected.connect(self._show_folder_details)
-        self.__favorite_page.summary_changed.connect(self._update_summary)
-        self.__folder_details.favorite_changed.connect(self._on_favorite_changed)
-
-        self.__app_footer.set_summary(self.__home_page.results_summary)
-
-        layout.addWidget(self.__sidebar)
-        layout.addWidget(self.__page_stack, stretch=1)
-        layout.addWidget(self.__folder_details)
+        self.set_theme(AvailableTheme.LIGHT)
+        self._navigate("Todos os arquivos")
 
     def set_theme(self, theme: AvailableTheme) -> None:
-        self.__sidebar.set_theme(theme)
-        self.__home_page.set_theme(theme)
-        self.__folder_details.set_theme(theme)
+        self.sidebar.set_theme(theme)
+        self.files_page.set_theme(theme)
+        self.providers_page.set_theme(theme)
 
-        for page in self.__sections_pages:
-            page.set_theme(theme)
+    def _navigate(self, section: str) -> None:
+        self.sidebar.set_current_page(section)
 
-    @Slot()
-    def _toggle_onedrive_connection(self) -> None:
-        if self.__login_timer.isActive():
-            return
-
-        header = self.__sidebar.account_header_widget
-        if self.__onedrive_session is not None:
-            self.__onedrive_session = None
-            header.set_login_state()
-            self.__app_footer.set_connection(False)
-            return
-
-        results = self.__login_results
-
-        def authenticate() -> None:
-            try:
-                results.put(sign_in_to_onedrive())
-            except OneDriveLoginError as error:
-                results.put(str(error))
-            except Exception:
-                results.put("Não foi possível iniciar o login no OneDrive. Tente novamente.")
-
-        header.set_login_state(pending=True)
-        Thread(target=authenticate, name="onedrive-login", daemon=True).start()
-        self.__login_timer.start()
-
-    @Slot()
-    def _finish_onedrive_login(self) -> None:
-        try:
-            result = self.__login_results.get_nowait()
-        except Empty:
-            return
-
-        self.__login_timer.stop()
-        header = self.__sidebar.account_header_widget
-        if isinstance(result, str):
-            header.set_login_state()
-            QMessageBox.warning(self, "Conectar OneDrive", result)
-            return
-
-        self.__onedrive_session = result
-        header.set_login_state(result.account_name)
-        self.__app_footer.set_connection(True)
-
-    @Slot()
-    def _update_summary(self) -> None:
-        page = self.__page_stack.currentWidget()
-
-        if isinstance(page, (HomePage, FolderListPage)):
-            summary = page.results_summary
+        if section == "Configurações":
+            self.pages.setCurrentWidget(self.providers_page)
         else:
-            summary = ""
-        self.__app_footer.set_summary(summary)
+            self.pages.setCurrentWidget(self.files_page)
+            self.files_page.navigate(section)
 
-    @Slot(str)
-    def _search_current_page(self, text: str) -> None:
-        page = self.__page_stack.currentWidget()
-        if isinstance(page, (HomePage, FolderListPage)):
-            page.set_search_text(text)
+    def _open_search(self) -> None:
+        if self.pages.currentWidget() is self.providers_page:
+            self._navigate("Todos os arquivos")
 
-    @Slot(int)
-    def _change_page(self, page_id: int) -> None:
-        if not 0 <= page_id < self.__page_stack.count():
-            return
-
-        self._close_folder_details()
-        self.__page_stack.setCurrentIndex(page_id)
-
-        page = self.__page_stack.currentWidget()
-        if isinstance(page, FolderListPage):
-            page.set_folders(self.__store.folders)
-
-        searchable = isinstance(page, (HomePage, FolderListPage))
-        self.__title_bar.search_input.setEnabled(searchable)
-
-        if searchable:
-            self._search_current_page(self.__title_bar.search_input.text())
-        self._update_summary()
-
-    @Slot(object)
-    def _show_folder_details(self, folder: Folder | None) -> None:
-        self.__folder_details.show_folder(folder)
-
-        if folder is not None:
-            self.__folder_details.show()
-
-    @Slot(object)
-    def _on_favorite_changed(self, folder: Folder) -> None:
-        self.__store.save_favorites()
-
-        if self.__page_stack.currentWidget() is self.__favorite_page:
-            self.__favorite_page.set_folders(self.__store.folders)
-            self.__folder_details.hide()
-
-    @Slot()
-    def _close_folder_details(self) -> None:
-        self.__home_page.clear_folder_selection()
-        self.__recent_page.clear_folder_selection()
-        self.__favorite_page.clear_folder_selection()
-        self.__folder_details.hide()
+        self.files_page.open_search()

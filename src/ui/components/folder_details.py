@@ -1,95 +1,135 @@
-from PySide6.QtCore import QSignalBlocker, Signal, Slot
-from PySide6.QtWidgets import QCheckBox, QFrame, QVBoxLayout, QWidget
+from pathlib import Path
+from shutil import copyfile
 
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import (
+    QFileDialog,
+    QFrame,
+    QHBoxLayout,
+    QMessageBox,
+    QVBoxLayout,
+)
+
+from src.loaders.icon import IconLoader, IconLoaderOptions
 from src.models.folder import Folder
-from src.ui.components.details_header import DetailsHeader
-from src.ui.components.folder_availability import FolderAvailability
-from src.ui.components.folder_summary import FolderSummary
-from src.ui.components.primitive.label import StyledLabel
-from src.ui.themes.theme_manager import AvailableTheme
-from src.utils.create_margins import create_qmargins
-from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
+from src.ui.components.title_bar import workspace_bar
+from src.ui.components.workspace_controls import WorkspaceButton, label
+from src.ui.styles import ComponentSize
+from src.ui.themes.theme_manager import AvailableTheme, theme_colors
+from src.utils.file_metadata import modified_text, size_text
 
 
 class FolderDetails(QFrame):
     close_requested = Signal()
-    favorite_changed = Signal(object)
+    favorite_requested = Signal()
 
-    def __init__(self, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
-        self.setObjectName("FolderDetails")
-        self.setFixedWidth(360)
-        self._folder: Folder | None = None
+    def __init__(self) -> None:
+        super().__init__()
+        self.setObjectName("OnixInspector")
 
-        layout = get_default_layout(
-            QVBoxLayout,
-            GetDefaultLayoutOptions(margins=create_qmargins(24), spacing=16),
-            parent=self,
-        )
+        self._item: Folder | None = None
+        self._theme = AvailableTheme.LIGHT
 
-        self.header = DetailsHeader()
-        self.header.close_requested.connect(self.close_requested.emit)
+        self.setFixedWidth(int(ComponentSize.DetailsWidth))
 
-        self.empty_label = StyledLabel("Selecione uma pasta", word_wrap=True)
-        self.content = QWidget()
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
 
-        content_layout = get_default_layout(
-            QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self.content
-        )
+        header, heading = workspace_bar()
+        heading.addWidget(label("Detalhes", "section"), 1)
 
-        self.summary = FolderSummary()
-        self.availability = FolderAvailability()
+        self.close_details = WorkspaceButton(icon="dismiss", quiet=True)
+        self.close_details.setToolTip("Fechar detalhes")
+        self.close_details.clicked.connect(self.close_requested.emit)
+        heading.addWidget(self.close_details)
+        outer.addWidget(header)
 
-        content_layout.addWidget(self.summary)
+        details = QVBoxLayout()
+        details.setContentsMargins(16, 20, 16, 16)
+        details.setSpacing(14)
 
-        self.favorite_checkbox = QCheckBox("Marcar como favorito")
-        self.favorite_checkbox.toggled.connect(self._on_favorite_changed)
-        content_layout.addWidget(self.favorite_checkbox)
+        self.detail_icon = label()
+        details.addWidget(self.detail_icon)
 
-        content_layout.addSpacing(16)
-        content_layout.addWidget(self.availability)
+        self.detail_title = label(role="details")
+        self.detail_title.setWordWrap(True)
+        details.addWidget(self.detail_title)
 
-        # Keep existing callers working with the same child widgets.
-        self.close_button = self.header.close_button
-        self.name_label = self.summary.name_label
-        self.subtitle_label = self.summary.subtitle_label
-        self.size_label = self.summary.size_label
-        self.location_label = self.summary.location_label
-        self.status_label = self.summary.status_label
-        self.keep_switch = self.availability.keep_switch
-        self.free_space_button = self.availability.free_space_button
+        self.detail_type = label(role="secondary")
+        details.addWidget(self.detail_type)
 
-        layout.addWidget(self.header)
-        layout.addWidget(self.empty_label)
-        layout.addWidget(self.content)
-        layout.addStretch()
-        self.show_folder(None)
+        self.download_button = WorkspaceButton("Baixar", "arrow_download")
+        self.download_button.clicked.connect(self._download)
+        details.addWidget(self.download_button, alignment=Qt.AlignmentFlag.AlignLeft)
+
+        self.favorite_button = WorkspaceButton("Adicionar aos favoritos", "star")
+        self.favorite_button.clicked.connect(self.favorite_requested.emit)
+        details.addWidget(self.favorite_button, alignment=Qt.AlignmentFlag.AlignLeft)
+
+        details.addSpacing(8)
+        details.addWidget(label("Propriedades", "section"))
+        self.detail_values = {}
+
+        for name in ("Provedor", "Localização", "Modificado", "Tamanho"):
+            row = QHBoxLayout()
+            row.addWidget(label(name, "secondary"), 1)
+            value = label()
+            row.addWidget(value, 1)
+            details.addLayout(row)
+            self.detail_values[name] = value
+
+        details.addStretch()
+        outer.addLayout(details, 1)
+
+        self.hide()
 
     def set_theme(self, theme: AvailableTheme) -> None:
-        self.header.set_theme(theme)
-        self.availability.set_theme(theme)
+        self._theme = theme
+        self.show_item(self._item)
 
-    @Slot(bool)
-    def _on_favorite_changed(self, checked: bool) -> None:
-        if self._folder is None:
+    def show_item(self, item: Folder | None) -> None:
+        self._item = item
+        self.setVisible(item is not None)
+
+        if item is None:
             return
 
-        self._folder.is_favorite = checked
-        self.favorite_changed.emit(self._folder)
+        color = theme_colors(self._theme).Accent.to_hex()
+        self.detail_icon.setPixmap(
+            IconLoader(
+                "folder" if item.is_directory else "document",
+                IconLoaderOptions(folder_name="fluent/16/regular", color=color),
+            ).load_as_pixmap(24)
+        )
 
-    @Slot(object)
-    def show_folder(self, folder: Folder | None) -> None:
-        self._folder = folder
-        self.availability.show_folder(folder)
+        self.detail_title.setText(item.name)
+        self.detail_type.setText(
+            "Pasta" if item.is_directory else Path(item.name).suffix[1:].upper()
+        )
 
-        if folder is None:
-            self.content.hide()
-            self.empty_label.show()
+        self.favorite_button.setText(
+            "Remover dos favoritos" if item.is_favorite else "Adicionar aos favoritos"
+        )
+
+        self.download_button.setVisible(not item.is_directory)
+        self.download_button.setEnabled(item.local_path is not None)
+        self.download_button.setToolTip(
+            "" if item.local_path else "Download indisponível para este exemplo"
+        )
+
+        values = (item.provider, item.location, modified_text(item), size_text(item.size_bytes))
+        for value, text in zip(self.detail_values.values(), values, strict=True):
+            value.setText(text)
+
+    def _download(self) -> None:
+        item = self._item
+        if item is None or item.local_path is None:
             return
 
-        with QSignalBlocker(self.favorite_checkbox):
-            self.favorite_checkbox.setChecked(folder.is_favorite)
-
-        self.summary.show_folder(folder)
-        self.empty_label.hide()
-        self.content.show()
+        target, _ = QFileDialog.getSaveFileName(self, "Salvar cópia", item.name)
+        if target:
+            try:
+                copyfile(item.local_path, target)
+            except OSError as error:
+                QMessageBox.warning(self, "Salvar cópia", str(error))
