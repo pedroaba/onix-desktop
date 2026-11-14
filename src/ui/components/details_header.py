@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QHBoxLayout, QWidget
 
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.label import StyledLabel
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
@@ -29,4 +29,4 @@ class DetailsHeader(QWidget):
 
     def set_theme(self, theme: AvailableTheme) -> None:
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
-        self.close_button.set_icon_color(colors.TextSecondary)
+        self.close_button.set_icon_color(colors.TextSecondary.to_hex())

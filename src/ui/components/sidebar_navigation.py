@@ -2,7 +2,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QButtonGroup, QVBoxLayout, QWidget
 
 from src.ui.components.primitive.navigation_button import NavigationButton
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
@@ -41,4 +41,4 @@ class SidebarNavigation(QWidget):
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
         for button in self.button_group.buttons():
             assert isinstance(button, NavigationButton)
-            button.set_icon_colors(colors.TextSecondary, colors.Accent)
+            button.set_icon_colors(colors.TextSecondary.to_hex(), colors.Accent.to_hex())

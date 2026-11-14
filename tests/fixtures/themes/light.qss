@@ -1,281 +1,279 @@
 QWidget {
-    color: #262626;
+  color: #202128;
 }
 
 QMainWindow {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 QLabel#PageTitle {
-    color: #000000;
+  color: #202128;
+}
+
+QLabel#PageBreadcrumb {
+  color: #5f6572;
 }
 
 QLabel#PageDescription,
 QLabel#LocalDescriptionLabel,
 QLabel#AccountName {
-    color: #616161;
-}
-
-QPushButton#PrimaryButton {
-    background-color: #0067b8;
-    color: #ffffff;
-    border-color: #0067b8;
-}
-
-QPushButton#PrimaryButton:hover {
-    background-color: #004a7f;
-    border-color: #004a7f;
-}
-
-QPushButton#PrimaryButton:pressed {
-    background-color: #00385f;
-    border-color: #00385f;
-}
-
-QPushButton#PrimaryButton:focus {
-    border-color: #262626;
-}
-
-QFrame#Sidebar {
-    background-color: #f2f2f2;
-    border-right-color: #dddddd;
-}
-
-QFrame#Sidebar QPushButton {
-    background-color: transparent;
-}
-
-QFrame#Sidebar QPushButton:hover {
-    background-color: #e5e5e5;
-}
-
-QFrame#Sidebar QPushButton:checked {
-    background-color: #dceaf7;
-    color: #0067b8;
-}
-
-QFrame#Sidebar QPushButton:focus {
-    border-color: #0067b8;
-}
-
-QTableView#FolderTable {
-    background-color: #ffffff;
-    color: #262626;
-    selection-background-color: #dceaf7;
-    selection-color: #262626;
-}
-
-QTableView#FolderTable::item {
-    border-bottom-color: #eeeeee;
-}
-
-QTableView#FolderTable QHeaderView::section {
-    background-color: #ffffff;
-    color: #616161;
-    border-bottom-color: #dddddd;
-}
-
-QFrame#FolderDetails {
-    background-color: #ffffff;
-    border-left-color: #dddddd;
-}
-
-QFrame#TitleBar {
-    background-color: #f2f2f2;
-    border-bottom-color: #dddddd;
-}
-
-QLineEdit#SearchInput {
-    background-color: #ffffff;
-    color: #262626;
-    border-color: #b7b7b7;
-}
-
-QLineEdit#SearchInput:focus {
-    border-color: #0067b8;
-}
-
-QLabel#EmptyStateDescription {
-    color: #616161;
+  color: #5f6572;
 }
 
 QLabel#AccountSubtitle {
-    color: #616161;
+  color: #5f6572;
+}
+
+QPushButton#PrimaryButton {
+  background-color: #515bc0;
+  color: #ffffff;
+  border-color: #515bc0;
+}
+
+QPushButton#PrimaryButton:hover {
+  background-color: #4852b2;
+  border-color: #4852b2;
+}
+
+QPushButton#PrimaryButton:pressed {
+  background-color: #40499f;
+  border-color: #40499f;
+}
+
+QPushButton#PrimaryButton:focus {
+  border-color: #545ec5;
+}
+
+QFrame#Sidebar {
+  background-color: #f3f4f6;
+  border-right-color: #e4e6eb;
+}
+
+QFrame#Sidebar QPushButton {
+  background-color: transparent;
+}
+
+QFrame#Sidebar QPushButton:hover {
+  background-color: #e6e8ef;
+}
+
+QFrame#Sidebar QPushButton:checked {
+  background-color: #ebedff;
+  color: #515bc0;
+}
+
+QFrame#Sidebar QPushButton:focus {
+  border-color: #515bc0;
 }
 
 QFrame#NavigationIndicator {
-    background-color: #0067b8;
+  background-color: #515bc0;
+}
+
+QTableView#FolderTable {
+  background-color: #ffffff;
+  color: #202128;
+  selection-background-color: #ebedff;
+  selection-color: #202128;
+}
+
+QTableView#FolderTable::item {
+  border-bottom-color: #e4e6eb;
+}
+
+QTableView#FolderTable QHeaderView::section {
+  background-color: #ffffff;
+  color: #5f6572;
+  border-bottom-color: #e4e6eb;
 }
 
 QLabel#ResultsSummary {
-    color: #616161;
+  color: #5f6572;
 }
 
-QLabel#PageBreadcrumb {
-    color: #616161;
+QFrame#TitleBar {
+  background-color: #f3f4f6;
+  border-bottom-color: #e4e6eb;
+}
+
+QLineEdit#SearchInput {
+  background-color: #f3f4f6;
+  color: #202128;
+  border-color: #d5d8e0;
+}
+
+QLineEdit#SearchInput:focus {
+  border-color: #515bc0;
+}
+
+QLabel#EmptyStateDescription {
+  color: #5f6572;
 }
 
 QPushButton#SyncButton {
-    background-color: #ffffff;
-    color: #0067b8;
-    border-color: #b7b7b7;
+  background-color: #f7f8fa;
+  color: #515bc0;
+  border-color: #d5d8e0;
 }
 
 QPushButton#SyncButton:hover {
-    background-color: #f2f2f2;
+  background-color: #e6e8ef;
 }
 
 QPushButton#SyncButton:pressed {
-    background-color: #e5e5e5;
+  background-color: #d5d8e0;
 }
 
 QPushButton#SyncButton:focus {
-    border-color: #0067b8;
-}
-
-QPushButton[role="view-mode"] {
-    background-color: #ffffff;
-    border-color: #dddddd;
-}
-
-QPushButton[role="view-mode"]:hover {
-    background-color: #f2f2f2;
-}
-
-QPushButton[role="view-mode"]:checked {
-    background-color: #dceaf7;
-    border-color: #99caff;
-}
-
-QPushButton[role="view-mode"]:focus {
-    border-color: #0067b8;
-}
-
-QPushButton[role="view-mode"]:disabled {
-    background-color: #f5f5f5;
-    border-color: #dddddd;
+  border-color: #515bc0;
 }
 
 QLabel#SyncStatusText {
-    color: #262626;
+  color: #202128;
 }
 
 QLabel#SyncStatusTime {
-    color: #616161;
+  color: #5f6572;
 }
 
 QFrame#SyncStatusDivider {
-    background-color: #dddddd;
+  background-color: #e4e6eb;
+}
+
+QPushButton[role="view-mode"] {
+  background-color: #f7f8fa;
+  border-color: #d5d8e0;
+}
+
+QPushButton[role="view-mode"]:hover {
+  background-color: #e6e8ef;
+}
+
+QPushButton[role="view-mode"]:checked {
+  background-color: #ebedff;
+  border-color: #545ec5;
+}
+
+QPushButton[role="view-mode"]:focus {
+  border-color: #515bc0;
+}
+
+QPushButton[role="view-mode"]:disabled {
+  background-color: #f3f4f6;
+  border-color: #e4e6eb;
+}
+
+QFrame#FolderDetails {
+  background-color: #f3f4f6;
+  border-left-color: #e4e6eb;
 }
 
 QLabel#DetailsSubtitle,
 QLabel[role="details-field-label"] {
-    color: #616161;
+  color: #5f6572;
 }
 
 QPushButton#CloseDetailsButton:hover {
-    background-color: #eeeeee;
+  background-color: #e6e8ef;
 }
 
 QPushButton#CloseDetailsButton:pressed {
-    background-color: #dddddd;
+  background-color: #d5d8e0;
 }
 
 QPushButton#CloseDetailsButton:focus {
-    border-color: #0067b8;
+  border-color: #515bc0;
 }
 
 QFrame#DetailsDivider {
-    background-color: #dddddd;
+  background-color: #e4e6eb;
 }
 
 QLabel#LocalStorageDescription {
-    color: #616161;
+  color: #5f6572;
 }
 
 QPushButton#FreeSpaceButton {
-    background-color: #ffffff;
-    color: #0067b8;
-    border-color: #b7b7b7;
+  background-color: #f7f8fa;
+  color: #515bc0;
+  border-color: #d5d8e0;
 }
 
 QPushButton#FreeSpaceButton:disabled {
-    color: #969696;
-    border-color: #dddddd;
+  color: #747986;
+  border-color: #e4e6eb;
+}
+
+QFrame#StorageDivider {
+  background-color: #e4e6eb;
+}
+
+QLabel#StorageUsage {
+  color: #5f6572;
+}
+
+QProgressBar#StorageProgress {
+  background-color: #e4e6eb;
+}
+
+QProgressBar#StorageProgress::chunk {
+  background-color: #515bc0;
 }
 
 QStatusBar#AppFooter {
-    background-color: #ffffff;
-    border-top-color: #dddddd;
+  background-color: #f3f4f6;
+  border-top-color: #e4e6eb;
 }
 
 QLabel#FooterCount,
 QLabel#FooterConnection {
-    color: #262626;
+  color: #202128;
 }
-
-QFrame#StorageDivider {
-    background-color: #dddddd;
-}
-
-QLabel#StorageUsage {
-    color: #616161;
-}
-
-QProgressBar#StorageProgress {
-    background-color: #d7d7d7;
-}
-
-QProgressBar#StorageProgress::chunk {
-    background-color: #0067b8;
-}
-
-
 
 QFrame#AccountHeader {
-  background-color: #ffffff;
-  border-color: #dddddd;
+  background-color: #f3f4f6;
+  border-color: #e4e6eb;
 }
 
 QLabel#AccountSubtitle[connected="true"] {
-  color: #107c10;
+  color: #26804b;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton {
-  background-color: #0067b8;
+  background-color: #515bc0;
   color: #ffffff;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton:hover {
-  background-color: #004a7f;
+  background-color: #4852b2;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton:pressed {
-  background-color: #00385f;
+  background-color: #40499f;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"] {
-  background-color: #ffffff;
-  color: #616161;
-  border-color: #b7b7b7;
+  background-color: #f7f8fa;
+  color: #5f6572;
+  border-color: #d5d8e0;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:hover {
-  background-color: #f2f2f2;
-  color: #262626;
+  background-color: #e6e8ef;
+  color: #202128;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:pressed {
-  background-color: #e5e5e5;
+  background-color: #d5d8e0;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton:focus,
 QFrame#Sidebar QPushButton#AccountConnectionButton[connected="true"]:focus {
-  border-color: #262626;
+  border-color: #545ec5;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton:disabled {
-  background-color: #f5f5f5;
-  color: #616161;
-  border-color: #b7b7b7;
+  background-color: #f3f4f6;
+  color: #5f6572;
+  border-color: #d5d8e0;
 }

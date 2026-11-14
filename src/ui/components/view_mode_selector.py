@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QButtonGroup, QHBoxLayout, QWidget
 
 from src.ui.components.primitive.button import IconButton
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
@@ -28,4 +28,4 @@ class ViewModeSelector(QWidget):
     def set_theme(self, theme: AvailableTheme) -> None:
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
         for button in (self.list_button, self.grid_button):
-            button.set_icon_colors(colors.TextSecondary, colors.Accent)
+            button.set_icon_colors(colors.TextSecondary.to_hex(), colors.Accent.to_hex())

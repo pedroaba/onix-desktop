@@ -1,7 +1,7 @@
 """Estilos do bloco de conta do OneDrive."""
 
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector
-from src.ui.themes import constants as tokens
+from src.ui import styles as tokens
 
 _BUTTON = "QFrame#Sidebar QPushButton#AccountConnectionButton"
 
@@ -34,58 +34,58 @@ def color_rules(colors: tokens.ThemeColors) -> list[QSSRule]:
         QSSRule(
             selectors=[QSSSelector("QFrame#AccountHeader")],
             rules=[
-                QSSRuleProperty("background-color", colors.SurfaceInput),
-                QSSRuleProperty("border-color", colors.Border),
+                QSSRuleProperty("background-color", colors.SurfaceInput.to_hex()),
+                QSSRuleProperty("border-color", colors.Border.to_hex()),
             ],
         ),
         QSSRule(
             selectors=[QSSSelector('QLabel#AccountSubtitle[connected="true"]')],
-            rules=[QSSRuleProperty("color", colors.Success)],
+            rules=[QSSRuleProperty("color", colors.Success.to_hex())],
         ),
         QSSRule(
             selectors=[QSSSelector(_BUTTON)],
             rules=[
-                QSSRuleProperty("background-color", colors.Primary),
-                QSSRuleProperty("color", colors.TextOnPrimary),
+                QSSRuleProperty("background-color", colors.Primary.to_hex()),
+                QSSRuleProperty("color", colors.TextOnPrimary.to_hex()),
             ],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{_BUTTON}:hover")],
-            rules=[QSSRuleProperty("background-color", colors.PrimaryHover)],
+            rules=[QSSRuleProperty("background-color", colors.PrimaryHover.to_hex())],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{_BUTTON}:pressed")],
-            rules=[QSSRuleProperty("background-color", colors.PrimaryPressed)],
+            rules=[QSSRuleProperty("background-color", colors.PrimaryPressed.to_hex())],
         ),
         QSSRule(
             selectors=[QSSSelector(connected)],
             rules=[
-                QSSRuleProperty("background-color", colors.SurfaceButton),
-                QSSRuleProperty("color", colors.TextSecondary),
-                QSSRuleProperty("border-color", colors.BorderButton),
+                QSSRuleProperty("background-color", colors.SurfaceButton.to_hex()),
+                QSSRuleProperty("color", colors.TextSecondary.to_hex()),
+                QSSRuleProperty("border-color", colors.BorderButton.to_hex()),
             ],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{connected}:hover")],
             rules=[
-                QSSRuleProperty("background-color", colors.SurfaceButtonHover),
-                QSSRuleProperty("color", colors.Text),
+                QSSRuleProperty("background-color", colors.SurfaceButtonHover.to_hex()),
+                QSSRuleProperty("color", colors.Text.to_hex()),
             ],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{connected}:pressed")],
-            rules=[QSSRuleProperty("background-color", colors.SurfaceButtonPressed)],
+            rules=[QSSRuleProperty("background-color", colors.SurfaceButtonPressed.to_hex())],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{_BUTTON}:focus"), QSSSelector(f"{connected}:focus")],
-            rules=[QSSRuleProperty("border-color", colors.PrimaryFocus)],
+            rules=[QSSRuleProperty("border-color", colors.PrimaryFocus.to_hex())],
         ),
         QSSRule(
             selectors=[QSSSelector(f"{_BUTTON}:disabled")],
             rules=[
-                QSSRuleProperty("background-color", colors.SurfaceDisabled),
-                QSSRuleProperty("color", colors.TextSecondary),
-                QSSRuleProperty("border-color", colors.BorderButton),
+                QSSRuleProperty("background-color", colors.SurfaceDisabled.to_hex()),
+                QSSRuleProperty("color", colors.TextSecondary.to_hex()),
+                QSSRuleProperty("border-color", colors.BorderButton.to_hex()),
             ],
         ),
     ]

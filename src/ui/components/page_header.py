@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import get_default_layout
 
@@ -50,4 +50,4 @@ class PageHeader(QWidget):
 
     def set_theme(self, theme: AvailableTheme) -> None:
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
-        self.chevron_label.set_color(colors.TextSecondary)
+        self.chevron_label.set_color(colors.TextSecondary.to_hex())

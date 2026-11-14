@@ -34,8 +34,8 @@ class ComponentThemeTests(unittest.TestCase):
 
     def test_status_icon_colors(self):
         for theme, success, accent in (
-            (AvailableTheme.LIGHT, "#107c10", "#0067b8"),
-            (AvailableTheme.DARK, "#54b054", "#80c6ff"),
+            (AvailableTheme.LIGHT, "#26804b", "#515bc0"),
+            (AvailableTheme.DARK, "#65ba85", "#a8aef6"),
         ):
             icons = FolderTable._build_status_icon(theme)
             for status, color in (
@@ -50,9 +50,9 @@ class ComponentThemeTests(unittest.TestCase):
         page = HomePage()
         self.addCleanup(page.deleteLater)
         for theme, accent, secondary in (
-            (AvailableTheme.LIGHT, "#0067b8", "#616161"),
-            (AvailableTheme.DARK, "#80c6ff", "#b7b7b7"),
-            (AvailableTheme.LIGHT, "#0067b8", "#616161"),
+            (AvailableTheme.LIGHT, "#515bc0", "#5f6572"),
+            (AvailableTheme.DARK, "#a8aef6", "#8a8f98"),
+            (AvailableTheme.LIGHT, "#515bc0", "#5f6572"),
         ):
             with self.subTest(theme=theme):
                 page.set_theme(theme)
@@ -66,8 +66,8 @@ class ComponentThemeTests(unittest.TestCase):
         details = FolderDetails()
         self.addCleanup(details.deleteLater)
         for theme, accent, secondary in (
-            (AvailableTheme.LIGHT, "#0067b8", "#616161"),
-            (AvailableTheme.DARK, "#80c6ff", "#b7b7b7"),
+            (AvailableTheme.LIGHT, "#515bc0", "#5f6572"),
+            (AvailableTheme.DARK, "#a8aef6", "#8a8f98"),
         ):
             for enabled in (False, True):
                 with self.subTest(theme=theme, enabled=enabled):
@@ -84,9 +84,9 @@ class ComponentThemeTests(unittest.TestCase):
     def test_switch_track_and_thumb_colors(self):
         switch = ToggleSwitch()
         self.addCleanup(switch.deleteLater)
-        for theme, unchecked in (
-            (AvailableTheme.LIGHT, "#8a8a8a"),
-            (AvailableTheme.DARK, "#666666"),
+        for theme, checked_color, unchecked in (
+            (AvailableTheme.LIGHT, "#515bc0", "#747986"),
+            (AvailableTheme.DARK, "#5e6ad2", "#5f6572"),
         ):
             switch.set_theme(theme)
             for checked in (False, True):
@@ -98,7 +98,7 @@ class ComponentThemeTests(unittest.TestCase):
                     track_x, thumb_x = (10, 31) if checked else (32, 13)
                     self.assertEqual(
                         image.pixelColor(int(track_x * scale), int(14 * scale)).name(),
-                        "#0067b8" if checked else unchecked,
+                        checked_color if checked else unchecked,
                     )
                     self.assertEqual(
                         image.pixelColor(int(thumb_x * scale), int(14 * scale)).name(), "#ffffff"

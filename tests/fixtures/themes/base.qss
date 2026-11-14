@@ -1,253 +1,240 @@
-/* Tipografia padrão. */
 QWidget {
-    font-family: "Segoe UI", "Helvetica Neue", Arial;
-    font-size: 14px;
-}
-
-/* Hierarquia dos textos. */
-QLabel#PageTitle {
-    font-size: 29px;
-    font-weight: 600;
-}
-
-QLabel#PageDescription {
-    font-size: 14px;
-}
-
-QLabel#AccountName {
-    font-size: 13px;
+  font-family: @font-family@;
+  font-size: 13px;
 }
 
 QLabel#PageBreadcrumb {
-    font-size: 13px;
+  font-size: 12px;
+}
+
+QLabel#AppTitle {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+QLabel#PageTitle {
+  font-size: 24px;
+  font-weight: 600;
 }
 
 QLabel#SidebarTitle,
 QLabel#DetailsHeading {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-/* Formato do botão principal. */
-QPushButton#PrimaryButton {
-    font-size: 16px;
-    font-weight: 600;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 10px 16px;
+QLabel#PageDescription {
+  font-size: 13px;
 }
 
-/* Estrutura da barra lateral. */
-QFrame#Sidebar {
-    border: none;
-    border-right: 1px solid transparent;
-}
-
-QFrame#Sidebar QPushButton {
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 10px 12px;
-    text-align: left;
-}
-
-QFrame#Sidebar QPushButton:checked {
-    font-weight: 600;
-}
-
-/* Estrutura da tabela. */
-QTableView#FolderTable {
-    border: none;
-}
-
-QTableView#FolderTable::item {
-    padding: 8px;
-    border-bottom: 1px solid transparent;
-}
-
-QTableView#FolderTable QHeaderView::section {
-    font-weight: 600;
-    padding: 12px;
-    border: none;
-    border-bottom: 1px solid transparent;
-}
-
-/* Estrutura do painel de detalhes. */
-QFrame#FolderDetails {
-    border: none;
-    border-left: 1px solid transparent;
-    border-radius: 0;
-}
-
-QFrame#TitleBar {
-    border: none;
-    border-bottom: 1px solid transparent;
-}
-
-QLabel#AppTitle {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-QLineEdit#SearchInput {
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 6px 12px;
-}
-
-QLabel#EmptyStateTitle {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-QLabel#EmptyStateDescription {
-    font-size: 13px;
+QLabel#AccountName {
+  font-size: 12px;
 }
 
 QLabel#AccountTitle {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 QLabel#AccountSubtitle {
-    font-size: 13px;
+  font-size: 12px;
+}
+
+QPushButton#PrimaryButton {
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px 16px;
+}
+
+QFrame#Sidebar {
+  border: none;
+  border-right: 1px solid transparent;
+}
+
+QFrame#Sidebar QPushButton {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+QFrame#Sidebar QPushButton:checked {
+  font-weight: 600;
 }
 
 QFrame#NavigationIndicator {
-    border: none;
-    border-radius: 2px;
+  border: none;
+  border-radius: 6px;
+}
+
+QTableView#FolderTable {
+  border: none;
+}
+
+QTableView#FolderTable::item {
+  padding: 8px;
+  border-bottom: 1px solid transparent;
+}
+
+QTableView#FolderTable QHeaderView::section {
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid transparent;
 }
 
 QLabel#ResultsSummary {
-    font-size: 13px;
-    padding-top: 8px;
+  font-size: 12px;
+  padding-top: 8px;
 }
 
-QLabel#PageTitle {
-    font-size: 32px;
-    font-weight: 600;
+QTableView#FolderTable QHeaderView::section {
+  font-weight: 400;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid transparent;
+}
+
+QFrame#TitleBar {
+  border: none;
+  border-bottom: 1px solid transparent;
+}
+
+QLineEdit#SearchInput {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+QLabel#EmptyStateTitle {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+QLabel#EmptyStateDescription {
+  font-size: 12px;
 }
 
 QPushButton#SyncButton {
-    font-size: 16px;
-    font-weight: 400;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 10px 16px;
-}
-
-QPushButton[role="view-mode"] {
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px 16px;
 }
 
 QLabel#SyncStatusText {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 QLabel#SyncStatusTime {
-    font-size: 13px;
+  font-size: 12px;
 }
 
 QFrame#SyncStatusDivider {
-    border: none;
+  border: none;
+}
+
+QPushButton[role="view-mode"] {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0;
+}
+
+QFrame#FolderDetails {
+  border: none;
+  border-left: 1px solid transparent;
+  border-radius: 0;
 }
 
 QLabel#DetailsFolderName {
-    font-size: 22px;
-    font-weight: 600;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 QLabel#DetailsSubtitle {
-    font-size: 14px;
+  font-size: 13px;
 }
 
 QLabel[role="details-field-label"] {
-    font-size: 14px;
+  font-size: 13px;
 }
 
 QPushButton#CloseDetailsButton {
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0;
 }
 
 QFrame#DetailsDivider {
-    border: none;
-}
-
-QLabel#LocalStorageHeading {
-    font-size: 16px;
-    font-weight: 600;
+  border: none;
 }
 
 QLabel#LocalStorageDescription {
-    font-size: 13px;
+  font-size: 12px;
 }
 
 QPushButton#FreeSpaceButton {
-    border: 1px solid transparent;
-    border-radius: 2px;
-    padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+QLabel#LocalStorageHeading {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+QFrame#StorageDivider {
+  border: none;
+}
+
+QLabel#StorageHeading {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+QLabel#StorageUsage {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+QProgressBar#StorageProgress {
+  border: none;
+  border-radius: 8px;
+}
+
+QProgressBar#StorageProgress::chunk {
+  border-radius: 8px;
 }
 
 QStatusBar#AppFooter {
-    border: none;
-    border-top: 1px solid transparent;
+  border: none;
+  border-top: 1px solid transparent;
 }
 
 QStatusBar#AppFooter::item {
-    border: none;
+  border: none;
 }
 
 QLabel#FooterCount,
 QLabel#FooterConnection {
-    font-size: 13px;
+  font-size: 12px;
 }
-
-QFrame#StorageDivider {
-    border: none;
-}
-
-QLabel#StorageHeading {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-QLabel#StorageUsage {
-    font-size: 13px;
-    font-weight: 400;
-}
-
-QProgressBar#StorageProgress {
-    border: none;
-    border-radius: 4px;
-}
-
-QProgressBar#StorageProgress::chunk {
-    border-radius: 4px;
-}
-
-QTableView#FolderTable QHeaderView::section {
-    font-weight: 400;
-    padding: 12px;
-    border: none;
-    border-bottom: 1px solid transparent;
-}
-
-
 
 QFrame#AccountHeader {
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 QFrame#Sidebar QPushButton#AccountConnectionButton {
   font-weight: 600;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 6px 12px;
   text-align: center;
 }

@@ -6,7 +6,7 @@ from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.divider import Divider
 from src.ui.components.primitive.label import StyledLabel
 from src.ui.components.primitive.toggle_switch import ToggleSwitch
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.add_spacing_string import add_spacing_string
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
@@ -56,11 +56,11 @@ class FolderAvailability(QWidget):
     def set_theme(self, theme: AvailableTheme) -> None:
         match theme:
             case AvailableTheme.DARK:
-                blue = DarkColors.Accent
-                color = DarkColors.TextSecondary
+                blue = DarkColors.Accent.to_hex()
+                color = DarkColors.TextSecondary.to_hex()
             case _:
-                blue = LightColors.Accent
-                color = LightColors.TextSecondary
+                blue = LightColors.Accent.to_hex()
+                color = LightColors.TextSecondary.to_hex()
 
         self.free_space_button.set_icon_color(blue if self.free_space_button.isEnabled() else color)
 

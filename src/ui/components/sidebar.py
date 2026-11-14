@@ -9,7 +9,7 @@ from src.ui.components.account_header import AccountHeader
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.sidebar_navigation import SidebarNavigation
 from src.ui.components.storage_usage import StorageUsage
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
@@ -62,8 +62,8 @@ class Sidebar(QFrame):
     def set_theme(self, theme: AvailableTheme) -> None:
         colors = DarkColors if theme == AvailableTheme.DARK else LightColors
         self.navigation.set_theme(theme)
-        self.settings_button.set_icon_color(colors.TextSecondary)
-        self.theme_button.set_icon_color(colors.TextSecondary)
+        self.settings_button.set_icon_color(colors.TextSecondary.to_hex())
+        self.theme_button.set_icon_color(colors.TextSecondary.to_hex())
 
     @Slot()
     def _request_theme_toggle(self) -> None:

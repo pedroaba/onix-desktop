@@ -1,8 +1,8 @@
 from PySide6.QtCore import QRectF, Qt
-from PySide6.QtGui import QColor, QPainter, QPaintEvent, QPen
+from PySide6.QtGui import QPainter, QPaintEvent, QPen
 from PySide6.QtWidgets import QAbstractButton, QWidget
 
-from src.ui.themes.constants import DarkColors, LightColors
+from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_size import create_qsize
 
@@ -32,9 +32,9 @@ class ToggleSwitch(QAbstractButton):
             case _:
                 colors = LightColors
         if self.isChecked():
-            track_color = QColor(colors.Primary)
+            track_color = colors.Primary.to_rgb()
         else:
-            track_color = QColor(colors.SwitchTrack)
+            track_color = colors.SwitchTrack.to_rgb()
 
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(track_color)
@@ -42,11 +42,11 @@ class ToggleSwitch(QAbstractButton):
 
         thumb_x = 22 if self.isChecked() else 4
 
-        painter.setBrush(QColor(colors.SwitchThumb))
+        painter.setBrush(colors.SwitchThumb.to_rgb())
         painter.drawEllipse(QRectF(thumb_x, 5, 18, 18))
 
         if self.hasFocus():
-            focus_color = QColor(colors.Accent)
+            focus_color = colors.Accent.to_rgb()
 
             painter.setPen(QPen(focus_color, 1, Qt.PenStyle.DashLine))
             painter.setBrush(Qt.BrushStyle.NoBrush)

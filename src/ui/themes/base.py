@@ -1,34 +1,31 @@
 """Tipografia, medidas e estrutura, geradas com QSSBuilder."""
 
+from PySide6.QtGui import QFontDatabase, QGuiApplication
+
 from src.builders.qss import QSSBuilder
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector, QSSStrResult
+from src.ui import styles as tokens
 from src.ui.themes import account
-from src.ui.themes import constants as tokens
 
 
 def build_stylesheet() -> QSSStrResult:
+    font_family = tokens.FontFamily.Default
+    if QGuiApplication.instance() is not None and QFontDatabase.hasFamily("Inter"):
+        font_family = tokens.FontFamily.Preferred
+
     global_rules: list[QSSRule] = [
         QSSRule(
             selectors=[
                 QSSSelector("QWidget"),
             ],
             rules=[
-                QSSRuleProperty("font-family", tokens.FontFamily.Default),
+                QSSRuleProperty("font-family", font_family),
                 QSSRuleProperty("font-size", tokens.FontSize.Body),
             ],
         ),
     ]
 
     title_rules: list[QSSRule] = [
-        QSSRule(
-            selectors=[
-                QSSSelector("QLabel#PageTitle"),
-            ],
-            rules=[
-                QSSRuleProperty("font-size", tokens.FontSize.PageTitleCompact),
-                QSSRuleProperty("font-weight", tokens.FontWeight.Semibold),
-            ],
-        ),
         QSSRule(
             selectors=[
                 QSSSelector("QLabel#PageBreadcrumb"),
@@ -354,7 +351,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#CloseDetailsButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", tokens.Color.Transparent),
+                QSSRuleProperty("background-color", tokens.QSS_TRANSPARENT),
                 QSSRuleProperty("border", tokens.Border.Transparent),
                 QSSRuleProperty("border-radius", tokens.Radius.Small),
                 QSSRuleProperty("padding", tokens.Space.Zero),

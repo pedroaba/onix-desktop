@@ -1,6 +1,6 @@
-import os
 import hashlib
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -100,7 +100,8 @@ class IconTests(unittest.TestCase):
         manifest = json.loads((root / "manifest.json").read_text())
         expected = {entry["source"] for entry in catalog["requests"]}
         downloaded = {
-            entry["source"] for entry in manifest["icons"]
+            entry["source"]
+            for entry in manifest["icons"]
             if entry["collection"] in {"files", "launch"}
         }
         absent = {entry["source"] for entry in unavailable}
@@ -109,8 +110,7 @@ class IconTests(unittest.TestCase):
         self.assertTrue(all(entry["status"] == "404" for entry in unavailable))
         for collection in ("files", "launch"):
             names = {
-                entry["name"] for entry in manifest["icons"]
-                if entry["collection"] == collection
+                entry["name"] for entry in manifest["icons"] if entry["collection"] == collection
             }
             self.assertEqual(names, set(manifest["collections"][collection]["catalog_names"]))
 
@@ -118,9 +118,9 @@ class IconTests(unittest.TestCase):
         sidebar = Sidebar()
         self.addCleanup(sidebar.deleteLater)
         for theme, normal, selected in [
-            (AvailableTheme.LIGHT, "#616161", "#0067b8"),
-            (AvailableTheme.DARK, "#b7b7b7", "#80c6ff"),
-            (AvailableTheme.LIGHT, "#616161", "#0067b8"),
+            (AvailableTheme.LIGHT, "#5f6572", "#515bc0"),
+            (AvailableTheme.DARK, "#8a8f98", "#a8aef6"),
+            (AvailableTheme.LIGHT, "#5f6572", "#515bc0"),
         ]:
             sidebar.set_theme(theme)
             for button in sidebar._navigation_group.buttons():
@@ -142,7 +142,7 @@ class IconTests(unittest.TestCase):
         self.assertEqual(toggles, [True])
 
     def _assert_tinted(self, image, expected):
-        channels = [int(expected[index:index + 2], 16) for index in (1, 3, 5)]
+        channels = [int(expected[index : index + 2], 16) for index in (1, 3, 5)]
         pixels = [
             image.pixelColor(x, y)
             for x in range(image.width())

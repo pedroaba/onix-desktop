@@ -6,11 +6,13 @@ from pathlib import Path
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
+from PySide6.QtGui import QFontDatabase
 from PySide6.QtWidgets import QApplication
 
+from src.ui import styles as tokens
 from src.ui.themes import base, dark, light
-from src.ui.themes import constants as tokens
 from src.ui.themes.theme_manager import AvailableTheme, apply_theme
+from src.ui.themes.utils.color import Color
 
 
 def declarations(stylesheet: str) -> list[tuple[tuple[str, ...], tuple[str, ...]]]:
@@ -33,10 +35,12 @@ class ThemeTests(unittest.TestCase):
         assert isinstance(app, QApplication)
         cls.app = app
 
-    def original(self, name: str) -> str:
+    def expected(self, name: str) -> str:
         stylesheet = (Path(__file__).parent / "fixtures" / "themes" / f"{name}.qss").read_text()
         family = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
-        return stylesheet.replace('"Segoe UI", "Helvetica Neue", Arial', family)
+        return stylesheet.replace(
+            "@font-family@", '"Inter"' if QFontDatabase.hasFamily("Inter") else family
+        )
 
     def test_enum_tokens_render_as_qss_strings(self):
         self.assertEqual(f"{tokens.Space.Px8} {tokens.Space.Px16}", "8px 16px")
@@ -44,12 +48,30 @@ class ThemeTests(unittest.TestCase):
         family = '"Segoe UI"' if sys.platform == "win32" else '"Helvetica Neue"'
         self.assertEqual(str(tokens.FontFamily.Default), family)
 
-    def test_generated_themes_preserve_original_rules(self):
+    def test_theme_palettes_store_color_objects(self):
+        for palette in (tokens.LightColors, tokens.DarkColors):
+            for name, color in vars(palette).items():
+                with self.subTest(name=name):
+                    self.assertIsInstance(color, Color)
+
+    def test_linear_colors_and_typography_reach_the_application(self):
+        for theme, sidebar, primary in (
+            (AvailableTheme.LIGHT, "#f3f4f6", "#515bc0"),
+            (AvailableTheme.DARK, "#0f1011", "#5e6ad2"),
+        ):
+            with self.subTest(theme=theme):
+                apply_theme(self.app, theme)
+                stylesheet = self.app.styleSheet()
+                self.assertIn(f"background-color: {sidebar};", stylesheet)
+                self.assertIn(f"background-color: {primary};", stylesheet)
+                self.assertIn("font-size: 13px;", stylesheet)
+
+    def test_generated_themes_match_expected_rules(self):
         for name, module in (("base", base), ("dark", dark), ("light", light)):
             with self.subTest(theme=name):
                 self.assertEqual(
                     declarations(module.build_stylesheet().value),
-                    declarations(self.original(name)),
+                    declarations(self.expected(name)),
                 )
 
     def test_apply_theme_and_switch_back(self):
@@ -58,14 +80,14 @@ class ThemeTests(unittest.TestCase):
                 apply_theme(self.app, theme)
                 self.assertEqual(
                     declarations(self.app.styleSheet()),
-                    declarations(self.original("base") + "\n" + self.original(theme.value)),
+                    declarations(self.expected("base") + "\n" + self.expected(theme.value)),
                 )
 
     def test_default_theme_is_light(self):
         apply_theme(self.app)
         self.assertEqual(
             declarations(self.app.styleSheet()),
-            declarations(self.original("base") + "\n" + self.original("light")),
+            declarations(self.expected("base") + "\n" + self.expected("light")),
         )
 
     def test_unknown_theme_does_not_change_stylesheet(self):
