@@ -18,7 +18,9 @@ from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_la
 class MainWindow(QMainWindow):
     theme_toggle_requested = Signal()
 
-    def __init__(self, *, store: FolderStore | None = None) -> None:
+    def __init__(
+        self, *, store: FolderStore | None = None, theme: AvailableTheme = AvailableTheme.DARK
+    ) -> None:
         super().__init__()
 
         self.setWindowTitle("")
@@ -31,6 +33,8 @@ class MainWindow(QMainWindow):
         self.resize(1280, 760)
         self.setMinimumSize(900, 600)
 
+        self._theme = theme
+
         root = frame("OnixWorkspace")
         self.setCentralWidget(root)
         layout = get_default_layout(QHBoxLayout, parent=root)
@@ -38,7 +42,7 @@ class MainWindow(QMainWindow):
         self.sidebar = Sidebar()
         self.pages = QStackedWidget()
 
-        self._title_bar = get_title_bar()
+        self._title_bar = get_title_bar(self._theme)
         pages_layout = get_default_layout(
             QVBoxLayout, GetDefaultLayoutOptions(margins=create_qmargins(0), spacing=0)
         )
@@ -70,6 +74,7 @@ class MainWindow(QMainWindow):
         self.sidebar.set_theme(theme)
         self.files_page.set_theme(theme)
         self.providers_page.set_theme(theme)
+        self._title_bar.set_theme(theme)
 
     def _navigate(self, section: str) -> None:
         self.sidebar.set_current_page(section)

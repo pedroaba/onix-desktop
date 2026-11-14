@@ -22,7 +22,7 @@ def main() -> int:
         current_theme = AvailableTheme.LIGHT
 
     apply_theme(app, current_theme)
-    window = MainWindow()
+    window = MainWindow(theme=current_theme)
 
     def toggle_theme(app: QApplication) -> None:
         nonlocal current_theme

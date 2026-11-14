@@ -1,22 +1,27 @@
 from threading import Lock
+from typing import Callable
 
 from PySide6.QtCore import QPoint, Qt
 from PySide6.QtGui import QMouseEvent, QPixmap
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QWidget
 
-from src.ui.components.workspace_controls import label
+from src.loaders.icons import Icons
+from src.ui.components.primitive.icon_label import IconLabel
+from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.styles import ComponentSize
+from src.ui.themes.theme_manager import AvailableTheme, theme_colors
 from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
 class TitleBar(QFrame):
-    def __init__(self, title: str = "") -> None:
+    def __init__(self, title: str = "", theme: AvailableTheme = AvailableTheme.DARK) -> None:
         super().__init__()
         self._drag_offset: QPoint | None = None
 
         self.setObjectName("OnixBar")
         self.setFixedHeight(int(ComponentSize.ToolbarHeight))
+        self._theme = theme
 
         self._layout = get_default_layout(
             QHBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self
@@ -35,7 +40,17 @@ class TitleBar(QFrame):
         self._title_layout.addWidget(self._title_icon, 0)
         self._title_layout.addWidget(self._title, 1)
 
+        self._breadcrumb_layout = get_default_layout(
+            QHBoxLayout, GetDefaultLayoutOptions(margins=create_qmargins(0), spacing=0)
+        )
+
+        self._title_layout.addLayout(self._breadcrumb_layout)
+        self._title_layout.addStretch()
+
         self._layout.addLayout(self._title_layout, 1)
+
+    def set_theme(self, theme: AvailableTheme):
+        self._theme = theme
 
     def set_title_icon(self, pixmap: QPixmap):
         self._title_icon.setPixmap(pixmap)
@@ -47,7 +62,42 @@ class TitleBar(QFrame):
         self._title_icon.setVisible(False)
 
     def set_title(self, title: str):
+        while (item := self._breadcrumb_layout.takeAt(0)) is not None:
+            widget = item.widget()
+            if widget is not None:
+                widget.hide()
+                widget.deleteLater()
+
         self._title.setText(title)
+        self._title.show()
+
+    def set_breadcrumb(self, parts: list[tuple[str, Callable[[], None] | None]]) -> None:
+        self.set_title(" > ".join(text for text, _ in parts))
+        self._title.hide()
+
+        colors = theme_colors(self._theme)
+
+        for index, (text, action) in enumerate(parts):
+            if index:
+                chevron = IconLabel(
+                    Icons.ChevronRight.Fluent.Size16.Regular,
+                    16,
+                    color=colors.TextOnPrimary.to_hex(),
+                )
+                chevron.setContentsMargins(0, 6, 0, 0)
+                chevron.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+                self._breadcrumb_layout.addWidget(chevron)
+
+            button = WorkspaceButton(text, quiet=True)
+            button.setProperty("breadcrumb", True)
+
+            if action is None:
+                button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+                button.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+            else:
+                button.clicked.connect(action)
+
+            self._breadcrumb_layout.addWidget(button, 0, Qt.AlignmentFlag.AlignVCenter)
 
     def title(self):
         return self._title.text()
@@ -97,12 +147,12 @@ __root_title_bar = None
 __get_title_bar_lock = Lock()
 
 
-def get_title_bar() -> TitleBar:
+def get_title_bar(theme: AvailableTheme = AvailableTheme.DARK) -> TitleBar:
     global __root_title_bar
 
     with __get_title_bar_lock:
         if __root_title_bar is None:
-            __root_title_bar = TitleBar()
+            __root_title_bar = TitleBar(theme=theme)
 
         return __root_title_bar
 

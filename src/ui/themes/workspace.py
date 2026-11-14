@@ -109,4 +109,9 @@ def build_stylesheet(colors: ThemeColors) -> str:
     #FileFilterDivider {{
         background: {colors.Border.to_hex()};
     }}
+    #OnixBar QPushButton[breadcrumb="true"] {{
+        padding: 0px 8px;
+        font-size: {FontSize.Body};
+        font-weight: {FontWeight.Semibold};
+    }}
     """

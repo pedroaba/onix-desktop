@@ -1,5 +1,7 @@
 from datetime import date
+from functools import partial
 from pathlib import Path
+from typing import Callable
 
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
@@ -88,6 +90,9 @@ class FilesPage(QWidget):
         self.cards_button = views.grid_button
         tools.addWidget(views)
 
+        tools.addWidget(self.upload_button)
+        tools.addWidget(self.new_button)
+
         self.list_button.clicked.connect(lambda: self._change_view(False))
         self.cards_button.clicked.connect(lambda: self._change_view(True))
         explorer_layout.addWidget(toolbar)
@@ -143,20 +148,17 @@ class FilesPage(QWidget):
         colors = theme_colors(self._theme)
 
         if self._active:
-            icon = None
             if folder is not None:
-                title = f"{folder.provider}  /  {folder.name}"
+                self._show_folder_breadcrumb(folder)
             elif section == "OneDrive":
-                title = "OneDrive  /  Meus arquivos"
+                self._title_bar.set_title("OneDrive > Meus arquivos")
             else:
-                title = section
-                icon = Icons.Folder.Fluent.Size16.Regular.get_pixmap(
-                    color=colors.TextOnPrimary.to_hex()
+                self._title_bar.set_title(section)
+                self._title_bar.set_title_icon(
+                    Icons.Folder.Fluent.Size16.Regular.get_pixmap(
+                        color=colors.TextOnPrimary.to_hex()
+                    )
                 )
-
-            self._title_bar.set_title(title)
-            if icon is not None:
-                self._title_bar.set_title_icon(icon)
 
         editable = folder.provider == "OneDrive" if folder else section == "OneDrive"
         self.upload_button.setVisible(editable)
@@ -273,6 +275,28 @@ class FilesPage(QWidget):
     def _search(self, text: str) -> None:
         self._query = text.strip()
         self._refresh()
+
+    def _show_folder_breadcrumb(self, folder: Folder) -> None:
+        folders_by_id = {item.id: item for item in self._store.folders}
+        ancestors: list[Folder] = []
+        parent_id = folder.parent_id
+
+        while parent_id is not None:
+            parent = folders_by_id.get(parent_id)
+            if parent is None:
+                break
+            ancestors.append(parent)
+            parent_id = parent.parent_id
+
+        root = "OneDrive" if folder.provider == "OneDrive" else "Todos os arquivos"
+        parts: list[tuple[str, Callable[[], None] | None]] = [
+            (root, partial(self.section_requested.emit, root))
+        ]
+        for ancestor in reversed(ancestors):
+            parts.append((ancestor.name, partial(self._open_item, ancestor)))
+
+        parts.append((folder.name, None))
+        self._title_bar.set_breadcrumb(parts)
 
     def _open_item(self, item: Folder) -> None:
         if not item.is_directory:
