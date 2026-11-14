@@ -4,6 +4,7 @@ from threading import Thread
 from PySide6.QtCore import QTimer, Signal
 from PySide6.QtWidgets import QHBoxLayout, QMessageBox, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.services.onedrive_service import OneDriveLoginError, OneDriveSession, sign_in_to_onedrive
 from src.ui.components.title_bar import TitleBar
 from src.ui.components.workspace_controls import WorkspaceButton, frame, label
@@ -54,7 +55,7 @@ class ProvidersPage(QWidget):
         content.addSpacing(15)
         content.addWidget(label("OneDrive", "section"))
 
-        self.connect_button = WorkspaceButton("Conectar", "cloud")
+        self.connect_button = WorkspaceButton("Conectar", Icons.Cloud.Fluent.Size16.Regular)
         self.connect_button.clicked.connect(self._toggle_connection)
         self.connection_status = label("Conta Microsoft pessoal", "secondary")
 

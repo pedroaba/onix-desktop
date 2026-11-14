@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QPushButton, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
 from src.utils.create_margins import create_qmargins
@@ -20,7 +21,7 @@ class AccountHeader(QFrame):
             parent=self,
         )
 
-        cloud_label = IconLabel("onedrive", 32)
+        cloud_label = IconLabel(Icons.Onedrive.Brands, 32)
 
         self.title_label = StyledLabel(object_name="AccountTitle", word_wrap=True)
         self.title_label.setTextFormat(Qt.TextFormat.PlainText)

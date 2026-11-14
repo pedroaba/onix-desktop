@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QGridLayout, QLabel, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
@@ -11,7 +12,7 @@ class FolderSummary(QWidget):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         layout = get_default_layout(QVBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self)
-        icon_label = IconLabel("folder", 144, folder_name="fluent/files/96/color")
+        icon_label = IconLabel(Icons.Folder.Fluent.Files.Size96.Color, 144)
         icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.name_label = StyledLabel(

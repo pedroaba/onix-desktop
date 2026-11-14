@@ -1,6 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QButtonGroup, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.navigation_button import NavigationButton
 from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
@@ -19,15 +20,15 @@ class SidebarNavigation(QWidget):
         self.button_group.setExclusive(True)
 
         navigation_items = [
-            ("Minhas pastas", "folder"),
-            ("Recentes", "clock"),
-            ("Favoritos", "star"),
-            ("Sincronização", "arrow_sync"),
-            ("Lixeira", "delete"),
+            ("Minhas pastas", Icons.Folder.Fluent.Size20.Regular),
+            ("Recentes", Icons.Clock.Fluent.Size20.Regular),
+            ("Favoritos", Icons.Star.Fluent.Size20.Regular),
+            ("Sincronização", Icons.ArrowSync.Fluent.Size20.Regular),
+            ("Lixeira", Icons.Delete.Fluent.Size20.Regular),
         ]
 
-        for index, (text, icon_name) in enumerate(navigation_items):
-            button = NavigationButton(text, icon_name)
+        for index, (text, icon) in enumerate(navigation_items):
+            button = NavigationButton(text, icon)
 
             self.button_group.addButton(button, index)
             layout.addWidget(button)

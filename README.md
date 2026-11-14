@@ -72,6 +72,10 @@ Para aplicar as correções seguras e formatar manualmente, use `uv run ruff che
 e `uv run ruff format .`. Arquivos de recursos em `assets` ficam fora do Ruff.
 O Ruff não lê `.pylintrc`; esse arquivo continua disponível para uso separado com Pylint.
 
+Os atributos de `Icons` ficam no próprio `src/loaders/icons.py` para o autocomplete.
+Ao adicionar, renomear ou remover um arquivo em `assets/icons`, atualize o catálogo
+com `uv run python -m scripts.generate_icons`.
+
 #### Configurações trazidas do VS Code
 
 A pasta `.vscode` foi preservada. O ambiente Python `.venv` e a ocultação de arquivos

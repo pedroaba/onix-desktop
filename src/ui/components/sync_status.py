@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QHBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.divider import Divider
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
@@ -12,7 +13,7 @@ class SyncStatus(QWidget):
 
         self.setObjectName("SyncStatus")
 
-        icon_label = IconLabel("checkmark_circle", 20, folder_name="fluent/20/color")
+        icon_label = IconLabel(Icons.CheckmarkCircle.Fluent.Size20.Color, 20)
 
         # dados demostrativos para a composição da interface
         self.status_label = StyledLabel("Tudo atualizado", object_name="SyncStatusText")

@@ -1,6 +1,7 @@
 from PySide6.QtCore import QSignalBlocker, Slot
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.divider import Divider
@@ -37,7 +38,9 @@ class FolderAvailability(QWidget):
         )
 
         self.free_space_button = IconButton(
-            "cloud", add_spacing_string("Liberar espaço"), object_name="FreeSpaceButton"
+            Icons.Cloud.Fluent.Size20.Regular,
+            add_spacing_string("Liberar espaço"),
+            object_name="FreeSpaceButton",
         )
         self.free_space_button.setMinimumHeight(40)
         self.free_space_button.setEnabled(False)

@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
 from src.ui.styles import DarkColors, LightColors
@@ -28,7 +29,7 @@ class PageHeader(QWidget):
         )
 
         self.chevron_label = IconLabel(
-            "chevron-right", 20, folder_name="fluent/20/regular", fixed_size=False
+            Icons.ChevronDashRight.Fluent.Size20.Regular, 20, fixed_size=False
         )
 
         header_layout = get_default_layout(QVBoxLayout, parent=self)

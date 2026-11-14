@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.styles import ComponentSize, ThemeColors
@@ -30,7 +31,11 @@ class FileCard(QFrame):
             layout.addWidget(_preview(item, colors))
 
         title = WorkspaceButton(
-            item.name, "folder" if item.is_directory else "document", quiet=True
+            item.name,
+            Icons.Folder.Fluent.Size16.Regular
+            if item.is_directory
+            else Icons.Document.Fluent.Size16.Regular,
+            quiet=True,
         )
         title.set_colors(colors)
         title.setProperty("fileTitle", True)

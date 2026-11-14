@@ -3,7 +3,7 @@ import sys
 from PySide6.QtCore import Qt, QTimer, Signal
 from PySide6.QtWidgets import QButtonGroup, QFrame, QHBoxLayout, QSizePolicy, QVBoxLayout
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icon, Icons
 from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.styles import ComponentSize
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
@@ -41,7 +41,7 @@ class Sidebar(QFrame):
         identity.addWidget(label("Espaço pessoal", "caption"))
         brand.addLayout(identity, 1)
 
-        self.search_button = WorkspaceButton(icon="search", quiet=True)
+        self.search_button = WorkspaceButton(icon=Icons.Search.Fluent.Size16.Regular, quiet=True)
         self.search_button.setToolTip("Busca rápida")
         self.search_button.setAccessibleName("Busca rápida")
         self.search_button.clicked.connect(self.search_requested.emit)
@@ -55,9 +55,9 @@ class Sidebar(QFrame):
         navigation_layout = get_default_layout(QVBoxLayout, GetDefaultLayoutOptions(spacing=8))
 
         for name, icon in (
-            ("Todos os arquivos", "grid"),
-            ("Recentes", "clock"),
-            ("Favoritos", "star"),
+            ("Todos os arquivos", Icons.Grid.Fluent.Size16.Regular),
+            ("Recentes", Icons.Clock.Fluent.Size16.Regular),
+            ("Favoritos", Icons.Star.Fluent.Size16.Regular),
         ):
             navigation_layout.addWidget(self._nav_button(name, icon))
 
@@ -68,19 +68,19 @@ class Sidebar(QFrame):
         providers.setContentsMargins(8, 0, 0, 0)
         providers.addWidget(label("Provedores", "caption"), 1)
 
-        self.providers_button = WorkspaceButton(icon="add", quiet=True)
+        self.providers_button = WorkspaceButton(icon=Icons.Add.Fluent.Size16.Regular, quiet=True)
         self.providers_button.setToolTip("Gerenciar provedores")
         self.providers_button.clicked.connect(lambda: self.page_requested.emit("Configurações"))
 
         providers.addWidget(self.providers_button)
 
         layout.addLayout(providers)
-        layout.addWidget(self._nav_button("OneDrive", "cloud"))
+        layout.addWidget(self._nav_button("OneDrive", Icons.Cloud.Fluent.Size16.Regular))
         layout.addStretch()
-        layout.addWidget(self._nav_button("Lixeira", "delete"))
-        layout.addWidget(self._nav_button("Configurações", "settings"))
+        layout.addWidget(self._nav_button("Lixeira", Icons.Delete.Fluent.Size16.Regular))
+        layout.addWidget(self._nav_button("Configurações", Icons.Settings.Fluent.Size16.Regular))
 
-    def _nav_button(self, name: str, icon: str) -> WorkspaceButton:
+    def _nav_button(self, name: str, icon: Icon) -> WorkspaceButton:
         button = WorkspaceButton(name, icon, quiet=True)
         button.setProperty("navigation", True)
         button.setCheckable(True)
@@ -104,12 +104,7 @@ class Sidebar(QFrame):
             button.set_colors(colors)
 
         self.mark.setPixmap(
-            IconLoader(
-                "stack",
-                IconLoaderOptions(
-                    folder_name="fluent/16/regular", color=colors.BrandForeground.to_hex()
-                ),
-            ).load_as_pixmap(16)
+            Icons.Stack.Fluent.Size16.Regular.get_pixmap(color=colors.BrandForeground.to_hex())
         )
 
         def show_navigation_geometry() -> None:

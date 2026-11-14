@@ -1,6 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QHBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.button import ActionButton
 from src.ui.components.view_mode_selector import ViewModeSelector
 from src.ui.styles import DarkColors, LightColors
@@ -14,8 +15,12 @@ class FolderToolbar(QWidget):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=12), parent=self)
-        self.new_folder_button = ActionButton("Nova Pasta", "add", object_name="PrimaryButton")
-        self.sync_button = ActionButton("Sincronizar agora", "arrow_sync", object_name="SyncButton")
+        self.new_folder_button = ActionButton(
+            "Nova Pasta", Icons.Add.Fluent.Size20.Regular, object_name="PrimaryButton"
+        )
+        self.sync_button = ActionButton(
+            "Sincronizar agora", Icons.ArrowSync.Fluent.Size20.Regular, object_name="SyncButton"
+        )
         self.view_selector = ViewModeSelector()
         layout.addWidget(self.new_folder_button)
         layout.addWidget(self.sync_button)

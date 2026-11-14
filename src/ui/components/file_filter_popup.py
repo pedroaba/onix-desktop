@@ -1,7 +1,7 @@
 from PySide6.QtCore import QMargins, QPoint, Qt
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icons
 from src.ui.components.primitive.divider import Divider
 from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
@@ -43,18 +43,14 @@ class FileFilterPopup(QFrame):
 
         colors = theme_colors(theme)
 
-        chevron_pixmap = IconLoader(
-            "chevron_right",
-            IconLoaderOptions(
-                folder_name="fluent/16/regular",
-                color=colors.TextSecondary.to_hex(),
-            ),
-        ).load_as_pixmap(16)
+        chevron_pixmap = Icons.ChevronRight.Fluent.Size16.Regular.get_pixmap(
+            color=colors.TextSecondary.to_hex()
+        )
 
         for text, icon in (
-            ("Tipo de item", "document"),
-            ("Provedor", "cloud"),
-            ("Modificado em", "clock"),
+            ("Tipo de item", Icons.Document.Fluent.Size16.Regular),
+            ("Provedor", Icons.Cloud.Fluent.Size16.Regular),
+            ("Modificado em", Icons.Clock.Fluent.Size16.Regular),
         ):
             button = WorkspaceButton(text, icon, quiet=True)
             button.setProperty("navigation", True)

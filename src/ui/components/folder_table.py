@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.styles import DarkColors, LightColors
 from src.ui.themes.theme_manager import AvailableTheme
@@ -43,12 +43,7 @@ class FolderTable(QTableView):
         self.setObjectName("FolderTable")
         self._status_icons = self._build_status_icon(AvailableTheme.LIGHT)
 
-        self._folder_icon = IconLoader(
-            "folder",
-            options=IconLoaderOptions(
-                folder_name="fluent/files/32/color",
-            ),
-        ).load(32)
+        self._folder_icon = Icons.Folder.Fluent.Files.Size32.Color.get_icon()
 
         self.setIconSize(create_qsize(32))
 
@@ -93,21 +88,15 @@ class FolderTable(QTableView):
                 blue = LightColors.Accent.to_hex()
 
         definitions = {
-            "Neste dispositivo": ("checkmark_circle", green),
-            "Sincronizando": ("arrow_sync", blue),
-            "Somente na nuvem": ("cloud", blue),
+            "Neste dispositivo": (Icons.CheckmarkCircle.Fluent.Size20.Regular, green),
+            "Sincronizando": (Icons.ArrowSync.Fluent.Size20.Regular, blue),
+            "Somente na nuvem": (Icons.Cloud.Fluent.Size20.Regular, blue),
         }
 
         icons = {}
 
-        for status, (icon_name, color) in definitions.items():
-            pixmap = IconLoader(
-                icon_name,
-                options=IconLoaderOptions(
-                    folder_name="fluent/20/regular",
-                    color=color,
-                ),
-            ).load_as_pixmap(20)
+        for status, (variant, color) in definitions.items():
+            pixmap = variant.get_pixmap(color=color)
 
             icon = QIcon()
 

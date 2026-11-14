@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QButtonGroup, QHBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.workspace_controls import WorkspaceButton
 from src.ui.styles import ComponentSize, DarkColors, LightColors
@@ -15,15 +16,21 @@ class ViewModeSelector(QWidget):
         layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self)
 
         self.list_button = (
-            WorkspaceButton(icon="list")
+            WorkspaceButton(icon=Icons.List.Fluent.Size16.Regular)
             if cards_enabled
-            else IconButton("text_align_left", description="Visualização em lista", size=36)
+            else IconButton(
+                Icons.TextAlignLeft.Fluent.Size20.Regular,
+                description="Visualização em lista",
+                size=36,
+            )
         )
 
         self.grid_button = (
-            WorkspaceButton(icon="grid")
+            WorkspaceButton(icon=Icons.Grid.Fluent.Size16.Regular)
             if cards_enabled
-            else IconButton("grid", description="Visualização em grade", size=36)
+            else IconButton(
+                Icons.Grid.Fluent.Size20.Regular, description="Visualização em grade", size=36
+            )
         )
 
         self.button_group = QButtonGroup(self)

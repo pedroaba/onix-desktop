@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
 
 from src.exceptions.duplicate_folder_name import DuplicateFolderNameError
 from src.exceptions.invalid_folder_name import InvalidFolderNameError
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.services.folder_queries import get_favorite_folders, get_recent_folders
 from src.services.folder_store import FolderStore, get_folder_store
@@ -49,11 +49,15 @@ class FilesPage(QWidget):
         body = get_default_layout(QVBoxLayout, parent=self)
         self._title_bar = title_bar
 
-        self.upload_button = WorkspaceButton("Enviar arquivos", "arrow_upload")
+        self.upload_button = WorkspaceButton(
+            "Enviar arquivos", Icons.ArrowUpload.Fluent.Size16.Regular
+        )
         self.upload_button.setToolTip("Adiciona arquivos locais a esta sessão")
         self.upload_button.clicked.connect(self._add_local_files)
 
-        self.new_button = WorkspaceButton("Nova pasta", "add", primary=True)
+        self.new_button = WorkspaceButton(
+            "Nova pasta", Icons.Add.Fluent.Size16.Regular, primary=True
+        )
         self.new_button.clicked.connect(self._create_folder)
 
         self.content = QWidget()
@@ -69,11 +73,13 @@ class FilesPage(QWidget):
         self.search_status = label(role="caption")
         tools.addWidget(self.search_status)
 
-        self.clear_search = WorkspaceButton("Limpar busca", "dismiss", quiet=True)
+        self.clear_search = WorkspaceButton(
+            "Limpar busca", Icons.Dismiss.Fluent.Size16.Regular, quiet=True
+        )
         self.clear_search.clicked.connect(lambda: self._search(""))
         tools.addWidget(self.clear_search)
 
-        self.filter_button = WorkspaceButton("Filtrar", "filter")
+        self.filter_button = WorkspaceButton("Filtrar", Icons.Filter.Fluent.Size16.Regular)
         self.filter_button.clicked.connect(self._show_filter)
         tools.addWidget(self.filter_button)
 
@@ -144,13 +150,9 @@ class FilesPage(QWidget):
                 title = "OneDrive  /  Meus arquivos"
             else:
                 title = section
-                icon = IconLoader(
-                    "folder",
-                    IconLoaderOptions(
-                        folder_name="fluent/16/regular",
-                        color=colors.TextOnPrimary.to_hex(),
-                    ),
-                ).load_as_pixmap(16)
+                icon = Icons.Folder.Fluent.Size16.Regular.get_pixmap(
+                    color=colors.TextOnPrimary.to_hex()
+                )
 
             self._title_bar.set_title(title)
             if icon is not None:

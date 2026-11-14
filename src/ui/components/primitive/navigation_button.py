@@ -1,12 +1,13 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QFrame, QWidget
 
+from src.loaders.icons import Icon
 from src.ui.components.primitive.button import IconButton
 
 
 class NavigationButton(IconButton):
-    def __init__(self, text: str, icon_name: str, parent: QWidget | None = None) -> None:
-        super().__init__(icon_name, text, parent)
+    def __init__(self, text: str, icon: Icon, parent: QWidget | None = None) -> None:
+        super().__init__(icon, text, parent)
         self.setAttribute(Qt.WidgetAttribute.WA_LayoutUsesWidgetRect, True)
         self.setCheckable(True)
         self.setFixedHeight(44)

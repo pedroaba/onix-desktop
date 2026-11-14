@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.title_bar import workspace_bar
 from src.ui.components.workspace_controls import WorkspaceButton, label
@@ -39,7 +39,7 @@ class FolderDetails(QFrame):
         header, heading = workspace_bar()
         heading.addWidget(label("Detalhes", "section"), 1)
 
-        self.close_details = WorkspaceButton(icon="dismiss", quiet=True)
+        self.close_details = WorkspaceButton(icon=Icons.Dismiss.Fluent.Size16.Regular, quiet=True)
         self.close_details.setToolTip("Fechar detalhes")
         self.close_details.clicked.connect(self.close_requested.emit)
         heading.addWidget(self.close_details)
@@ -59,11 +59,13 @@ class FolderDetails(QFrame):
         self.detail_type = label(role="secondary")
         details.addWidget(self.detail_type)
 
-        self.download_button = WorkspaceButton("Baixar", "arrow_download")
+        self.download_button = WorkspaceButton("Baixar", Icons.ArrowDownload.Fluent.Size16.Regular)
         self.download_button.clicked.connect(self._download)
         details.addWidget(self.download_button, alignment=Qt.AlignmentFlag.AlignLeft)
 
-        self.favorite_button = WorkspaceButton("Adicionar aos favoritos", "star")
+        self.favorite_button = WorkspaceButton(
+            "Adicionar aos favoritos", Icons.Star.Fluent.Size16.Regular
+        )
         self.favorite_button.clicked.connect(self.favorite_requested.emit)
         details.addWidget(self.favorite_button, alignment=Qt.AlignmentFlag.AlignLeft)
 
@@ -96,12 +98,12 @@ class FolderDetails(QFrame):
             return
 
         color = theme_colors(self._theme).Accent.to_hex()
-        self.detail_icon.setPixmap(
-            IconLoader(
-                "folder" if item.is_directory else "document",
-                IconLoaderOptions(folder_name="fluent/16/regular", color=color),
-            ).load_as_pixmap(24)
+        icon = (
+            Icons.Folder.Fluent.Size16.Regular
+            if item.is_directory
+            else Icons.Document.Fluent.Size16.Regular
         )
+        self.detail_icon.setPixmap(icon.get_pixmap(24, color=color))
 
         self.detail_title.setText(item.name)
         self.detail_type.setText(

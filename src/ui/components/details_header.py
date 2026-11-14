@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QHBoxLayout, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.label import StyledLabel
 from src.ui.styles import DarkColors, LightColors
@@ -16,7 +17,7 @@ class DetailsHeader(QWidget):
         layout = get_default_layout(QHBoxLayout, GetDefaultLayoutOptions(spacing=8), parent=self)
         heading = StyledLabel("Detalhes", object_name="DetailsHeading")
         self.close_button = IconButton(
-            "dismiss",
+            Icons.Dismiss.Fluent.Size20.Regular,
             object_name="CloseDetailsButton",
             size=28,
             description="Fechar painel de detalhes",

@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from src.loaders.icon import IconLoader, IconLoaderOptions
+from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.file_card import FileCard
 from src.ui.components.workspace_controls import frame, label
@@ -92,14 +92,10 @@ class FilesView(QStackedWidget):
         self.table.clearSpans()
         self.table.setRowCount(len(items) + sum(bool(group) for group in groups.values()))
 
+        icon_color = colors.TextSecondary.to_hex()
         icons = {
-            name: IconLoader(
-                name,
-                IconLoaderOptions(
-                    folder_name="fluent/16/regular", color=colors.TextSecondary.to_hex()
-                ),
-            ).load(16)
-            for name in ("folder", "document")
+            True: Icons.Folder.Fluent.Size16.Regular.get_icon(color=icon_color),
+            False: Icons.Document.Fluent.Size16.Regular.get_icon(color=icon_color),
         }
 
         row = 0
@@ -129,7 +125,7 @@ class FilesView(QStackedWidget):
                 for column, value in enumerate(values):
                     cell = QTableWidgetItem(value)
                     if column == 0:
-                        cell.setIcon(icons["folder" if item.is_directory else "document"])
+                        cell.setIcon(icons[item.is_directory])
                     elif column == 3:
                         cell.setForeground(
                             {

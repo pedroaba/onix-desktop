@@ -1,6 +1,7 @@
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QHBoxLayout, QStatusBar, QWidget
 
+from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
 from src.utils.create_margins import create_qmargins
@@ -17,7 +18,7 @@ class AppFooter(QStatusBar):
 
         self.count_label = StyledLabel(object_name="FooterCount")
 
-        self.connection_icon = IconLabel("checkmark_circle", 20, folder_name="fluent/20/color")
+        self.connection_icon = IconLabel(Icons.CheckmarkCircle.Fluent.Size20.Color, 20)
 
         self.connection_label = StyledLabel(object_name="FooterConnection")
 
