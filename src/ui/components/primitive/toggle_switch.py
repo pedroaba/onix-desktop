@@ -2,7 +2,8 @@ from PySide6.QtCore import QRectF, Qt
 from PySide6.QtGui import QPainter, QPaintEvent, QPen
 from PySide6.QtWidgets import QAbstractButton, QWidget
 
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_size import create_qsize
 

@@ -4,8 +4,7 @@ from PySide6.QtGui import QFontDatabase, QGuiApplication
 
 from src.builders.qss import QSSBuilder
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector, QSSStrResult
-from src.ui import styles as tokens
-from src.ui.themes import account
+from src.ui.themes import account, tokens
 
 
 def build_stylesheet() -> QSSStrResult:

@@ -1,11 +1,59 @@
 """Cores do tema escuro, geradas com QSSBuilder."""
 
+from typing import Final
+
 from src.builders.qss import QSSBuilder
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector, QSSStrResult
-from src.ui import styles as tokens
-from src.ui.themes import account
+from src.ui.themes import account, tokens
+from src.ui.themes.palette import ThemeColors
+from src.ui.themes.utils.color import Color
 
-Colors = tokens.DarkColors
+DarkColors: Final = ThemeColors(
+    Text=Color("#f7f8f8"),
+    TextHeading=Color("#f7f8f8"),
+    TextSecondary=Color("#8a8f98"),
+    TextDisabled=Color("#8a8f98"),
+    TextOnPrimary=Color("#ffffff"),
+    TextMuted=Color("#d0d6e0"),
+    Surface=Color("#141516"),
+    SurfaceSidebar=Color("#0f1011"),
+    SurfaceDetails=Color("#0f1011"),
+    SurfaceInput=Color("#0f1011"),
+    SurfaceDialogButton=Color("#191a1b"),
+    Primary=Color("#5e6ad2"),
+    PrimaryHover=Color("#5762c3"),
+    PrimaryPressed=Color("#4e58b5"),
+    PrimaryFocus=Color("#828fff"),
+    Accent=Color("#a8aef6"),
+    NavigationHover=Color("#202126"),
+    Selection=Color("#222437"),
+    SelectionText=Color("#f7f8f8"),
+    Border=Color("#25262a"),
+    BorderTableRow=Color("#25262a"),
+    BorderInput=Color("#34343a"),
+    SurfaceButton=Color("#191a1b"),
+    SurfaceButtonHover=Color("#202126"),
+    SurfaceButtonPressed=Color("#25262a"),
+    BorderButton=Color("#34343a"),
+    BorderViewMode=Color("#34343a"),
+    BorderViewModeChecked=Color("#828fff"),
+    SurfaceDisabled=Color("#141516"),
+    SurfaceCloseHover=Color("#202126"),
+    SurfaceClosePressed=Color("#25262a"),
+    DividerSyncStatus=Color("#25262a"),
+    ProgressTrack=Color("#34343a"),
+    ProgressFill=Color("#828fff"),
+    Success=Color("#65ba85"),
+    SwitchTrack=Color("#5f6572"),
+    SwitchThumb=Color("#ffffff"),
+    SurfaceRaised=Color("#191a1b"),
+    SurfacePreview=Color("#111214"),
+    BrandBackground=Color("#24263a"),
+    BrandForeground=Color("#a8aef6"),
+    OneDrive=Color("#98a4ef"),
+    GoogleDrive=Color("#b4bca2"),
+    Dropbox=Color("#a3b5cc"),
+)
 
 
 def build_stylesheet() -> QSSStrResult:
@@ -15,7 +63,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QWidget"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.Text.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
             ],
         ),
         QSSRule(
@@ -25,7 +73,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QMessageBox"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Surface.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Surface.to_hex()),
             ],
         ),
     ]
@@ -36,7 +84,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageTitle"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextHeading.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextHeading.to_hex()),
             ],
         ),
         QSSRule(
@@ -44,7 +92,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#PageBreadcrumb"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
     ]
@@ -57,7 +105,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AccountName"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
     ]
@@ -68,7 +116,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#AccountSubtitle"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
     ]
@@ -79,9 +127,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#PrimaryButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Primary.to_hex()),
-                QSSRuleProperty("color", Colors.TextOnPrimary.to_hex()),
-                QSSRuleProperty("border-color", Colors.Primary.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Primary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextOnPrimary.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Primary.to_hex()),
             ],
         ),
         QSSRule(
@@ -89,8 +137,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#PrimaryButton:hover"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.PrimaryHover.to_hex()),
-                QSSRuleProperty("border-color", Colors.PrimaryHover.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.PrimaryHover.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.PrimaryHover.to_hex()),
             ],
         ),
         QSSRule(
@@ -98,8 +146,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#PrimaryButton:pressed"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.PrimaryPressed.to_hex()),
-                QSSRuleProperty("border-color", Colors.PrimaryPressed.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.PrimaryPressed.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.PrimaryPressed.to_hex()),
             ],
         ),
         QSSRule(
@@ -107,7 +155,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#PrimaryButton:focus"),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.PrimaryFocus.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.PrimaryFocus.to_hex()),
             ],
         ),
     ]
@@ -118,8 +166,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceSidebar.to_hex()),
-                QSSRuleProperty("border-right-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceSidebar.to_hex()),
+                QSSRuleProperty("border-right-color", DarkColors.Border.to_hex()),
             ],
         ),
         QSSRule(
@@ -135,7 +183,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton:hover"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.NavigationHover.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.NavigationHover.to_hex()),
             ],
         ),
         QSSRule(
@@ -143,8 +191,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton:checked"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Selection.to_hex()),
-                QSSRuleProperty("color", Colors.Accent.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Selection.to_hex()),
+                QSSRuleProperty("color", DarkColors.Accent.to_hex()),
             ],
         ),
         QSSRule(
@@ -152,7 +200,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#Sidebar QPushButton:focus"),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Accent.to_hex()),
             ],
         ),
         QSSRule(
@@ -160,7 +208,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#NavigationIndicator"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Accent.to_hex()),
             ],
         ),
     ]
@@ -171,10 +219,10 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Surface.to_hex()),
-                QSSRuleProperty("color", Colors.Text.to_hex()),
-                QSSRuleProperty("selection-background-color", Colors.Selection.to_hex()),
-                QSSRuleProperty("selection-color", Colors.SelectionText.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Surface.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
+                QSSRuleProperty("selection-background-color", DarkColors.Selection.to_hex()),
+                QSSRuleProperty("selection-color", DarkColors.SelectionText.to_hex()),
             ],
         ),
         QSSRule(
@@ -182,7 +230,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable::item"),
             ],
             rules=[
-                QSSRuleProperty("border-bottom-color", Colors.BorderTableRow.to_hex()),
+                QSSRuleProperty("border-bottom-color", DarkColors.BorderTableRow.to_hex()),
             ],
         ),
         QSSRule(
@@ -190,9 +238,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QTableView#FolderTable QHeaderView::section"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Surface.to_hex()),
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
-                QSSRuleProperty("border-bottom-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Surface.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
+                QSSRuleProperty("border-bottom-color", DarkColors.Border.to_hex()),
             ],
         ),
         QSSRule(
@@ -200,7 +248,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#ResultsSummary"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
     ]
@@ -211,8 +259,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#TitleBar"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceSidebar.to_hex()),
-                QSSRuleProperty("border-bottom-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceSidebar.to_hex()),
+                QSSRuleProperty("border-bottom-color", DarkColors.Border.to_hex()),
             ],
         ),
     ]
@@ -223,9 +271,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLineEdit#SearchInput"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceInput.to_hex()),
-                QSSRuleProperty("color", Colors.Text.to_hex()),
-                QSSRuleProperty("border-color", Colors.BorderInput.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceInput.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.BorderInput.to_hex()),
             ],
         ),
         QSSRule(
@@ -233,7 +281,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLineEdit#SearchInput:focus"),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Accent.to_hex()),
             ],
         ),
     ]
@@ -244,7 +292,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#EmptyStateDescription"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
     ]
@@ -255,9 +303,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#SyncButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButton.to_hex()),
-                QSSRuleProperty("color", Colors.Accent.to_hex()),
-                QSSRuleProperty("border-color", Colors.BorderButton.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButton.to_hex()),
+                QSSRuleProperty("color", DarkColors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.BorderButton.to_hex()),
             ],
         ),
         QSSRule(
@@ -265,7 +313,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#SyncButton:hover"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButtonHover.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButtonHover.to_hex()),
             ],
         ),
         QSSRule(
@@ -273,7 +321,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#SyncButton:pressed"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButtonPressed.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButtonPressed.to_hex()),
             ],
         ),
         QSSRule(
@@ -281,7 +329,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#SyncButton:focus"),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Accent.to_hex()),
             ],
         ),
         QSSRule(
@@ -289,7 +337,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#SyncStatusText"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.Text.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
             ],
         ),
         QSSRule(
@@ -297,7 +345,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#SyncStatusTime"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
         QSSRule(
@@ -305,7 +353,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#SyncStatusDivider"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.DividerSyncStatus.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.DividerSyncStatus.to_hex()),
             ],
         ),
     ]
@@ -316,8 +364,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]'),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButton.to_hex()),
-                QSSRuleProperty("border-color", Colors.BorderViewMode.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButton.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.BorderViewMode.to_hex()),
             ],
         ),
         QSSRule(
@@ -325,7 +373,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]:hover'),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButtonHover.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButtonHover.to_hex()),
             ],
         ),
         QSSRule(
@@ -333,8 +381,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]:checked'),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Selection.to_hex()),
-                QSSRuleProperty("border-color", Colors.BorderViewModeChecked.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Selection.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.BorderViewModeChecked.to_hex()),
             ],
         ),
         QSSRule(
@@ -342,7 +390,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]:focus'),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Accent.to_hex()),
             ],
         ),
         QSSRule(
@@ -350,8 +398,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QPushButton[role="view-mode"]:disabled'),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceDisabled.to_hex()),
-                QSSRuleProperty("border-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceDisabled.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Border.to_hex()),
             ],
         ),
     ]
@@ -362,8 +410,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#FolderDetails"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceDetails.to_hex()),
-                QSSRuleProperty("border-left-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceDetails.to_hex()),
+                QSSRuleProperty("border-left-color", DarkColors.Border.to_hex()),
             ],
         ),
         QSSRule(
@@ -372,7 +420,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector('QLabel[role="details-field-label"]'),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
         QSSRule(
@@ -380,7 +428,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#CloseDetailsButton:hover"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceCloseHover.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceCloseHover.to_hex()),
             ],
         ),
         QSSRule(
@@ -388,7 +436,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#CloseDetailsButton:pressed"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceClosePressed.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceClosePressed.to_hex()),
             ],
         ),
         QSSRule(
@@ -396,7 +444,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#CloseDetailsButton:focus"),
             ],
             rules=[
-                QSSRuleProperty("border-color", Colors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Accent.to_hex()),
             ],
         ),
         QSSRule(
@@ -404,7 +452,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#DetailsDivider"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Border.to_hex()),
             ],
         ),
     ]
@@ -415,7 +463,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#LocalStorageDescription"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
         QSSRule(
@@ -423,9 +471,9 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#FreeSpaceButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceButton.to_hex()),
-                QSSRuleProperty("color", Colors.Accent.to_hex()),
-                QSSRuleProperty("border-color", Colors.BorderButton.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceButton.to_hex()),
+                QSSRuleProperty("color", DarkColors.Accent.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.BorderButton.to_hex()),
             ],
         ),
         QSSRule(
@@ -433,8 +481,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QPushButton#FreeSpaceButton:disabled"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextDisabled.to_hex()),
-                QSSRuleProperty("border-color", Colors.Border.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextDisabled.to_hex()),
+                QSSRuleProperty("border-color", DarkColors.Border.to_hex()),
             ],
         ),
     ]
@@ -445,7 +493,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QFrame#StorageDivider"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.Border.to_hex()),
             ],
         ),
         QSSRule(
@@ -453,7 +501,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#StorageUsage"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.TextSecondary.to_hex()),
+                QSSRuleProperty("color", DarkColors.TextSecondary.to_hex()),
             ],
         ),
         QSSRule(
@@ -461,7 +509,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QProgressBar#StorageProgress"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.ProgressTrack.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.ProgressTrack.to_hex()),
             ],
         ),
         QSSRule(
@@ -469,7 +517,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QProgressBar#StorageProgress::chunk"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.ProgressFill.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.ProgressFill.to_hex()),
             ],
         ),
     ]
@@ -480,8 +528,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QStatusBar#AppFooter"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceDetails.to_hex()),
-                QSSRuleProperty("border-top-color", Colors.Border.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceDetails.to_hex()),
+                QSSRuleProperty("border-top-color", DarkColors.Border.to_hex()),
             ],
         ),
         QSSRule(
@@ -490,7 +538,7 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLabel#FooterConnection"),
             ],
             rules=[
-                QSSRuleProperty("color", Colors.Text.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
             ],
         ),
     ]
@@ -501,8 +549,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QLineEdit"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceInput.to_hex()),
-                QSSRuleProperty("color", Colors.Text.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceInput.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
             ],
         ),
         QSSRule(
@@ -511,8 +559,8 @@ def build_stylesheet() -> QSSStrResult:
                 QSSSelector("QMessageBox QPushButton"),
             ],
             rules=[
-                QSSRuleProperty("background-color", Colors.SurfaceDialogButton.to_hex()),
-                QSSRuleProperty("color", Colors.Text.to_hex()),
+                QSSRuleProperty("background-color", DarkColors.SurfaceDialogButton.to_hex()),
+                QSSRuleProperty("color", DarkColors.Text.to_hex()),
             ],
         ),
     ]
@@ -535,7 +583,7 @@ def build_stylesheet() -> QSSStrResult:
         *storage_progress_rules,
         *footer_rules,
         *dialog_rules,
-        *account.color_rules(Colors),
+        *account.color_rules(DarkColors),
     ]
     return QSSBuilder(rules).build()
 

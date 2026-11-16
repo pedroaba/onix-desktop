@@ -3,8 +3,10 @@ from PySide6.QtWidgets import QButtonGroup, QHBoxLayout, QWidget
 from src.loaders.icons import Icons
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.workspace_controls import WorkspaceButton
-from src.ui.styles import ComponentSize, DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
+from src.ui.themes.tokens import ComponentSize
 from src.utils.create_size import create_qsize
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 

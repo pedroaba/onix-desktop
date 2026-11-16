@@ -72,9 +72,9 @@ class MainWindow(QMainWindow):
 
     def set_theme(self, theme: AvailableTheme) -> None:
         self.sidebar.set_theme(theme)
+        self._title_bar.set_theme(theme)
         self.files_page.set_theme(theme)
         self.providers_page.set_theme(theme)
-        self._title_bar.set_theme(theme)
 
     def _navigate(self, section: str) -> None:
         self.sidebar.set_current_page(section)

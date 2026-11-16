@@ -4,7 +4,8 @@ from PySide6.QtWidgets import QHBoxLayout, QWidget
 from src.loaders.icons import Icons
 from src.ui.components.primitive.button import ActionButton
 from src.ui.components.view_mode_selector import ViewModeSelector
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 

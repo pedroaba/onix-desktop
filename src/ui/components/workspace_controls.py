@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QFrame, QLabel
 from src.loaders.icons import Icon
 from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.label import StyledLabel
-from src.ui.styles import ThemeColors
+from src.ui.themes.palette import ThemeColors
 
 
 class WorkspaceButton(IconButton):

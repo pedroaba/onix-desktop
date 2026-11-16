@@ -3,7 +3,8 @@ from PySide6.QtWidgets import QButtonGroup, QVBoxLayout, QWidget
 
 from src.loaders.icons import Icons
 from src.ui.components.primitive.navigation_button import NavigationButton
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 

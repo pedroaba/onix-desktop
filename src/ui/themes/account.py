@@ -1,7 +1,8 @@
 """Estilos do bloco de conta do OneDrive."""
 
 from src.models.qss.rule import QSSRule, QSSRuleProperty, QSSSelector
-from src.ui import styles as tokens
+from src.ui.themes import tokens
+from src.ui.themes.palette import ThemeColors
 
 _BUTTON = "QFrame#Sidebar QPushButton#AccountConnectionButton"
 
@@ -28,7 +29,7 @@ def base_rules() -> list[QSSRule]:
     ]
 
 
-def color_rules(colors: tokens.ThemeColors) -> list[QSSRule]:
+def color_rules(colors: ThemeColors) -> list[QSSRule]:
     connected = f'{_BUTTON}[connected="true"]'
     return [
         QSSRule(

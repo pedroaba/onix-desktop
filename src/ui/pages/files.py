@@ -21,12 +21,13 @@ from src.services.folder_store import FolderStore, get_folder_store
 from src.ui.components.file_filter_popup import FileFilterPopup
 from src.ui.components.files_view import FilesView
 from src.ui.components.folder_details import FolderDetails
-from src.ui.components.title_bar import TitleBar, workspace_bar
+from src.ui.components.title_bar import SetTitleIconOptions, TitleBar, workspace_bar
 from src.ui.components.view_mode_selector import ViewModeSelector
 from src.ui.components.workspace_controls import WorkspaceButton, label
 from src.ui.dialogs.new_folder import new_folder
 from src.ui.dialogs.quick_search import quick_search
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
+from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import get_default_layout
 
 
@@ -156,15 +157,18 @@ class FilesPage(QWidget):
         colors = theme_colors(self._theme)
 
         if self._active:
+            folder_icon = Icons.Folder.Fluent.Size16.Regular
             if folder is not None:
                 self._show_folder_breadcrumb(folder)
+                icon = FilesPage.section_icons.get(folder.provider, folder_icon)
+            else:
+                self._title_bar.set_title(section)
+                icon = FilesPage.section_icons.get(section, folder_icon)
 
-            icon = Icons.Folder.Fluent.Size16.Regular
-            if folder is None:
-                icon = FilesPage.section_icons.get(section, icon)
-
-            self._title_bar.set_title(section)
-            self._title_bar.set_title_icon(icon.get_pixmap(color=colors.TextSecondary.to_hex()))
+            self._title_bar.set_title_icon(
+                icon.get_pixmap(color=colors.TextSecondary.to_hex()),
+                options=SetTitleIconOptions(margins=create_qmargins(0)),
+            )
 
         editable = folder.provider == "OneDrive" if folder else section == "OneDrive"
         self.upload_button.setVisible(editable)

@@ -15,7 +15,8 @@ from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.file_card import FileCard
 from src.ui.components.workspace_controls import frame, label
-from src.ui.styles import ComponentSize, ThemeColors
+from src.ui.themes.palette import ThemeColors
+from src.ui.themes.tokens import ComponentSize
 from src.utils.file_metadata import modified_text, size_text
 
 
@@ -44,8 +45,13 @@ class FilesView(QStackedWidget):
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
 
         header = self.table.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        header.setDefaultAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        header.setFixedHeight(int(ComponentSize.FileTableHeaderHeight))
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
         header.setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        header.resizeSection(1, 179)
+        header.resizeSection(2, 129)
+        header.resizeSection(3, 150)
 
         self.table.currentCellChanged.connect(self._select_row)
         self.table.cellDoubleClicked.connect(self._open_row)
@@ -85,62 +91,38 @@ class FilesView(QStackedWidget):
         self.table.clearContents()
         self._rows.clear()
 
-        groups = {
-            directory: [item for item in items if item.is_directory == directory]
-            for directory in (True, False)
-        }
-        self.table.clearSpans()
-        self.table.setRowCount(len(items) + sum(bool(group) for group in groups.values()))
+        self.table.setRowCount(len(items))
 
         icon_color = colors.TextSecondary.to_hex()
         icons = {
             True: Icons.Folder.Fluent.Size16.Regular.get_icon(color=icon_color),
             False: Icons.Document.Fluent.Size16.Regular.get_icon(color=icon_color),
         }
+        provider_icon = Icons.Cloud.Fluent.Size16.Regular.get_icon(color=icon_color)
 
-        row = 0
-        for directory, group in groups.items():
-            if not group:
-                continue
+        table_items = sorted(items, key=lambda item: not item.is_directory)
+        for row, item in enumerate(table_items):
+            self._rows[row] = item
 
-            title = "Pastas" if directory else "Arquivos"
-            heading = QTableWidgetItem(f"    {title}   {len(group)}")
-            heading.setFlags(Qt.ItemFlag.ItemIsEnabled)
-            heading.setBackground(colors.SurfaceRaised.to_rgb())
-            heading.setForeground(colors.TextMuted.to_rgb())
-            self.table.setSpan(row, 0, 1, 4)
-            self.table.setItem(row, 0, heading)
-            row += 1
+            values = (
+                item.name,
+                modified_text(item),
+                "—" if item.is_directory else size_text(item.size_bytes),
+                item.provider,
+            )
 
-            for item in group:
-                self._rows[row] = item
+            for column, value in enumerate(values):
+                cell = QTableWidgetItem(value)
+                if column == 0:
+                    cell.setIcon(icons[item.is_directory])
+                else:
+                    cell.setForeground(colors.TextSecondary.to_rgb())
+                    if column == 3:
+                        cell.setIcon(provider_icon)
+                self.table.setItem(row, column, cell)
 
-                values = (
-                    item.name,
-                    modified_text(item),
-                    "—" if item.is_directory else size_text(item.size_bytes),
-                    item.provider,
-                )
-
-                for column, value in enumerate(values):
-                    cell = QTableWidgetItem(value)
-                    if column == 0:
-                        cell.setIcon(icons[item.is_directory])
-                    elif column == 3:
-                        cell.setForeground(
-                            {
-                                "OneDrive": colors.OneDrive,
-                                "Google Drive": colors.GoogleDrive,
-                                "Dropbox": colors.Dropbox,
-                            }.get(item.provider, colors.TextSecondary).to_rgb()
-                        )
-                    else:
-                        cell.setForeground(colors.TextSecondary.to_rgb())
-                    self.table.setItem(row, column, cell)
-
-                if item.id == self.selected_id:
-                    self.table.selectRow(row)
-                row += 1
+            if item.id == self.selected_id:
+                self.table.selectRow(row)
 
         self.table.blockSignals(False)
 

@@ -3,7 +3,8 @@ from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.primitive.label import StyledLabel
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.get_default_layout import get_default_layout
 

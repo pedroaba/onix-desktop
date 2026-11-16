@@ -1,12 +1,12 @@
 import sys
 
-from PySide6.QtCore import Qt, QTimer, Signal
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QButtonGroup, QFrame, QHBoxLayout, QSizePolicy, QVBoxLayout
 
 from src.loaders.icons import Icon, Icons
 from src.ui.components.workspace_controls import WorkspaceButton, label
-from src.ui.styles import ComponentSize
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
+from src.ui.themes.tokens import ComponentSize
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
 
 
@@ -106,17 +106,3 @@ class Sidebar(QFrame):
         self.mark.setPixmap(
             Icons.Stack.Fluent.Size16.Regular.get_pixmap(color=colors.BrandForeground.to_hex())
         )
-
-        def show_navigation_geometry() -> None:
-            buttons = self.buttons[:3]
-            print(
-                theme.value,
-                [(button.text(), button.y(), button.height()) for button in buttons],
-                "intervalos:",
-                [
-                    second.y() - first.y() - first.height()
-                    for first, second in zip(buttons, buttons[1:])
-                ],
-            )
-
-        QTimer.singleShot(0, show_navigation_geometry)

@@ -20,7 +20,8 @@ from PySide6.QtWidgets import (
 
 from src.loaders.icons import Icons
 from src.models.folder import Folder
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.create_size import create_qsize
 

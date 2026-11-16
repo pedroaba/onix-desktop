@@ -1,4 +1,5 @@
-from src.ui.styles import BorderWidth, ComponentSize, FontSize, FontWeight, Radius, ThemeColors
+from src.ui.themes.palette import ThemeColors
+from src.ui.themes.tokens import BorderWidth, ComponentSize, FontSize, FontWeight, Radius
 
 
 def build_stylesheet(colors: ThemeColors) -> str:
@@ -73,9 +74,11 @@ def build_stylesheet(colors: ThemeColors) -> str:
     QPushButton[onixControl="true"][fileTitle="true"] {{
         text-align: left; color: {colors.Text.to_hex()}; padding: 0 4px;
     }}
+    QPushButton[onixControl="true"][fileTitle="true"]:hover {{ background: transparent; }}
     #OnixResults, #OnixScroll {{ border: 0; }}
+    #OnixResults {{ font-size: {FontSize.Body}; }}
     #OnixResults::item {{
-        height: {int(ComponentSize.FileRowHeight)}px; border-bottom: {border};
+        padding: 0 12px 0 15px; border: 0;
     }}
     #OnixResults::item:hover {{ background: {colors.SurfaceButtonHover.to_hex()}; }}
     #OnixResults::item:selected {{
@@ -83,7 +86,8 @@ def build_stylesheet(colors: ThemeColors) -> str:
     }}
     #OnixResults QHeaderView::section {{
         background: {colors.SurfaceSidebar.to_hex()}; color: {colors.TextSecondary.to_hex()};
-        padding: 8px; border: 0; border-bottom: {border};
+        font-size: {FontSize.Caption}; font-weight: {FontWeight.Regular};
+        padding: 0 12px 0 18px; border: 0;
     }}
     QFrame[onixCard="true"] {{
         border: {border}; border-radius: {Radius.Medium}; background: {colors.SurfaceRaised.to_hex()};

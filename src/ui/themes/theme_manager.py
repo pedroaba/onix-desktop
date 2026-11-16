@@ -2,8 +2,10 @@ from enum import Enum
 
 from PySide6.QtWidgets import QApplication
 
-from src.ui.styles import DarkColors, LightColors, ThemeColors
 from src.ui.themes import base, dark, light, workspace
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
+from src.ui.themes.palette import ThemeColors
 
 
 class AvailableTheme(Enum):

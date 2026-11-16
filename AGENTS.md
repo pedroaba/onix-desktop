@@ -18,8 +18,7 @@ O Onix Desktop é um projeto de aprendizado de Python 3.15, PySide6, Qt Widgets 
 | `src/ui/pages/` | Telas e estado de cada fluxo. A tela chama componentes e serviços conforme a necessidade. |
 | `src/ui/components/` | Componentes de interface, como sidebar, barra de título, lista, cards e painel de detalhes. Os controles básicos ficam em `primitive/`. |
 | `src/ui/dialogs/` | Diálogos, como busca rápida e criação de pasta. |
-| `src/ui/styles.py` | Tokens de cor, tipografia, espaçamento, bordas e dimensões. As paletas usam a classe `Color` de `src/ui/themes/utils/color.py`. |
-| `src/ui/themes/` | Aplicação dos temas e regras QSS. Use os tokens de `styles.py` para estilizar os componentes. |
+| `src/ui/themes/` | Aplicação dos temas, regras QSS e tokens visuais. `tokens.py` reúne tipografia, espaçamento, bordas e dimensões. As paletas ficam em `light.py` e `dark.py`, seguem a estrutura de `palette.py` e usam `utils/color.py`. |
 | `src/models/`, `src/services/` e `src/data/` | Modelos, regras de consulta, armazenamento, configurações, integrações e dados demonstrativos. |
 | `src/utils/`, `src/loaders/` e `src/platforms/` | Utilitários compartilhados, carregamento de recursos e código específico de plataforma. |
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from PySide6.QtCore import QRectF, QSize, Qt
-from PySide6.QtGui import QImageReader, QPainter, QPixmap
+from PySide6.QtCore import QRectF, QSize, Qt, Signal
+from PySide6.QtGui import QImageReader, QMouseEvent, QPainter, QPixmap
 from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
@@ -12,16 +12,21 @@ from PySide6.QtWidgets import (
 from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.workspace_controls import WorkspaceButton, label
-from src.ui.styles import ComponentSize, ThemeColors
+from src.ui.themes.palette import ThemeColors
+from src.ui.themes.tokens import ComponentSize
 from src.utils.file_metadata import size_text
 
 
 class FileCard(QFrame):
+    clicked = Signal()
+
     def __init__(self, item: Folder, colors: ThemeColors, *, selected: bool) -> None:
         super().__init__()
 
+        self._pressed = False
         self.setProperty("onixCard", True)
         self.setProperty("selected", selected)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(9, 9, 9, 9)
@@ -39,9 +44,8 @@ class FileCard(QFrame):
         )
         title.set_colors(colors)
         title.setProperty("fileTitle", True)
-        title.setToolTip(item.name)
 
-        self.clicked = title.clicked
+        title.clicked.connect(self.clicked.emit)
         layout.addWidget(title)
 
         extension = Path(item.name).suffix.lstrip(".").upper()
@@ -54,6 +58,7 @@ class FileCard(QFrame):
         metadata.setStyleSheet(f"color: {provider_color.to_hex()}")
 
         row = QGridLayout()
+        row.setContentsMargins(0, 4, 0, 0)
         row.addWidget(metadata, 0, 0)
         row.setColumnStretch(0, 1)
 
@@ -63,6 +68,24 @@ class FileCard(QFrame):
             )
 
         layout.addLayout(row)
+
+    def mousePressEvent(self, event: QMouseEvent, /) -> None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._pressed = True
+            event.accept()
+            return
+
+        super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event: QMouseEvent, /) -> None:
+        if event.button() == Qt.MouseButton.LeftButton and self._pressed:
+            self._pressed = False
+            event.accept()
+            if self.rect().contains(event.position().toPoint()):
+                self.clicked.emit()
+            return
+
+        super().mouseReleaseEvent(event)
 
 
 def _preview(item: Folder, colors: ThemeColors) -> QWidget:

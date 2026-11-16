@@ -7,7 +7,8 @@ from src.ui.components.primitive.button import IconButton
 from src.ui.components.primitive.divider import Divider
 from src.ui.components.primitive.label import StyledLabel
 from src.ui.components.primitive.toggle_switch import ToggleSwitch
-from src.ui.styles import DarkColors, LightColors
+from src.ui.themes.dark import DarkColors
+from src.ui.themes.light import LightColors
 from src.ui.themes.theme_manager import AvailableTheme
 from src.utils.add_spacing_string import add_spacing_string
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout

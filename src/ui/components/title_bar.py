@@ -1,17 +1,23 @@
+from dataclasses import dataclass
 from threading import Lock
-from typing import Callable
+from typing import Callable, Optional
 
-from PySide6.QtCore import QPoint, Qt
+from PySide6.QtCore import QMargins, QPoint, Qt
 from PySide6.QtGui import QMouseEvent, QPixmap
 from PySide6.QtWidgets import QApplication, QFrame, QHBoxLayout, QLabel, QWidget
 
 from src.loaders.icons import Icons
 from src.ui.components.primitive.icon_label import IconLabel
 from src.ui.components.workspace_controls import WorkspaceButton, label
-from src.ui.styles import ComponentSize
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
+from src.ui.themes.tokens import ComponentSize
 from src.utils.create_margins import create_qmargins
 from src.utils.get_default_layout import GetDefaultLayoutOptions, get_default_layout
+
+
+@dataclass
+class SetTitleIconOptions:
+    margins: Optional[QMargins] = None
 
 
 class TitleBar(QFrame):
@@ -52,9 +58,14 @@ class TitleBar(QFrame):
     def set_theme(self, theme: AvailableTheme):
         self._theme = theme
 
-    def set_title_icon(self, pixmap: QPixmap):
+    def set_title_icon(
+        self, pixmap: QPixmap, *, options: SetTitleIconOptions = SetTitleIconOptions()
+    ):
         self._title_icon.setPixmap(pixmap)
         self._title_icon.setVisible(True)
+
+        if options.margins:
+            self._title_icon.setContentsMargins(options.margins)
 
     def reset_title_icon(self):
         """Remove o icone da title_bar"""
@@ -75,6 +86,9 @@ class TitleBar(QFrame):
         self.set_title(" > ".join(text for text, _ in parts))
         self._title.hide()
 
+        if len(parts) > 1:
+            self._title_layout.setSpacing(2)
+
         colors = theme_colors(self._theme)
 
         for index, (text, action) in enumerate(parts):
@@ -82,7 +96,7 @@ class TitleBar(QFrame):
                 chevron = IconLabel(
                     Icons.ChevronRight.Fluent.Size16.Regular,
                     16,
-                    color=colors.TextOnPrimary.to_hex(),
+                    color=colors.TextSecondary.to_hex(),
                 )
                 chevron.setContentsMargins(0, 6, 0, 0)
                 chevron.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)

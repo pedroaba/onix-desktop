@@ -14,8 +14,8 @@ from src.loaders.icons import Icons
 from src.models.folder import Folder
 from src.ui.components.title_bar import workspace_bar
 from src.ui.components.workspace_controls import WorkspaceButton, label
-from src.ui.styles import ComponentSize
 from src.ui.themes.theme_manager import AvailableTheme, theme_colors
+from src.ui.themes.tokens import ComponentSize
 from src.utils.file_metadata import modified_text, size_text
 
 
