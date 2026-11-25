@@ -1,9 +1,11 @@
 'use client'
 
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { Select as SelectPrimitive } from 'radix-ui'
 import * as React from 'react'
 
+import CheckIcon from '@/components/icons/system/checkmark'
+import ChevronDownIcon from '@/components/icons/system/chevron-down'
+import ChevronUpIcon from '@/components/icons/system/chevron-up'
 import { cn } from '@/lib/utils'
 
 function Select({

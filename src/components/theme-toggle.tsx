@@ -1,5 +1,7 @@
-import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
+
+import Moon from '@/components/icons/system/weather-moon'
+import Sun from '@/components/icons/system/weather-sunny'
 
 import { Button } from './ui/button'
 
