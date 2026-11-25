@@ -1,0 +1,197 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M2 3a2 2 0 0 1 2-2h6.5A3.5 3.5 0 0 1 14 4.5V13a2 2 0 0 1-2 2H5.5A3.5 3.5 0 0 1 2 11.5V3z"
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        d="M2 3a2 2 0 0 1 2-2h6.5A3.5 3.5 0 0 1 14 4.5V13a2 2 0 0 1-2 2H5.5A3.5 3.5 0 0 1 2 11.5V3z"
+      />
+      <path
+        stroke={'url(#' + iconId + '-c)' + ''}
+        strokeDasharray="2.5 2.5"
+        strokeLinecap="round"
+        d="M2.5 3A1.5 1.5 0 0 1 4 1.5h6.5a3 3 0 0 1 3 3V13a1.5 1.5 0 0 1-1.5 1.5H5.5a3 3 0 0 1-3-3V3z"
+      />
+      <path
+        fill={'url(#' + iconId + '-d)' + ''}
+        d="M11 8.754v2.512a.735.735 0 0 1-.734.734H8v-1.5c0-1.06-.66-1.963-1.59-2.327l1.376-1.84L11 8.753z"
+      />
+      <path
+        fill={'url(#' + iconId + '-e)' + ''}
+        d="M11 8.599a.734.734 0 0 1-.734.734H7.71A2.498 2.498 0 0 0 5.5 8H5v-.65c0-.519.42-.94.938-.944l4.43-.026L11 6v2.599z"
+      />
+      <path
+        fill={'url(#' + iconId + '-f)' + ''}
+        fillOpacity={0.6}
+        d="M11 8.599a.734.734 0 0 1-.734.734H7.71A2.498 2.498 0 0 0 5.5 8H5v-.65c0-.519.42-.94.938-.944l4.43-.026L11 6v2.599z"
+      />
+      <path
+        fill={'url(#' + iconId + '-g)' + ''}
+        fillOpacity={0.1}
+        d="M11 8.599a.734.734 0 0 1-.734.734H7.71A2.498 2.498 0 0 0 5.5 8H5v-.65c0-.519.42-.94.938-.944l4.43-.026L11 6v2.599z"
+      />
+      <path
+        fill={'url(#' + iconId + '-h)' + ''}
+        d="M10.266 4c.405 0 .734.329.734.734v1.198a.735.735 0 0 1-.734.735H6.18A1.18 1.18 0 0 0 5 7.847V5.26A1.26 1.26 0 0 1 6.259 4h4.007z"
+      />
+      <path
+        fill={'url(#' + iconId + '-i)' + ''}
+        fillOpacity={0.8}
+        d="M10.266 4c.405 0 .734.329.734.734v1.198a.735.735 0 0 1-.734.735H6.18A1.18 1.18 0 0 0 5 7.847V5.26A1.26 1.26 0 0 1 6.259 4h4.007z"
+      />
+      <rect
+        width={7}
+        height={7}
+        y={9}
+        fill={'url(#' + iconId + '-j)' + ''}
+        rx={1.5}
+      />
+      <rect
+        width={7}
+        height={7}
+        y={9}
+        fill={'url(#' + iconId + '-k)' + ''}
+        fillOpacity={0.65}
+        rx={1.5}
+      />
+      <path
+        fill="#fff"
+        d="m6.217 10.235-.975 4.529H4.076L3.5 12.047l-.603 2.717H1.72l-.937-4.528h.961l.579 2.988.574-2.988h1.179l.601 2.988.565-2.988h.975z"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={5.333}
+          x2={7.388}
+          y1={1}
+          y2={15.089}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset={1} stopColor="#EBEBEB" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-b'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(6.33333 11.0833 -9.5 4.15625 5.833 4.646)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.177} stopColor="#fff" />
+          <stop offset={1} stopColor="#EFEFEF" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-c'}
+          x1={6.052}
+          x2={8.106}
+          y1={1.5}
+          y2={14.537}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#BBB" />
+          <stop offset={1} stopColor="#888" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-d'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(16.4943 0 0 4.39153 10.649 12)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.18} stopColor="#1657F4" />
+          <stop offset={0.575} stopColor="#0036C4" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-e'}
+          x1={5.054}
+          x2={9.587}
+          y1={10.508}
+          y2={10.508}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#66C0FF" />
+          <stop offset={0.256} stopColor="#0094F0" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-f'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(-3.9919 7.5407 -8.77446 -20.6153 10.973 6.865)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.14} stopColor="#D471FF" />
+          <stop offset={0.831} stopColor="#509DF5" stopOpacity={0} />
+        </radialGradient>
+        <radialGradient
+          id={iconId + '-g'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(0 6.59516 -20.0571 0 10.107 12.007)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.283} stopColor="#4F006F" stopOpacity={0} />
+          <stop offset={1} stopColor="#4F006F" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-h'}
+          x1={5.054}
+          x2={10.972}
+          y1={6.333}
+          y2={6.425}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#9DEAFF" />
+          <stop offset={0.201} stopColor="#3BD5FF" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-i'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(-5.66748 1.40776 -3.55138 -14.3432 10.973 4.567)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.061} stopColor="#E4A7FE" />
+          <stop offset={0.539} stopColor="#E4A7FE" stopOpacity={0} />
+        </radialGradient>
+        <radialGradient
+          id={iconId + '-j'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(7 7 -7 7 0 9)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.081} stopColor="#367AF2" />
+          <stop offset={0.872} stopColor="#001A8F" />
+        </radialGradient>
+        <radialGradient
+          id={iconId + '-k'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(0 4.9 -5.58468 0 3.5 13.2)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.587} stopColor="#2763E5" stopOpacity={0} />
+          <stop offset={0.974} stopColor="#58AAFE" />
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}

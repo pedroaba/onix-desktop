@@ -1,0 +1,102 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        fillRule="evenodd"
+        d="M21 2a6 6 0 016 6v18.5a3.5 3.5 0 01-3.5 3.5h-17A3.5 3.5 0 015 23.337V5a3 3 0 013-3z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        fillRule="evenodd"
+        d="M6.5 29h14.55A3.5 3.5 0 0120 26.5c0-.98.402-1.865 1.05-2.5H6.5a2.5 2.5 0 000 5m0-6h17a.5.5 0 110 1 2.5 2.5 0 102.5 2.5V8a5 5 0 00-5-5H8a2 2 0 00-2 2v18.035Q6.245 23 6.5 23"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-c)' + ''}
+        fillRule="evenodd"
+        d="M6.5 29h14.55A3.5 3.5 0 0120 26.5c0-.98.402-1.865 1.05-2.5H6.5a2.5 2.5 0 000 5m0-6h17a.5.5 0 110 1 2.5 2.5 0 102.5 2.5V8a5 5 0 00-5-5H8a2 2 0 00-2 2v18.035Q6.245 23 6.5 23"
+        clipRule="evenodd"
+      />
+      <rect width={1} height={8} x={10} y={8} fill="#365376" rx={0.5} />
+      <rect
+        width={1}
+        height={5.245}
+        x={9.827}
+        y={8.397}
+        fill="#365376"
+        rx={0.5}
+        transform="rotate(-35.67 9.827 8.397)"
+      />
+      <rect
+        width={1}
+        height={5.254}
+        x={15.385}
+        y={7.802}
+        fill="#365376"
+        rx={0.5}
+        transform="rotate(35.67 15.385 7.802)"
+      />
+      <rect width={1} height={8} x={15} y={8} fill="#365376" rx={0.5} />
+      <path
+        fill={'url(#' + iconId + '-d)' + ''}
+        d="M19.5 8a.5.5 0 01.5.5v5.793l1.146-1.146a.5.5 0 11.707.707l-2 2a.5.5 0 01-.707 0l-2-2a.5.5 0 01.707-.707L19 14.293V8.5a.5.5 0 01.5-.5"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={10.75}
+          x2={15.121}
+          y1={2}
+          y2={30.098}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#BBB" />
+          <stop offset={1} stopColor="#888" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-b'}
+          x1={10.111}
+          x2={13.974}
+          y1={3}
+          y2={29.151}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset={1} stopColor="#EBEBEB" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-d'}
+          x1={28.256}
+          x2={11.738}
+          y1={23.68}
+          y2={19.566}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-c'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(11.6111 20.5833 -17.4167 7.71875 11.028 9.77)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.177} stopColor="#fff" />
+          <stop offset={1} stopColor="#EFEFEF" />
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}

@@ -1,0 +1,78 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M20.834 25.5L20.4216 27.287C20.0551 28.8751 18.641 30 17.0112 30H14.9888C13.359 30 11.9449 28.8751 11.5784 27.287L11.166 25.5H20.834Z"
+        fill={'url(#' + iconId + '-paint0_radial_72095_9047)' + ''}
+      />
+      <path
+        d="M20.834 25.5L20.4216 27.287C20.0551 28.8751 18.641 30 17.0112 30H14.9888C13.359 30 11.9449 28.8751 11.5784 27.287L11.166 25.5H20.834Z"
+        fill={'url(#' + iconId + '-paint1_linear_72095_9047)' + ''}
+      />
+      <path
+        d="M16 2C10.4772 2 6 6.47715 6 12C6 14.9771 7.30225 17.6514 9.36493 19.4818C9.7078 19.7861 9.92612 20.1271 10.0049 20.4685L10.9353 24.5H21.0647L21.9951 20.4685C22.0739 20.1271 22.2922 19.7861 22.6351 19.4818C24.6978 17.6514 26 14.9771 26 12C26 6.47715 21.5228 2 16 2Z"
+        fill={'url(#' + iconId + '-paint2_radial_72095_9047)' + ''}
+      />
+      <path
+        d="M21.1801 24H10.8198L11.2814 26H20.7185L21.1801 24Z"
+        fill={'url(#' + iconId + '-paint3_linear_72095_9047)' + ''}
+      />
+      <defs>
+        <radialGradient
+          id={iconId + '-paint0_radial_72095_9047'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(9.93998 11.4484) rotate(71.3159) scale(18.6545 32.4938)"
+        >
+          <stop stopColor="#FFE06B" />
+          <stop offset={0.376456} stopColor="#FFA43D" />
+          <stop offset={1} stopColor="#E67505" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint1_linear_72095_9047'}
+          x1={15.9993}
+          y1={25.5}
+          x2={15.9996}
+          y2={30}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#D34719" />
+          <stop offset={1} stopColor="#D34719" stopOpacity={0} />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint2_radial_72095_9047'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(9.33232 4.82747) rotate(75.1159) scale(25.5993 36.4764)"
+        >
+          <stop stopColor="#FFE06B" />
+          <stop offset={0.376456} stopColor="#FFA43D" />
+          <stop offset={1} stopColor="#E67505" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint3_linear_72095_9047'}
+          x1={15.1805}
+          y1={24.7944}
+          x2={16.9679}
+          y2={28.4995}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FFC7A3" />
+          <stop offset={1} stopColor="#FF9C70" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

@@ -1,0 +1,85 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill="#035499"
+        d="M6.884 1.698A2 2 0 005.366 1H3a2 2 0 00-2 2v9a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H8.394a.86.86 0 01-.65-.3z"
+      />
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M2 6.5A1.5 1.5 0 013.5 5h1.793c.453 0 .887-.18 1.207-.5S7.254 4 7.707 4H13a1 1 0 011 1v7a1 1 0 01-1 1H3a1 1 0 01-1-1z"
+      />
+      <g filter={'url(#' + iconId + '-b)' + ''}>
+        <path
+          fill="#FAFAFA"
+          fillRule="evenodd"
+          d="M8.75 6C9.44 6 10 6.56 10 7.25V9a1 1 0 011 1v1.5a.5.5 0 01-.5.5H9v-.75a.25.25 0 00-.25-.25h-1.5a.25.25 0 00-.25.25V12H5.5a.5.5 0 01-.5-.5V7.25C5 6.56 5.56 6 6.25 6zM6.5 9a.5.5 0 100 1 .5.5 0 000-1m2 0a.5.5 0 100 1 .5.5 0 000-1m-2-2a.5.5 0 100 1 .5.5 0 000-1m2 0a.5.5 0 100 1 .5.5 0 000-1"
+          clipRule="evenodd"
+        />
+      </g>
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={5.692}
+          x2={7.841}
+          y1={4}
+          y2={12.927}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#319EE4" />
+          <stop offset={1} stopColor="#1176CA" />
+        </linearGradient>
+        <filter
+          id={iconId + '-b'}
+          width={8}
+          height={9}
+          x={4}
+          y={4.5}
+          colorInterpolationFilters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood floodOpacity={0} result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          />
+          <feOffset dy={0.5} />
+          <feGaussianBlur stdDeviation={0.5} />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.28 0" />
+          <feBlend
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_11146_3187"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            result="hardAlpha"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          />
+          <feOffset dy={-0.5} />
+          <feGaussianBlur stdDeviation={0.5} />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" />
+          <feBlend
+            in2="effect1_dropShadow_11146_3187"
+            result="effect2_dropShadow_11146_3187"
+          />
+          <feBlend
+            in="SourceGraphic"
+            in2="effect2_dropShadow_11146_3187"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  )
+}

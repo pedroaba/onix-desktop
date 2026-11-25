@@ -1,0 +1,16 @@
+import { type SVGProps } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M15 4C18.3137 4 21 6.68629 21 10C21 13.3137 18.3137 16 15 16H11V22.5C11 23.3284 10.3284 24 9.5 24C8.67157 24 8 23.3284 8 22.5V5.5C8 4.67157 8.67157 4 9.5 4H15ZM11 13H15C16.6569 13 18 11.6569 18 10C18 8.34315 16.6569 7 15 7H11V13Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}

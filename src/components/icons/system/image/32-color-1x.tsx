@@ -1,0 +1,61 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M3 7.5C3 5.01472 5.01472 3 7.5 3H24.5C26.9853 3 29 5.01472 29 7.5V24.5C29 26.9853 26.9853 29 24.5 29H7.5C5.01472 29 3 26.9853 3 24.5V7.5Z"
+        fill={'url(#' + iconId + '-paint0_radial_72095_9333)' + ''}
+      />
+      <path
+        d="M28.356 26.8207C27.5684 28.1266 26.1361 29 24.4998 29H7.49976C5.86349 29 4.43119 28.1267 3.64355 26.8207L14.2321 16.2322C15.2084 15.2559 16.7913 15.2559 17.7676 16.2322L28.356 26.8207Z"
+        fill={'url(#' + iconId + '-paint1_linear_72095_9333)' + ''}
+      />
+      <path
+        d="M19 11C19 9.34315 20.3431 8 22 8C23.6569 8 25 9.34315 25 11C25 12.6569 23.6569 14 22 14C20.3431 14 19 12.6569 19 11Z"
+        fill={'url(#' + iconId + '-paint2_linear_72095_9333)' + ''}
+      />
+      <defs>
+        <radialGradient
+          id={iconId + '-paint0_radial_72095_9333'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(-7.21429 -11.625) rotate(51.6869) scale(71.8942 65.3927)"
+        >
+          <stop offset={0.337728} stopColor="#0FAFFF" />
+          <stop offset={0.529425} stopColor="#367AF2" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint1_linear_72095_9333'}
+          x1={12.4694}
+          y1={15.5}
+          x2={15.6048}
+          y2={29.6731}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#B3E0FF" />
+          <stop offset={1} stopColor="#8CD0FF" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint2_linear_72095_9333'}
+          x1={20.8}
+          y1={7.33333}
+          x2={22.992}
+          y2={15.2245}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FDFDFD" />
+          <stop offset={1} stopColor="#B3E0FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

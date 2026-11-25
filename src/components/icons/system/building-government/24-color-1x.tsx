@@ -1,0 +1,95 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d="M11 4.5H12.5V6.5H11V4.5Z" fill="#70777D" />
+      <path
+        d="M11 2.5C11 2.22386 11.2239 2 11.5 2H15.5C15.7761 2 16 2.22386 16 2.5V4.5C16 4.77614 15.7761 5 15.5 5H11.5C11.2239 5 11 4.77614 11 4.5V2.5Z"
+        fill="#F83F54"
+      />
+      <path
+        d="M5 13C5 9.13401 8.13401 6 12 6C15.866 6 19 9.13401 19 13V13.5H5V13Z"
+        fill={'url(#' + iconId + '-paint0_linear_72095_10231)' + ''}
+      />
+      <path
+        d="M5 13C5 9.13401 8.13401 6 12 6C15.866 6 19 9.13401 19 13V13.5H5V13Z"
+        fill={'url(#' + iconId + '-paint1_radial_72095_10231)' + ''}
+      />
+      <path
+        d="M2 15.5C2 14.1193 3.11929 13 4.5 13H19.5C20.8807 13 22 14.1193 22 15.5V21.25C22 21.6642 21.6642 22 21.25 22H2.75C2.33579 22 2 21.6642 2 21.25V15.5Z"
+        fill={'url(#' + iconId + '-paint2_linear_72095_10231)' + ''}
+      />
+      <path
+        d="M2 15.5C2 14.1193 3.11929 13 4.5 13H19.5C20.8807 13 22 14.1193 22 15.5V21.25C22 21.6642 21.6642 22 21.25 22H2.75C2.33579 22 2 21.6642 2 21.25V15.5Z"
+        fill={'url(#' + iconId + '-paint3_radial_72095_10231)' + ''}
+        fillOpacity={0.6}
+      />
+      <path
+        d="M9.5 17.75C9.5 17.3358 9.83579 17 10.25 17H13.75C14.1642 17 14.5 17.3358 14.5 17.75V22H9.5V17.75Z"
+        fill="#55595E"
+      />
+      <path
+        d="M5.75 15.5C6.16421 15.5 6.5 15.8358 6.5 16.25V18.75C6.5 19.1642 6.16421 19.5 5.75 19.5C5.33579 19.5 5 19.1642 5 18.75V16.25C5 15.8358 5.33579 15.5 5.75 15.5ZM19 16.25C19 15.8358 18.6642 15.5 18.25 15.5C17.8358 15.5 17.5 15.8358 17.5 16.25V18.75C17.5 19.1642 17.8358 19.5 18.25 19.5C18.6642 19.5 19 19.1642 19 18.75V16.25Z"
+        fill="#63686E"
+      />
+      <path
+        d="M16 9.75C16 9.33579 15.6642 9 15.25 9C14.8358 9 14.5 9.33579 14.5 9.75V11.25C14.5 11.6642 14.8358 12 15.25 12C15.6642 12 16 11.6642 16 11.25V9.75ZM12 9C12.4142 9 12.75 9.33579 12.75 9.75V11.25C12.75 11.6642 12.4142 12 12 12C11.5858 12 11.25 11.6642 11.25 11.25V9.75C11.25 9.33579 11.5858 9 12 9ZM9.5 9.75C9.5 9.33579 9.16421 9 8.75 9C8.33579 9 8 9.33579 8 9.75V11.25C8 11.6642 8.33579 12 8.75 12C9.16421 12 9.5 11.6642 9.5 11.25V9.75Z"
+        fill="#CA6407"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-paint0_linear_72095_10231'}
+          x1={12}
+          y1={6}
+          x2={12}
+          y2={13.5}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FFC205" />
+          <stop offset={0.735} stopColor="#FFA43D" />
+          <stop offset={1} stopColor="#E67505" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint1_radial_72095_10231'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(16.9 7.15385) rotate(90) scale(4.03846 7.47142)"
+        >
+          <stop stopColor="#FFD638" />
+          <stop offset={1} stopColor="#FFD638" stopOpacity={0} />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint2_linear_72095_10231'}
+          x1={9.8125}
+          y1={13}
+          x2={19.1435}
+          y2={22.541}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#AAB3BD" />
+          <stop offset={1} stopColor="#889096" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint3_radial_72095_10231'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(20.75 13) rotate(96.929) scale(5.1807 11.3238)"
+        >
+          <stop stopColor="#FFB357" />
+          <stop offset={1} stopColor="#FFB357" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}

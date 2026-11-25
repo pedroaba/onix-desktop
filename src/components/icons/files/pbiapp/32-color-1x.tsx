@@ -1,0 +1,129 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M2 8a3 3 0 013-3h19a6 6 0 016 6v13a3 3 0 01-3 3H8a6 6 0 01-6-6z"
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        d="M3 8a2 2 0 012-2h19a5 5 0 015 5v13a2 2 0 01-2 2H8a5 5 0 01-5-5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-c)' + ''}
+        d="M3 8a2 2 0 012-2h19a5 5 0 015 5v13a2 2 0 01-2 2H8a5 5 0 01-5-5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-d)' + ''}
+        d="M17.842 9.354a1.747 1.747 0 012.47 0l2.06 2.06a1.747 1.747 0 010 2.47l-2.008 2.007a1.746 1.746 0 011.334 1.696v3.495c0 .965-.782 1.746-1.747 1.747H12v-1.164h2.709v-4.66h-4.121Q10.544 17 10.5 17H8.884v-5.238c0-.965.783-1.747 1.748-1.747h3.494c.83 0 1.522.578 1.701 1.353zm-1.969 12.31h4.078a.583.583 0 00.582-.582v-3.495a.58.58 0 00-.582-.583h-4.078zM10.632 11.18a.583.583 0 00-.583.582v4.077h4.66v-4.077a.583.583 0 00-.583-.582zm5.241 4.66h1.864l-1.864-1.865z"
+      />
+      <path
+        fill={'url(#' + iconId + '-e)' + ''}
+        d="M11.001 18.67v11.66c0 .37-.3.67-.67.67h-3.33V18.67c0-.37.3-.67.67-.67h2.66c.37 0 .67.3.67.67"
+      />
+      <path
+        fill="#000"
+        fillOpacity={0.5}
+        fillRule="evenodd"
+        d="M8.501 22.875c0-.483-.373-.875-.833-.875l-3.036.375v8.25L8 31h.5z"
+        clipRule="evenodd"
+        opacity={0.25}
+      />
+      <path
+        fill={'url(#' + iconId + '-f)' + ''}
+        d="M8.001 22.667V31h-4v-8.33c0-.37.3-.67.67-.67h2.663c.369 0 .667.299.667.667"
+      />
+      <path
+        fill={'url(#' + iconId + '-g)' + ''}
+        d="M1 25.67v4.66c0 .37.3.67.67.67H5v-5.33c0-.37-.3-.67-.67-.67H1.67c-.37 0-.67.3-.67.67"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={11.042}
+          x2={13.385}
+          y1={5}
+          y2={27.366}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#BBB" />
+          <stop offset={1} stopColor="#888" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-b'}
+          x1={10.222}
+          x2={12.181}
+          y1={6}
+          y2={26.367}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset={1} stopColor="#EBEBEB" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-d'}
+          x1={8.884}
+          x2={22.87}
+          y1={8.842}
+          y2={22.842}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#EB6D00" />
+          <stop offset={1} stopColor="#B85500" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-e'}
+          x1={6.306}
+          x2={11.443}
+          y1={18}
+          y2={29.343}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#E6AD10" />
+          <stop offset={1} stopColor="#C87E0E" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-f'}
+          x1={4}
+          x2={8.663}
+          y1={22}
+          y2={30.991}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F6D751" />
+          <stop offset={1} stopColor="#E6AD10" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-g'}
+          x1={1}
+          x2={3.333}
+          y1={25}
+          y2={30.925}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F9E589" />
+          <stop offset={1} stopColor="#F6D751" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-c'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(13.7222 15.8333 -20.5833 5.9375 11.306 11.208)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.177} stopColor="#fff" />
+          <stop offset={1} stopColor="#EFEFEF" />
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}

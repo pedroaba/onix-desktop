@@ -18,7 +18,7 @@ export function Workspace({ initial }: { initial: Snapshot }) {
   const [folderOpen, setFolderOpen] = useState(false)
 
   const catalog = useCatalog(initial.items, setNotice)
-  const providers = useProviders(initial.theme, setNotice)
+  const providers = useProviders()
   const view = useExplorer(catalog.items)
   const { section, folder, ancestors, searchOpen, openSearch } = view
   const hasOpenDialog = folderOpen || Boolean(notice) || searchOpen

@@ -1,0 +1,50 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <rect
+        width={20}
+        height={16}
+        x={2}
+        y={4}
+        fill={'url(#' + iconId + '-a)' + ''}
+        rx={3.5}
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        d="M18.756 5.013A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.244 2.487L18.5 19h-13a2.5 2.5 0 0 1-2.487-2.244L3 16.5v-9A2.5 2.5 0 0 1 5.5 5h13l.256.013zM5.5 5.5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-13zm0 1.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0v-9a.5.5 0 0 1 .5-.5zm11.646 1.146a.5.5 0 1 1 .707.708l-1.409 1.408a2.983 2.983 0 0 1-.003 3.472l1.413 1.412a.5.5 0 1 1-.707.707l-1.413-1.412a2.983 2.983 0 0 1-1.734.555 2.984 2.984 0 0 1-1.735-.555l-1.412 1.412a.5.5 0 0 1-.707-.707l1.412-1.412a2.985 2.985 0 0 1-.003-3.472l-1.409-1.408a.5.5 0 0 1 .707-.708l1.408 1.408a2.985 2.985 0 0 1 3.477 0l1.409-1.408zM14 9.996a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={8.458}
+          x2={10.193}
+          y1={4}
+          y2={20.259}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#CAD3D8" />
+          <stop offset={1} stopColor="#9AA6AD" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-b'}
+          x1={8.813}
+          x2={10.289}
+          y1={5}
+          y2={19.236}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#4D565C" />
+          <stop offset={1} stopColor="#394146" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

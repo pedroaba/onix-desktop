@@ -53,3 +53,11 @@ Fluent UI System Icons, incorporado de acordo com a licença indicada acima.
 
 As dependências do frontend e do backend mantêm suas respectivas licenças.
 Os lockfiles do npm e do Cargo registram as versões usadas no aplicativo.
+
+## Componentes gerados de ícones
+
+Os componentes em src/components/icons/ derivam dos recursos de
+assets/icons/. O arquivo src/components/icons/manifest.json registra a
+correspondência com os originais. Conversão para JSX e cópias PNG preservam os
+termos das coleções de origem descritos neste documento, incluindo os avisos
+de copyright em assets/icons/fluent/LICENSE.

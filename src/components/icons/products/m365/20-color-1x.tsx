@@ -1,0 +1,136 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M8.19594 1.92188L3.49974 4.63385C2.57168 5.16979 2 6.16009 2 7.23178V12.7682C2 13.8398 2.57164 14.8301 3.49965 15.366L5.76712 16.6756L5.99007 16L10.2373 13.4567L8.49965 12.4531C7.57164 11.9172 7 10.9269 7 9.85525V8.27344L7.46563 7.67953L8.99999 6.49176V3L8.32422 2.01172L7.58517 2.53879C7.75624 2.30668 7.96137 2.09837 8.19594 1.92188Z"
+        fill={'url(#' + iconId + '-paint0_linear_48543_184802)' + ''}
+      />
+      <path
+        d="M8.19594 1.92188L3.49974 4.63385C2.57168 5.16979 2 6.16009 2 7.23178V12.7682C2 13.8398 2.57164 14.8301 3.49965 15.366L5.76712 16.6756L5.99007 16L10.2373 13.4567L8.49965 12.4531C7.57164 11.9172 7 10.9269 7 9.85525V8.27344L7.46563 7.67953L8.99999 6.49176V3L8.32422 2.01172L7.58517 2.53879C7.75624 2.30668 7.96137 2.09837 8.19594 1.92188Z"
+        fill={'url(#' + iconId + '-paint1_linear_48543_184802)' + ''}
+      />
+      <path
+        d="M12.9988 7.61523V9.85594C12.9988 10.9276 12.4271 11.9179 11.4991 12.4538L6.49914 15.3415C5.57076 15.8776 4.42682 15.8776 3.49844 15.3415L3.19531 15.1664C3.29151 15.2387 3.39266 15.3057 3.49844 15.3668L8.49844 18.2545C9.42682 18.7906 10.5708 18.7906 11.4991 18.2545L16.4991 15.3668C17.4271 14.8309 17.9988 13.8406 17.9988 12.769V10.6879L12.9988 7.61523Z"
+        fill={'url(#' + iconId + '-paint2_radial_48543_184802)' + ''}
+      />
+      <path
+        d="M12.9988 7.61523V9.85594C12.9988 10.9276 12.4271 11.9179 11.4991 12.4538L6.49914 15.3415C5.57076 15.8776 4.42682 15.8776 3.49844 15.3415L3.19531 15.1664C3.29151 15.2387 3.39266 15.3057 3.49844 15.3668L8.49844 18.2545C9.42682 18.7906 10.5708 18.7906 11.4991 18.2545L16.4991 15.3668C17.4271 14.8309 17.9988 13.8406 17.9988 12.769V10.6879L12.9988 7.61523Z"
+        fill={'url(#' + iconId + '-paint3_linear_48543_184802)' + ''}
+      />
+      <path
+        d="M8.19524 1.92167L8.49974 1.74582C9.42807 1.20972 10.5719 1.20973 11.5003 1.74582L16.5003 4.63324C17.4283 5.16918 18 6.15948 18 7.23117V12.7675C18 12.7881 17.9998 12.8087 17.9994 12.8293C17.9779 11.7814 17.4105 10.8187 16.5003 10.2931L11.5003 7.40565C10.5719 6.86955 9.42807 6.86954 8.49974 7.40564L7 8.27172V4.31815C7 3.36919 7.44824 2.48405 8.19524 1.92167Z"
+        fill={'url(#' + iconId + '-paint4_radial_48543_184802)' + ''}
+      />
+      <path
+        d="M8.19524 1.92167L8.49974 1.74582C9.42807 1.20972 10.5719 1.20973 11.5003 1.74582L16.5003 4.63324C17.4283 5.16918 18 6.15948 18 7.23117V12.7675C18 12.7881 17.9998 12.8087 17.9994 12.8293C17.9779 11.7814 17.4105 10.8187 16.5003 10.2931L11.5003 7.40565C10.5719 6.86955 9.42807 6.86954 8.49974 7.40564L7 8.27172V4.31815C7 3.36919 7.44824 2.48405 8.19524 1.92167Z"
+        fill={'url(#' + iconId + '-paint5_linear_48543_184802)' + ''}
+      />
+      <path
+        d="M2.00063 12.8293C2.00063 12.8293 2.00063 12.8292 2.00063 12.8293Z"
+        fill={'url(#' + iconId + '-paint6_radial_48543_184802)' + ''}
+      />
+      <path
+        d="M2.00063 12.8293C2.00063 12.8293 2.00063 12.8292 2.00063 12.8293Z"
+        fill={'url(#' + iconId + '-paint7_linear_48543_184802)' + ''}
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-paint0_linear_48543_184802'}
+          x1={9.09324}
+          y1={5.8282}
+          x2={4.74492}
+          y2={18.4869}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#AE7FE2" />
+          <stop offset={1} stopColor="#0078D4" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint1_linear_48543_184802'}
+          x1={7.44306}
+          y1={15.2211}
+          x2={6.6907}
+          y2={13.8939}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.9999} stopColor="#114A8B" />
+          <stop offset={1} stopColor="#0078D4" stopOpacity={0} />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint2_radial_48543_184802'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(5.14608 14.7577) rotate(-13.0688) scale(12.7772 9.84272)"
+        >
+          <stop offset={0.140029} stopColor="#D59DFF" />
+          <stop offset={1} stopColor="#5E438F" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint3_linear_48543_184802'}
+          x1={15.826}
+          y1={9.8471}
+          x2={15.1058}
+          y2={11.0024}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.9999} stopColor="#493474" />
+          <stop offset={1} stopColor="#8C66BA" stopOpacity={0} />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint4_radial_48543_184802'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(16.5411 10.3179) rotate(-143.083) scale(11.412)"
+        >
+          <stop stopColor="#50E6FF" />
+          <stop offset={1} stopColor="#436DCD" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint5_linear_48543_184802'}
+          x1={7.0174}
+          y1={5.56496}
+          x2={8.18205}
+          y2={5.56496}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.9999} stopColor="#114A8B" />
+          <stop offset={1} stopColor="#0078D4" stopOpacity={0} />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint6_radial_48543_184802'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(16.5411 10.3179) rotate(-143.083) scale(11.412)"
+        >
+          <stop stopColor="#50E6FF" />
+          <stop offset={1} stopColor="#436DCD" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint7_linear_48543_184802'}
+          x1={7.0174}
+          y1={5.56496}
+          x2={8.18205}
+          y2={5.56496}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.9999} stopColor="#114A8B" />
+          <stop offset={1} stopColor="#0078D4" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

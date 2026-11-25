@@ -21,18 +21,18 @@ No Zed, abra a paleta de comandos e procure por **Tasks: Spawn**. As tarefas **O
 
 ## Onde encontrar o código
 
-| Caminho | Responsabilidade |
-| --- | --- |
-| `src/app/` | App Router, layout e painéis específicos da janela. |
-| `src/components/` | Componentes reutilizáveis do Onix, incluindo o navegador de arquivos e o layout. |
-| `src/components/ui/` | Primitivos do shadcn/ui gerados no projeto. |
-| `src/hooks/` | Estado do explorador, catálogo e provedores. |
-| `src/lib/` | Tipos, consultas, formatação e cliente dos comandos Tauri. |
-| `src/app/globals.css` | Tokens dos temas e regras globais do Tailwind. |
-| `src-tauri/src/catalog/` | Catálogo em memória, comandos, arquivos locais e dados demonstrativos. |
-| `src-tauri/src/settings/` | Preferências, gravação atômica e leitura dos valores legados. |
-| `src-tauri/src/auth/` | Sessão, retorno local do navegador e validação da identidade Microsoft. |
-| `assets/` | Referências visuais e recursos de terceiros. O Next.js inclui os ícones usados pela interface. |
+| Caminho                   | Responsabilidade                                                                               |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| `src/app/`                | App Router, layout e painéis específicos da janela.                                            |
+| `src/components/`         | Componentes reutilizáveis do Onix, incluindo o navegador de arquivos e o layout.               |
+| `src/components/ui/`      | Primitivos do shadcn/ui gerados no projeto.                                                    |
+| `src/hooks/`              | Estado do explorador, catálogo e provedores.                                                   |
+| `src/lib/`                | Tipos, consultas, formatação e cliente dos comandos Tauri.                                     |
+| `src/app/globals.css`     | Tokens dos temas e regras globais do Tailwind.                                                 |
+| `src-tauri/src/catalog/`  | Catálogo em memória, comandos, arquivos locais e dados demonstrativos.                         |
+| `src-tauri/src/settings/` | Preferências, gravação atômica e leitura dos valores legados.                                  |
+| `src-tauri/src/auth/`     | Sessão, retorno local do navegador e validação da identidade Microsoft.                        |
+| `assets/`                 | Referências visuais e recursos de terceiros. O Next.js inclui os ícones usados pela interface. |
 
 Ao iniciar, o React chama `initialize_workspace` para receber o catálogo e o tema. Em **Nova pasta**, por exemplo, o formulário envia o nome e o ID da pasta pai. O Rust valida a duplicidade e devolve o item criado. Os caminhos de arquivos locais ficam no Rust. Em caso de sucesso, o React atualiza a lista.
 
@@ -73,3 +73,36 @@ Para verificar os fluxos, abra a busca com **⌘F** ou **Ctrl+K**, procure uma p
 ## Identidade e licença
 
 Projeto independente, sem afiliação oficial com a Microsoft. As imagens de conceito claro e escuro e a coleção Fluent original estão em `assets/`. A [licença MIT](LICENSE) cobre o código e a documentação originais. Os recursos de terceiros mantêm os termos descritos em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+### Catálogo de ícones React
+
+Execute `pnpm generate:icons` após atualizar `assets/icons/`. O gerador usa SVGR
+e cria componentes em `src/components/icons/`, separados nas coleções system,
+products, files e brands. Importe diretamente a pasta do ícone:
+
+```tsx
+import FolderIcon from '@/components/icons/system/folder'
+import WordIcon from '@/components/icons/products/word'
+
+<FolderIcon size={20} variant="regular" aria-label="Pasta" />
+<WordIcon size={32} format="png" density="2x" aria-label="Word" />
+```
+
+Cada componente expõe apenas as variantes, densidades e formatos presentes em
+seu catálogo. A propriedade size aceita qualquer dimensão positiva em pixels.
+O desenho mais próximo é selecionado, com preferência pelo maior em caso de
+empate. A prioridade padrão de variant é `regular`, `color`, `filled` e `light`.
+O formato padrão é SVG quando disponível. Para PNG, a densidade padrão é `1x`.
+
+SVGs monocromáticos de sistema acompanham `currentColor`, permitindo classes
+como `text-primary`. Marcas e SVGs coloridos preservam as cores originais.
+SVGs com gradientes e recortes usam `useId` para permitir várias instâncias
+na mesma tela. Ícones sem `aria-label` são decorativos.
+
+Os arquivos de cada coleção são gerados. Edite a origem e rode novamente o
+gerador para atualizar os componentes. O `manifest.json` registra cada arquivo
+de origem, seu SHA-256 e o destino. A versão local histórica de
+`chevron-right.svg` tem o nome `chevron-right-legacy`. Novas colisões de nomes
+interrompem a geração antes de substituir as coleções existentes.
+Os recursos mantêm as licenças descritas em
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

@@ -1,0 +1,46 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30Z"
+        fill={'url(#' + iconId + '-paint0_linear_72095_9962)' + ''}
+      />
+      <path
+        d="M14 9C14 8.44772 14.4477 8 15 8C15.5523 8 16 8.44772 16 9V16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H15C14.4477 18 14 17.5523 14 17V9Z"
+        fill={'url(#' + iconId + '-paint1_linear_72095_9962)' + ''}
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-paint0_linear_72095_9962'}
+          x1={6.66667}
+          y1={0.444444}
+          x2={20.6667}
+          y2={31.5556}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#1EC8B0" />
+          <stop offset={1} stopColor="#2764E7" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint1_linear_72095_9962'}
+          x1={14.6125}
+          y1={9.53061}
+          x2={11.8851}
+          y2={17.383}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FDFDFD" />
+          <stop offset={1} stopColor="#D1D1FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

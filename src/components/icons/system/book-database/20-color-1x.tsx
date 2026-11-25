@@ -1,0 +1,124 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4.5 15H16C16 15 15.5 15.5 15.5 16.5C15.5 17.5 16 17.5 16 17.5H5.5C4.94772 17.5 4.5 17.0523 4.5 16.5V15Z"
+        fill={'url(#' + iconId + '-paint0_linear_72095_10490)' + ''}
+      />
+      <path
+        d="M4 4V16C4 17.1046 4.89543 18 6 18H15.5C15.7761 18 16 17.7761 16 17.5C16 17.2239 15.7761 17 15.5 17H6C5.44772 17 5 16.5523 5 16H15C15.5523 16 16 15.5523 16 15V4C16 2.89543 15.1046 2 14 2H6C4.89543 2 4 2.89543 4 4Z"
+        fill={'url(#' + iconId + '-paint1_linear_72095_10490)' + ''}
+      />
+      <path
+        d="M6 5C6 4.44772 6.44772 4 7 4H13C13.5523 4 14 4.44772 14 5V6C14 6.55228 13.5523 7 13 7H7C6.44772 7 6 6.55228 6 6V5Z"
+        fill={'url(#' + iconId + '-paint2_linear_72095_10490)' + ''}
+      />
+      <path
+        d="M4 4V16C4 17.1046 4.89543 18 6 18H15.5C15.7761 18 16 17.7761 16 17.5C16 15.6307 16 18.2622 16 15V4C16 2.89543 15.1046 2 14 2H6C4.89543 2 4 2.89543 4 4Z"
+        fill={'url(#' + iconId + '-paint3_radial_72095_10490)' + ''}
+        fillOpacity={0.3}
+      />
+      <path
+        d="M4 4V16C4 17.1046 4.89543 18 6 18H15.5C15.7761 18 16 17.7761 16 17.5C16 15.6307 16 18.2622 16 15V4C16 2.89543 15.1046 2 14 2H6C4.89543 2 4 2.89543 4 4Z"
+        fill={'url(#' + iconId + '-paint4_radial_72095_10490)' + ''}
+        fillOpacity={0.3}
+      />
+      <path
+        d="M18.1676 12.1419C17.1785 12.6914 15.8799 13 14.5 13C13.1201 13 11.8215 12.6914 10.8324 12.1419C10.54 11.9795 10.2549 11.7831 10 11.5538V16.4994C10 17.8801 12.0147 18.9994 14.5 18.9994C16.9853 18.9994 19 17.8801 19 16.4994C19 15.9071 19.0003 13.3321 19.0007 12.6744C19.0009 12.3282 19.0011 11.9592 19.0013 11.5526C18.7461 11.7824 18.4605 11.9792 18.1676 12.1419Z"
+        fill={'url(#' + iconId + '-paint5_linear_72095_10490)' + ''}
+      />
+      <path
+        d="M16.9998 9.42091C16.6567 9.29333 16.2803 9.19127 15.8793 9.11962C15.4446 9.04195 14.9811 9 14.5 9C12.0147 9 10 10.1193 10 11.5C10 12.8807 12.0147 14 14.5 14C16.9853 14 19 12.8807 19 11.5C19 10.6332 18.2059 9.86938 16.9998 9.42091Z"
+        fill={'url(#' + iconId + '-paint6_linear_72095_10490)' + ''}
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-paint0_linear_72095_10490'}
+          x1={10}
+          y1={17}
+          x2={10}
+          y2={15}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#9DEAFF" />
+          <stop offset={0.715705} stopColor="#58AAFE" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint1_linear_72095_10490'}
+          x1={8.14033}
+          y1={4.99369}
+          x2={10.7591}
+          y2={22.1785}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#20AC9D" />
+          <stop offset={1} stopColor="#2052CB" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint2_linear_72095_10490'}
+          x1={8.75898}
+          y1={3.48531}
+          x2={12.1155}
+          y2={9.05541}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#9FF0F9" />
+          <stop offset={1} stopColor="#6CE0FF" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-paint3_radial_72095_10490'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(11.5 17) rotate(150.255) scale(4.03113 4.50401)"
+        >
+          <stop stopColor="#4A43CB" />
+          <stop offset={1} stopColor="#4A43CB" stopOpacity={0} />
+        </radialGradient>
+        <radialGradient
+          id={iconId + '-paint4_radial_72095_10490'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(11.5 16) rotate(-90.573) scale(6 3.25)"
+        >
+          <stop stopColor="#171155" />
+          <stop offset={0.328125} stopColor="#171155" />
+          <stop offset={1} stopColor="#4A43CB" stopOpacity={0} />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-paint5_linear_72095_10490'}
+          x1={12.125}
+          y1={9.87502}
+          x2={17.375}
+          y2={18.1875}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#3BD5FF" />
+          <stop offset={1} stopColor="#4894FE" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-paint6_linear_72095_10490'}
+          x1={17.5}
+          y1={14.5}
+          x2={12}
+          y2={9}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#66C0FF" />
+          <stop offset={1} stopColor="#C8F3FF" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

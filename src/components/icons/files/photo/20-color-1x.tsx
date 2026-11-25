@@ -1,0 +1,88 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 20 20"
+      {...props}
+    >
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M3 5a2 2 0 0 1 2-2h8a4 4 0 0 1 4 4v8a2 2 0 0 1-2 2H7a4 4 0 0 1-4-4V5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        d="M4 5a1 1 0 0 1 1-1h8a3 3 0 0 1 3 3v8a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-c)' + ''}
+        d="M4 5a1 1 0 0 1 1-1h8a3 3 0 0 1 3 3v8a1 1 0 0 1-1 1H7a3 3 0 0 1-3-3V5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-d)' + ''}
+        d="m9.293 9.564-2.728 2.73c-.63.629-.184 1.706.707 1.706h5.457c.891 0 1.337-1.077.707-1.707l-2.729-2.729a1 1 0 0 0-1.414 0z"
+      />
+      <circle cx={13} cy={7} r={1} fill={'url(#' + iconId + '-e)' + ''} />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={7.521}
+          x2={9.406}
+          y1={3}
+          y2={17.138}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#BBB" />
+          <stop offset={1} stopColor="#888" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-b'}
+          x1={7.333}
+          x2={8.851}
+          y1={4}
+          y2={16.144}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset={1} stopColor="#EBEBEB" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-c'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(6.33333 9.5 -9.5 3.5625 7.833 7.125)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.177} stopColor="#fff" />
+          <stop offset={1} stopColor="#EFEFEF" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-d'}
+          x1={6.205}
+          x2={10.01}
+          y1={7.51}
+          y2={17.633}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-e'}
+          x1={12}
+          x2={14.173}
+          y1={4.75}
+          y2={8.91}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

@@ -1,0 +1,39 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <path
+        fill="#035499"
+        d="M11.525 5.025A3.5 3.5 0 009.05 4H5.5A3.5 3.5 0 002 7.5v16A3.5 3.5 0 005.5 27h21a3.5 3.5 0 003.5-3.5v-13A3.5 3.5 0 0026.5 7H14.121a1.5 1.5 0 01-1.06-.44z"
+      />
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M3 12.5A2.5 2.5 0 015.5 10h5.25a2.5 2.5 0 002-1 2.5 2.5 0 012-1H26.5a2.5 2.5 0 012.5 2.5v13a2.5 2.5 0 01-2.5 2.5h-21A2.5 2.5 0 013 23.5z"
+      />
+      <path
+        fill="#FAFAFA"
+        d="M18 11a3 3 0 013 3v7.5a1.5 1.5 0 01-1.5 1.5H15a3 3 0 01-3-3v-7.5a1.5 1.5 0 011.5-1.5zm-3.5 8a.5.5 0 000 1h4a.5.5 0 000-1zm0-2.5a.5.5 0 000 1h4a.5.5 0 000-1zm0-2.5a.5.5 0 000 1h4a.5.5 0 000-1z"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={11}
+          x2={15}
+          y1={8}
+          y2={26}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#319EE4" />
+          <stop offset={1} stopColor="#1176CA" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

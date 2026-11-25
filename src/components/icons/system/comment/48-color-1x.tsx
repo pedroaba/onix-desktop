@@ -1,0 +1,32 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4 13.25C4 9.24594 7.24594 6 11.25 6H36.75C40.7541 6 44 9.24593 44 13.25V28.75C44 32.7541 40.7541 36 36.75 36H26.3967L15.5475 43.6583C14.0571 44.7103 12 43.6444 12 41.8201V36H11.25C7.24594 36 4 32.7541 4 28.75V13.25Z"
+        fill={'url(#' + iconId + '-paint0_radial_72095_9906)' + ''}
+      />
+      <defs>
+        <radialGradient
+          id={iconId + '-paint0_radial_72095_9906'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(-5.23077 -5.71508) rotate(48.1644) scale(71.9357 130.443)"
+        >
+          <stop stopColor="#FAB500" />
+          <stop offset={0.535356} stopColor="#FE8401" />
+          <stop offset={1} stopColor="#FB5937" />
+        </radialGradient>
+      </defs>
+    </svg>
+  )
+}

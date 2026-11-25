@@ -1,0 +1,190 @@
+'use client'
+import { type SVGProps, useId } from 'react'
+export default function SvgIcon(props: SVGProps<SVGSVGElement>) {
+  const iconId = useId()
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 48 48"
+      {...props}
+    >
+      <path
+        fill={'url(#' + iconId + '-a)' + ''}
+        d="M9 8.5A4.5 4.5 0 0 1 13.5 4H30a9 9 0 0 1 9 9v26.5a4.5 4.5 0 0 1-4.5 4.5H18a9 9 0 0 1-9-9V8.5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-b)' + ''}
+        d="M10 8.5A3.5 3.5 0 0 1 13.5 5H30a8 8 0 0 1 8 8v26.5a3.5 3.5 0 0 1-3.5 3.5H18a8 8 0 0 1-8-8V8.5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-c)' + ''}
+        d="M10 8.5A3.5 3.5 0 0 1 13.5 5H30a8 8 0 0 1 8 8v26.5a3.5 3.5 0 0 1-3.5 3.5H18a8 8 0 0 1-8-8V8.5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-d)' + ''}
+        fillRule="evenodd"
+        d="M18 13c.447 0 .928.19 1.298.504a1.945 1.945 0 0 1 0 2.992c-.37.315-.85.504-1.298.504h-.5v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 16.75 13H18zm-.5 2.5h.5a.597.597 0 0 0 .327-.146.446.446 0 0 0 0-.707A.597.597 0 0 0 18 14.5h-.5v1z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-e)' + ''}
+        fillRule="evenodd"
+        d="M18 13c.447 0 .928.19 1.298.504a1.945 1.945 0 0 1 0 2.992c-.37.315-.85.504-1.298.504h-.5v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 16.75 13H18zm-.5 2.5h.5a.597.597 0 0 0 .327-.146.446.446 0 0 0 0-.707A.597.597 0 0 0 18 14.5h-.5v1z"
+        clipRule="evenodd"
+      />
+      <path
+        fill="#D20112"
+        fillRule="evenodd"
+        d="M18 13c.447 0 .928.19 1.298.504a1.945 1.945 0 0 1 0 2.992c-.37.315-.85.504-1.298.504h-.5v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 16.75 13H18zm-.5 2.5h.5a.597.597 0 0 0 .327-.146.446.446 0 0 0 0-.707A.597.597 0 0 0 18 14.5h-.5v1z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-f)' + ''}
+        fillRule="evenodd"
+        d="M23 13c.68 0 1.44.254 2.03.845.602.601.97 1.491.97 2.655 0 1.163-.368 2.054-.97 2.655A2.882 2.882 0 0 1 23 20h-1.25a.75.75 0 0 1-.75-.75v-5.5l.004-.077A.75.75 0 0 1 21.75 13H23zm-.5 5.5h.5c.32 0 .686-.122.97-.405.273-.274.53-.758.53-1.595 0-.836-.257-1.321-.53-1.595A1.383 1.383 0 0 0 23 14.5h-.5v4z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-g)' + ''}
+        fillRule="evenodd"
+        d="M23 13c.68 0 1.44.254 2.03.845.602.601.97 1.491.97 2.655 0 1.163-.368 2.054-.97 2.655A2.882 2.882 0 0 1 23 20h-1.25a.75.75 0 0 1-.75-.75v-5.5l.004-.077A.75.75 0 0 1 21.75 13H23zm-.5 5.5h.5c.32 0 .686-.122.97-.405.273-.274.53-.758.53-1.595 0-.836-.257-1.321-.53-1.595A1.383 1.383 0 0 0 23 14.5h-.5v4z"
+        clipRule="evenodd"
+      />
+      <path
+        fill="#D20112"
+        fillRule="evenodd"
+        d="M23 13c.68 0 1.44.254 2.03.845.602.601.97 1.491.97 2.655 0 1.163-.368 2.054-.97 2.655A2.882 2.882 0 0 1 23 20h-1.25a.75.75 0 0 1-.75-.75v-5.5l.004-.077A.75.75 0 0 1 21.75 13H23zm-.5 5.5h.5c.32 0 .686-.122.97-.405.273-.274.53-.758.53-1.595 0-.836-.257-1.321-.53-1.595A1.383 1.383 0 0 0 23 14.5h-.5v4z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={'url(#' + iconId + '-h)' + ''}
+        d="M30.25 13a.75.75 0 0 1 0 1.5H28.5v1h.75a.75.75 0 0 1 0 1.5h-.75v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 27.75 13h2.5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-i)' + ''}
+        d="M30.25 13a.75.75 0 0 1 0 1.5H28.5v1h.75a.75.75 0 0 1 0 1.5h-.75v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 27.75 13h2.5z"
+      />
+      <path
+        fill="#D20112"
+        d="M30.25 13a.75.75 0 0 1 0 1.5H28.5v1h.75a.75.75 0 0 1 0 1.5h-.75v2.25a.75.75 0 0 1-1.5 0v-5.5l.004-.077A.75.75 0 0 1 27.75 13h2.5z"
+      />
+      <path
+        fill={'url(#' + iconId + '-j)' + ''}
+        d="M31.25 33a.75.75 0 0 1 0 1.5h-14.5a.75.75 0 0 1 0-1.5h14.5zm0-5a.75.75 0 0 1 0 1.5h-14.5a.75.75 0 0 1 0-1.5h14.5zm0-5a.75.75 0 0 1 0 1.5h-14.5a.75.75 0 0 1 0-1.5h14.5z"
+      />
+      <defs>
+        <linearGradient
+          id={iconId + '-a'}
+          x1={18.688}
+          x2={25.772}
+          y1={4}
+          y2={43.852}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#BBB" />
+          <stop offset={1} stopColor="#888" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-b'}
+          x1={17.778}
+          x2={24.218}
+          y1={5}
+          y2={42.963}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#fff" />
+          <stop offset={1} stopColor="#EBEBEB" />
+        </linearGradient>
+        <radialGradient
+          id={iconId + '-c'}
+          cx={0}
+          cy={0}
+          r={1}
+          gradientTransform="matrix(14.7778 30.0833 -22.1667 11.2812 18.944 14.896)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.177} stopColor="#fff" />
+          <stop offset={1} stopColor="#EFEFEF" />
+        </radialGradient>
+        <linearGradient
+          id={iconId + '-d'}
+          x1={19.974}
+          x2={20.643}
+          y1={14.531}
+          y2={19.476}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-e'}
+          x1={17.214}
+          x2={19.2}
+          y1={11.688}
+          y2={20.08}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-f'}
+          x1={19.974}
+          x2={20.643}
+          y1={14.531}
+          y2={19.476}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-g'}
+          x1={17.214}
+          x2={19.2}
+          y1={11.688}
+          y2={20.08}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-h'}
+          x1={19.974}
+          x2={20.643}
+          y1={14.531}
+          y2={19.476}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-i'}
+          x1={17.214}
+          x2={19.2}
+          y1={11.688}
+          y2={20.08}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#597493" />
+          <stop offset={1} stopColor="#0F2F56" />
+        </linearGradient>
+        <linearGradient
+          id={iconId + '-j'}
+          x1={21.167}
+          x2={22.289}
+          y1={23}
+          y2={34.712}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#898989" />
+          <stop offset={1} stopColor="#636262" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
