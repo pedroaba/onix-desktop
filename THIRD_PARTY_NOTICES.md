@@ -44,9 +44,12 @@ relicenciados sob a MIT deste projeto. Consulte as
 [diretrizes de marcas da Microsoft](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks).
 O Onix Desktop é um projeto independente, sem afiliação oficial com a Microsoft.
 
+## Ícone do aplicativo
+
+A marca em assets/onix-icon.svg inclui o ícone Stack Regular de 16 px da coleção
+Fluent UI System Icons, incorporado de acordo com a licença indicada acima.
+
 ## Dependências
 
-PySide6, Qt, PyObjC e demais dependências mantêm suas respectivas licenças.
-Elas são instaladas pelo UV e não são incorporadas à licença MIT do código
-original do Onix Desktop. Verifique os termos aplicáveis ao preparar uma
-distribuição que inclua essas bibliotecas.
+As dependências do frontend e do backend mantêm suas respectivas licenças.
+Os lockfiles do npm e do Cargo registram as versões usadas no aplicativo.

@@ -1,52 +1,69 @@
 [
   {
     "label": "Onix: executar aplicativo",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "command": "pnpm",
     "args": [
-      "run",
-      "python",
-      "main.py"
+      "tauri",
+      "dev"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
   },
   {
-    "label": "Python: sincronizar ambiente",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "label": "Onix: verificar tipos do frontend",
+    "command": "pnpm",
     "args": [
-      "sync",
-      "--locked"
+      "typecheck"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
   },
   {
-    "label": "Python: lint (Ruff)",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "label": "Onix: lint do frontend",
+    "command": "pnpm",
     "args": [
-      "run",
-      "ruff",
-      "check",
-      "."
+      "lint"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
   },
   {
-    "label": "Python: verificar formatação",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "label": "Onix: verificar formatação do frontend",
+    "command": "pnpm",
     "args": [
-      "run",
-      "ruff",
-      "format",
-      "--check",
-      "."
+      "format:check"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
   },
   {
-    "label": "Python: verificar tipos (BasedPyright)",
-    "command": "PATH=\"$HOME/.local/bin:$PATH\" uv",
+    "label": "Onix: verificar formatação do Rust",
+    "command": "cargo",
     "args": [
-      "run",
-      "basedpyright"
+      "fmt",
+      "--manifest-path",
+      "src-tauri/Cargo.toml",
+      "--",
+      "--check"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Onix: verificar Rust com Clippy",
+    "command": "cargo",
+    "args": [
+      "clippy",
+      "--locked",
+      "--manifest-path",
+      "src-tauri/Cargo.toml",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "Onix: empacotar aplicativo",
+    "command": "pnpm",
+    "args": [
+      "tauri",
+      "build"
     ],
     "cwd": "$ZED_WORKTREE_ROOT"
   }

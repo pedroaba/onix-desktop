@@ -1,0 +1,8 @@
+.next/
+out/
+node_modules/
+assets/
+src-tauri/target/
+src-tauri/gen/
+next-env.d.ts
+pnpm-lock.yaml

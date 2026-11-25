@@ -1,0 +1,40 @@
+[package]
+name = "onix-desktop"
+version = "0.1.0"
+description = "Explorador desktop pessoal"
+edition = "2024"
+license = "MIT"
+rust-version = "1.90"
+
+[build-dependencies]
+dotenvy = "0.15"
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+axum = "0.8"
+base64 = "0.22"
+chrono = "0.4"
+image = { version = "0.25", default-features = false, features = ["bmp", "gif", "ico", "jpeg", "png", "pnm", "tga", "tiff", "webp"] }
+jsonwebtoken = { version = "10", default-features = false, features = ["rust_crypto"] }
+rand = "0.9"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tempfile = "3"
+tokio = { version = "1", features = ["net", "rt", "sync", "time"] }
+unicode-casefold = "0.2"
+url = "2"
+uuid = { version = "1", features = ["v4"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+plist = "1"
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]

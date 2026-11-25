@@ -1,0 +1,127 @@
+@import 'tailwindcss' source(none);
+@import 'tw-animate-css';
+
+@source '../';
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --text: #202128;
+  --muted: #5f6572;
+  --surface: #ffffff;
+  --sidebar: #f3f4f6;
+  --raised: #f7f8fa;
+  --preview: #eceef3;
+  --border: #e4e6eb;
+  --input-border: #d5d8e0;
+  --hover: #e6e8ef;
+  --selection: #ebedff;
+  --primary: #515bc0;
+  --primary-hover: #4852b2;
+  --primary-pressed: #40499f;
+  --focus: #545ec5;
+  --accent: #515bc0;
+  --brand: #e7e9fc;
+  --onedrive: #535ec5;
+  --google: #55703f;
+  --dropbox: #496581;
+  --error: #a3262e;
+  --overlay: rgb(26 28 37 / 25%);
+  --sidebar-width: 212px;
+  --inspector-width: 308px;
+  --bar-height: 48px;
+  --control-height: 30px;
+  --row-height: 39px;
+  --preview-height: 145px;
+  --radius: 6px;
+  --card-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+  color-scheme: light;
+  font:
+    13px/1.4 Inter,
+    'Segoe UI',
+    'Helvetica Neue',
+    system-ui,
+    sans-serif;
+}
+
+:root[data-theme='dark'] {
+  --text: #f7f8f8;
+  --muted: #8a8f98;
+  --surface: #141516;
+  --sidebar: #0f1011;
+  --raised: #191a1b;
+  --preview: #111214;
+  --border: #25262a;
+  --input-border: #34343a;
+  --hover: #202126;
+  --selection: #222437;
+  --primary: #5e6ad2;
+  --primary-hover: #5762c3;
+  --primary-pressed: #4e58b5;
+  --focus: #828fff;
+  --accent: #a8aef6;
+  --brand: #24263a;
+  --onedrive: #98a4ef;
+  --google: #b4bca2;
+  --dropbox: #a3b5cc;
+  --error: #ffa1a8;
+  --overlay: rgb(0 0 0 / 52%);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--surface);
+  --color-foreground: var(--text);
+  --color-card: var(--raised);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--raised);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--primary);
+  --color-primary-foreground: white;
+  --color-secondary: var(--sidebar);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--preview);
+  --color-muted-foreground: var(--muted);
+  --color-accent: var(--hover);
+  --color-accent-foreground: var(--text);
+  --color-destructive: var(--error);
+  --color-border: var(--border);
+  --color-input: var(--input-border);
+  --color-ring: var(--focus);
+  --color-sidebar: var(--sidebar);
+  --color-onix-accent: var(--accent);
+  --color-brand: var(--brand);
+  --color-selection: var(--selection);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-provider-onedrive: var(--onedrive);
+  --color-provider-google: var(--google);
+  --color-provider-dropbox: var(--dropbox);
+  --color-overlay: var(--overlay);
+  --radius-md: var(--radius);
+  --radius-lg: var(--card-radius);
+}
+
+@layer base {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    overflow: hidden;
+  }
+  strong,
+  b {
+    font-weight: 600;
+  }
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main",
+  "description": "Arraste da janela principal pela barra do macOS",
+  "windows": ["main"],
+  "permissions": ["core:window:allow-start-dragging", "core:window:allow-internal-toggle-maximize"]
+}

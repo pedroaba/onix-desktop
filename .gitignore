@@ -1,16 +1,16 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
-
 # Local configuration
 /.env
 
-# Linter cache
+# Tauri and Next.js
+/node_modules/
+/out/
+/.next/
+/next-env.d.ts
+/tsconfig.tsbuildinfo
+/src-tauri/target/
+/src-tauri/gen/
+
+# Local files from older checkouts
+.venv/
 .ruff_cache/
+__pycache__/

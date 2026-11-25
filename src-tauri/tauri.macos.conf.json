@@ -1,0 +1,25 @@
+{
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Onix Desktop",
+        "width": 1280,
+        "height": 760,
+        "minWidth": 900,
+        "minHeight": 600,
+        "dragDropEnabled": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ]
+  },
+  "bundle": {
+    "targets": [
+      "app"
+    ],
+    "macOS": {
+      "signingIdentity": "-"
+    }
+  }
+}

@@ -1,2 +1,0 @@
-class DuplicateFolderNameError(ValueError):
-    pass
